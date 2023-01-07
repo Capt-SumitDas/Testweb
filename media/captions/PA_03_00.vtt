@@ -1,0 +1,178 @@
+WEBVTT
+
+00:00:01.900 --> 00:00:05.733
+Common Network Service Attack 
+Methods
+
+00:00:07.333 --> 00:00:11.358
+Now that we understand how to 
+create effective wordlists 
+
+00:00:11.358 --> 00:00:12.900
+for various situations, 
+
+00:00:12.900 --> 00:00:16.233
+we can discuss how they can be 
+used for password attacks
+
+00:00:16.233 --> 00:00:18.633
+ against common network 
+services.
+
+00:00:18.633 --> 00:00:21.033
+Bear in mind that password 
+attacks 
+
+00:00:21.033 --> 00:00:23.633
+against network services 
+are noisy, 
+
+00:00:23.633 --> 00:00:26.133
+and in some cases, dangerous.
+
+00:00:26.133 --> 00:00:30.158
+Multiple failed login attempts 
+will usually generate logs 
+
+00:00:30.158 --> 00:00:32.700
+and warnings on the target 
+system
+
+00:00:32.700 --> 00:00:36.708
+and may even lock out accounts 
+after a pre-defined number 
+
+00:00:36.708 --> 00:00:38.766
+of failed login attempts.
+
+00:00:38.766 --> 00:00:41.533
+Keep this in mind before 
+blindly running 
+
+00:00:41.533 --> 00:00:43.966
+a network-based brute 
+force attack.
+
+00:00:43.966 --> 00:00:45.600
+Once we’ve weighed the risks 
+
+00:00:45.616 --> 00:00:48.766
+and considered the well-being 
+of the target network,
+
+00:00:48.766 --> 00:00:52.033
+we can take several steps to 
+improve the efficiency
+
+00:00:52.033 --> 00:00:54.066
+ of our password tests.
+
+00:00:54.066 --> 00:00:57.700
+Depending on the protocol 
+and password cracking tool, 
+
+00:00:57.700 --> 00:00:59.866
+we can increase the number 
+of login threads
+
+00:00:59.866 --> 00:01:02.333
+to boost the speed 
+of an attack.
+
+00:01:02.333 --> 00:01:06.058
+However, in some cases, 
+increasing the number of threads
+
+00:01:06.058 --> 00:01:09.466
+may not be possible due to 
+protocol restrictions, 
+
+00:01:09.466 --> 00:01:11.233
+and our optimization attempt 
+
+00:01:11.233 --> 00:01:14.266
+could instead slow down 
+the process.
+
+00:01:14.266 --> 00:01:16.466
+On top of this, it’s worth 
+noting 
+
+00:01:16.466 --> 00:01:19.966
+that the authentication 
+negotiation process 
+
+00:01:19.966 --> 00:01:24.133
+for protocols such as RDP 
+are more time-consuming 
+
+
+00:01:24.133 --> 00:01:26.666
+than, say, HTTP.
+
+00:01:26.666 --> 00:01:30.133
+The hidden art behind network 
+service password attacks  
+
+00:01:30.133 --> 00:01:34.491
+is choosing appropriate targets,
+user lists, and password files 
+
+00:01:34.491 --> 00:01:39.566
+carefully and intelligently 
+before initiating the attack.
+
+00:01:39.566 --> 00:01:42.991
+To successfully attack a
+password on a network service, 
+
+00:01:42.991 --> 00:01:46.741
+we must not only match the 
+target username and password,
+
+00:01:46.741 --> 00:01:51.533
+but also honor the protocol used
+in the authentication process.
+
+00:01:51.533 --> 00:01:56.858
+Fortunately, popular tools such 
+as THC-Hydra, Medusa, Crowbar, 
+
+00:01:56.858 --> 00:02:01.633
+and spray can handle these 
+authentication requests for us.
+
+00:02:01.633 --> 00:02:05.733
+In this section, we’ll examine 
+each of these tools and
+
+00:02:05.733 --> 00:02:06.733
+weigh their effective protocol
+
+
+00:02:06.733 --> 00:02:07.733
+and service-handling capabilities.
+
+00:02:09.133 --> 00:02:13.700
+These tools mostly have similar
+capabilities and speeds.
+
+00:02:13.700 --> 00:02:15.833
+The “correct” tool to use often 
+depends 
+
+00:02:15.833 --> 00:02:16.833
+on the preferred syntax and
+output format.
+
+00:02:20.158 --> 00:02:21.158
+This can only be determined by 
+experimenting with each tool 
+
+00:02:21.158 --> 00:02:22.158
+in a test environment and 
+learning the strengths, 
+
+00:02:22.158 --> 00:02:23.158
+weaknesses, and idiosyncrasies 
+of each.

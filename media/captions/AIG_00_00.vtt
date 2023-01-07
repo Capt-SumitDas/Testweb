@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:01.075 --> 00:00:03.566
+Active Information Gathering
+
+00:00:03.991 --> 00:00:06.700
+In this module, we will explore 
+techniques that involve
+
+00:00:06.700 --> 00:00:09.500
+direct interaction with target services.
+
+00:00:09.837 --> 00:00:13.800
+We will look at some of the more common
+active information gathering techniques,
+
+00:00:13.800 --> 00:00:23.133
+ including port scanning and
+DNS, SMB, NFS, SMTP, and SNMP enumeration.

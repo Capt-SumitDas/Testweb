@@ -1,0 +1,93 @@
+WEBVTT
+
+00:00:01.550 --> 00:00:03.400
+Meterpreter Payloads
+
+00:00:04.220 --> 00:00:09.033
+As described on the Metasploit site,
+Meterpreter is a multi-function payload
+
+00:00:09.033 --> 00:00:12.533
+that can be dynamically
+extended at run-time.
+
+00:00:13.183 --> 00:00:16.045
+In practice, this means
+that the Meterpreter shell
+
+00:00:16.045 --> 00:00:20.412
+provides more features and functionality
+than a regular command shell,
+
+00:00:20.412 --> 00:00:23.679
+offering capabilities such
+as file transfer, 
+
+00:00:23.679 --> 00:00:28.512
+keylogging, and various other methods
+of interacting with the victim machine.
+
+00:00:29.412 --> 00:00:33.845
+These tools are especially useful
+in the post-exploitation phase.
+
+00:00:34.720 --> 00:00:37.879
+Because of Meterpreter’s
+flexibility and capability,
+
+00:00:37.891 --> 00:00:42.558
+it’s the favorite and most commonly-
+used Metasploit payload.
+
+00:00:45.808 --> 00:00:50.658
+A search for the keyword “meterpreter”
+returns a long list of results.
+
+00:00:53.945 --> 00:00:57.170
+Narrowing the search to
+the payload category
+
+00:00:57.170 --> 00:01:02.125
+reveals meterpreter versions for multiple
+operating systems and architectures
+
+00:01:02.125 --> 00:01:13.858
+including Windows, Linux, Android, Apple
+iOS, FreeBSD, and Apple OS X/macOS.
+
+00:01:15.945 --> 00:01:19.450
+There are a multitude of Meterpreter
+versions based on specific
+
+00:01:19.450 --> 00:01:22.962
+programming languages,
+protocols and transports,
+
+00:01:22.962 --> 00:01:25.729
+and other various specifications.
+
+00:01:28.279 --> 00:01:32.225
+We can select a specific
+meterpreter payload with “set”
+
+00:01:32.225 --> 00:01:37.125
+and configure it just as we would
+a standard reverse shell payload:
+
+00:01:44.387 --> 00:01:46.725
+Let’s try this payload against Syncbreeze.
+
+00:01:49.675 --> 00:01:52.925
+With everything configured correctly,
+we can launch the exploit
+
+00:01:52.925 --> 00:01:56.058
+and establish a reverse
+meterpreter connection:
+
+00:02:04.645 --> 00:02:09.700
+Let’s dig a bit farther into Meterpreter
+to demonstrate how it is more flexible
+
+00:02:09.725 --> 00:02:12.866
+and powerful than standard payloads.

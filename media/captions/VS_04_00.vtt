@@ -1,0 +1,40 @@
+WEBVTT
+
+00:00:00.725 --> 00:00:01.633
+Wrapping Up
+
+00:00:02.650 --> 00:00:04.900
+Vulnerability scanning can be very helpful
+
+00:00:04.900 --> 00:00:08.033
+during the initial phase
+of a penetration test.
+
+00:00:08.968 --> 00:00:10.733
+Once configured correctly,
+
+00:00:10.733 --> 00:00:14.833
+vulnerability scanning tools
+can provide a wealth of information
+
+00:00:14.833 --> 00:00:18.533
+and reveal some serious
+and unforeseen vulnerabilities
+
+00:00:18.533 --> 00:00:23.500
+that can have a significant impact
+during a penetration testing engagement.
+
+00:00:24.231 --> 00:00:25.200
+That being said,
+
+00:00:25.200 --> 00:00:29.600
+it is important to understand that
+a manual review is still required
+
+00:00:29.600 --> 00:00:33.033
+and that scanners can
+only discover vulnerabilities
+
+00:00:33.033 --> 00:00:34.766
+that they are programmed for.

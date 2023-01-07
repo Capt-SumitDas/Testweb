@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:01.386 --> 00:00:03.400
+Active Directory Attacks
+
+00:00:03.968 --> 00:00:07.500
+Active Directory is a service that allows
+system administrators to manage
+
+00:00:07.500 --> 00:00:13.133
+operating systems, applications,
+users, and data access on a large scale.
+
+00:00:13.577 --> 00:00:15.966
+Since Active Directory
+can be highly complex,
+
+00:00:15.966 --> 00:00:19.700
+it poses a very large attack
+surface and warrants attention.
+
+00:00:20.268 --> 00:00:24.600
+In this module, we will introduce Active
+Directory and demonstrate enumeration,
+
+00:00:24.600 --> 00:00:28.533
+authentication and lateral
+movement techniques.

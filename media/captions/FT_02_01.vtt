@@ -1,0 +1,143 @@
+WEBVTT
+
+00:00:01.366 --> 00:00:05.366
+Non-Interactive FTP Download
+
+00:00:05.366 --> 00:00:09.200
+Windows operating systems ship with a 
+default FTP client 
+
+00:00:09.200 --> 00:00:11.666
+that can be used for file transfers.
+
+00:00:13.266 --> 00:00:17.300
+To demonstrate this, let's assume we've
+compromised a windows target
+
+00:00:17.300 --> 00:00:19.600
+and have access to a bind shell
+
+00:00:20.633 --> 00:00:24.000
+We'll run a netcat listener on port 4444
+
+00:00:24.000 --> 00:00:26.800
+on our Windows machine to simulate this.
+
+00:00:27.500 --> 00:00:32.300
+Now we’ll close rdesktop and continue 
+through the bind shell.
+
+00:00:37.566 --> 00:00:41.533
+As we’ve seen, the FTP client is an 
+interactive program
+
+00:00:41.533 --> 00:00:43.733
+that requires input to complete 
+
+00:00:43.733 --> 00:00:48.566
+so we need a creative solution in order 
+to use FTP for file transfers.
+
+00:00:50.333 --> 00:00:55.566
+The ftp help output hints at a feature 
+that could help us:
+
+00:00:55.966 --> 00:00:59.866
+The -s option accepts a text-based 
+command list 
+
+00:00:59.866 --> 00:01:03.866
+that effectively makes the client 
+non-interactive.
+
+00:01:04.866 --> 00:01:09.233
+On our attacking machine, we’ll set up an 
+FTP server, 
+
+00:01:09.233 --> 00:01:12.933
+and initiate a download request for 
+the Netcat binary
+
+00:01:12.933 --> 00:01:15.200
+from the compromised Windows host.
+
+00:01:16.266 --> 00:01:22.066
+First, we’ll place a copy of nc.exe in
+our ftp home directory.
+
+00:01:24.466 --> 00:01:29.166
+We’ve already installed and configured 
+Pure-FTPd on our Kali machine, 
+
+00:01:29.166 --> 00:01:32.600
+but we’ll restart it to make sure the 
+service is available.
+
+00:01:36.333 --> 00:01:41.266
+Next, we’ll build a text file of FTP 
+commands we want to execute, 
+
+00:01:41.266 --> 00:01:43.366
+using the echo command.
+
+00:01:48.666 --> 00:01:52.266
+The command file begins with the 
+open command, 
+
+00:01:52.266 --> 00:01:56.766
+which initiates an FTP connection 
+to the specified IP address.
+
+00:01:56.766 --> 00:02:02.000
+Next, the script will authenticate as 
+offsec with the USER command…
+
+00:02:02.266 --> 00:02:05.233
+…and supply the password, lab.
+
+00:02:06.300 --> 00:02:10.800
+At this point we should have a 
+successfully authenticated FTP connection 
+
+00:02:10.800 --> 00:02:14.833
+and we can script the commands necessary 
+to transfer our file.
+
+00:02:15.200 --> 00:02:19.233
+We’ll request a binary file transfer with 
+bin…
+
+00:02:19.833 --> 00:02:24.133
+…and issue the GET request for nc.exe.
+
+00:02:24.566 --> 00:02:28.900
+Finally, we’ll close the connection with 
+the bye command.
+
+00:02:29.200 --> 00:02:33.033
+We’re now ready to initiate the FTP 
+session using the command list
+
+00:02:33.033 --> 00:02:37.633
+that will effectively make the 
+interactive session non-interactive.
+
+00:02:38.233 --> 00:02:42.033
+To do this, we’ll issue the following 
+FTP command:
+
+00:02:42.466 --> 00:02:49.900
+We use -v to suppress any returned output 
+and -n to suppresses automatic login.
+
+00:02:49.900 --> 00:02:55.366
+Then we’ll use -s to indicate the name of 
+our command file.
+
+00:02:56.500 --> 00:03:00.533
+When the ftp command runs, our download 
+is executed…
+
+00:03:00.533 --> 00:03:06.600
+…and a working copy of nc.exe should be 
+transferred to our current directory.

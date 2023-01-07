@@ -1,0 +1,27 @@
+WEBVTT
+
+00:00:00.829 --> 00:00:03.500
+Type Caption Text Here
+
+00:00:03.500 --> 00:00:09.033
+Information regarding APT packages is  
+cached locally to speed up any 
+
+00:00:09.033 --> 00:00:11.333
+that queries the APT database.
+
+00:00:11.333 --> 00:00:14.633
+It’s good practice to update the list of 
+available packages
+
+00:00:14.633 --> 00:00:17.413
+including information related to their 
+versions, 
+
+00:00:17.413 --> 00:00:22.282
+descriptions, etc, each time we perform 
+an APT operation.
+
+00:00:22.282 --> 00:00:26.666
+We can do this with the apt update 
+command as follows:

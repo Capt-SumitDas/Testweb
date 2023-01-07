@@ -1,0 +1,130 @@
+WEBVTT
+
+00:00:01.766 --> 00:00:07.566
+Windows Downloads with exe2hex 
+and PowerShell
+
+00:00:07.566 --> 00:00:13.333
+PowerShell is incredibly powerful and is 
+installed by default 
+
+00:00:13.333 --> 00:00:16.166
+in all modern versions of Windows. 
+
+00:00:16.166 --> 00:00:20.700
+In the following example, we'll transfer 
+a binary file using PowerShell
+
+00:00:20.700 --> 00:00:26.033
+by taking a somewhat circuitous, 
+although very interesting route.
+
+00:00:26.033 --> 00:00:29.833
+Starting on our Kali machine, 
+we’ll compress our binary, 
+
+00:00:29.833 --> 00:00:33.983
+convert it to hex, and create a 
+Windows script.
+
+00:00:33.983 --> 00:00:39.033
+On the Windows machine, we’ll paste 
+this script into our shell, and run it.
+
+00:00:39.033 --> 00:00:43.500
+It will redirect the hex data into 
+powershell.exe, 
+
+00:00:43.516 --> 00:00:46.766
+which will assemble it back into a binary.
+
+00:00:46.783 --> 00:00:51.133
+This will be done through a series of 
+non-interactive commands.
+
+00:00:51.133 --> 00:00:55.600
+As an example, let’s transfer Netcat from 
+our Kali Linux machine 
+
+00:00:55.600 --> 00:00:59.366
+to our Windows client over a remote shell.
+
+00:00:59.383 --> 00:01:05.200
+We’ll start by locating and inspecting 
+the nc.exe file on Kali Linux.
+
+00:01:10.400 --> 00:01:14.400
+Although the binary is quite small, we’ll 
+reduce the file size 
+
+00:01:14.400 --> 00:01:15.966
+to show how it’s done.
+
+00:01:17.766 --> 00:01:22.166
+We’ll use upx, which is an 
+executable packer, 
+
+00:01:22.166 --> 00:01:25.300
+also known as a PE compression tool.
+
+00:01:25.900 --> 00:01:33.333
+As we can see, upx has decreased the file 
+size of nc.exe by 50%.
+
+00:01:33.333 --> 00:01:37.200
+Despite the smaller size, the Windows PE 
+file is still functional 
+
+00:01:37.200 --> 00:01:39.300
+and can be run as normal.
+
+00:01:39.966 --> 00:01:43.233
+Now that our file is optimized and ready 
+for transfer, 
+
+00:01:43.233 --> 00:01:48.700
+we can convert nc.exe to a Windows 
+script to run on the Windows machine, 
+
+00:01:48.700 --> 00:01:51.100
+which will convert the file to hex 
+
+00:01:51.100 --> 00:01:55.633
+and instruct powershell to assemble
+it back into binary.
+
+00:01:56.133 --> 00:02:01.266
+We’ll use the excellent exe2hex tool 
+for the conversion process.
+
+00:02:04.166 --> 00:02:07.933
+Notice how the commands in this script 
+are non-interactive, 
+
+00:02:07.933 --> 00:02:10.566
+mostly consisting of echo commands.
+
+00:02:12.316 --> 00:02:14.433
+Towards the end of the script are commands
+
+00:02:14.433 --> 00:02:19.600
+that will rebuild the nc.exe executable 
+on the target machine.
+
+00:02:22.000 --> 00:02:24.866
+We can copy the entire script to the 
+clipboard
+
+00:02:24.866 --> 00:02:28.366
+ by piping it into the xclip utility.
+
+00:02:29.016 --> 00:02:32.400
+Now let’s paste it into our bind shell.
+
+00:02:41.150 --> 00:02:44.733
+After pasting this script into our shell, 
+it does, in fact, 
+
+00:02:44.733 --> 00:02:49.666
+create a perfectly-working copy of 
+our original nc.exe.

@@ -1,0 +1,36 @@
+WEBVTT
+
+00:00:01.066 --> 00:00:02.033
+Wrapping Up
+
+00:00:03.400 --> 00:00:07.466
+In this module, we discussed the purpose
+of antivirus software
+
+00:00:07.466 --> 00:00:12.300
+and the most common methods used by
+vendors to detect malicious code.
+
+00:00:12.700 --> 00:00:16.933
+We briefly explained various antivirus
+bypass methods
+
+00:00:16.933 --> 00:00:22.033
+that involve different techniques of
+in-memory shellcode injection
+
+00:00:22.033 --> 00:00:28.266
+and demonstrated successful bypasses
+using both Shellter and PowerShell.
+
+00:00:28.733 --> 00:00:33.133
+Although we have successfully bypassed
+antivirus detection in both of our
+
+00:00:33.133 --> 00:00:36.366
+examples, we have barely scratched the
+surface
+
+00:00:36.366 --> 00:00:40.433
+on the topic of malware detection and
+evasion.

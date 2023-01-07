@@ -1,0 +1,139 @@
+WEBVTT
+
+00:00:00.566 --> 00:00:01.600
+Nikto
+
+00:00:03.001 --> 00:00:07.566
+Nikto is a highly configurable
+Open Source web server scanner
+
+00:00:07.566 --> 00:00:11.800
+that tests for thousands of
+dangerous files and programs,
+
+00:00:11.800 --> 00:00:13.866
+vulnerable server versions,
+
+00:00:13.866 --> 00:00:16.633
+and various server configuration issues.
+
+00:00:17.052 --> 00:00:20.300
+It performs well, but is
+not designed for stealth
+
+00:00:20.300 --> 00:00:24.933
+as it will send many requests and
+embed information about itself
+
+00:00:24.933 --> 00:00:26.966
+in the User-Agent header.
+
+00:00:27.905 --> 00:00:30.766
+Nikto can scan multiple servers and ports
+
+00:00:30.766 --> 00:00:33.900
+and will scan as many
+pages as it can find.
+
+00:00:34.498 --> 00:00:37.700
+On sites with heavy content,
+such as an ecommerce site,
+
+00:00:37.700 --> 00:00:41.400
+a Nikto scan can take
+several hours to complete.
+
+00:00:42.374 --> 00:00:45.800
+We have two options to
+control the scan duration.
+
+00:00:46.582 --> 00:00:50.200
+The simplest option is to
+set the maxtime option,
+
+00:00:50.633 --> 00:00:54.100
+which will halt the scan after
+the specified time limit.
+
+00:00:54.931 --> 00:00:57.866
+This does not optimize
+the scan in any way.
+
+00:00:58.167 --> 00:01:00.466
+Nikto will simply stop scanning.
+
+00:01:01.533 --> 00:01:06.933
+Our second option is to tune the scan
+with the -T option.
+
+00:01:07.633 --> 00:01:11.966
+We can use this feature to control
+which types of tests we want to run.
+
+00:01:12.684 --> 00:01:16.633
+There are times when we don’t want
+to run all the tests built in to Nikto,
+
+00:01:16.866 --> 00:01:21.133
+such as when verifying the existence
+of a certain class of vulnerability.
+
+00:01:21.619 --> 00:01:24.966
+Tuning a scan is invaluable
+in these situations.
+
+00:01:25.727 --> 00:01:29.200
+Nikto is especially useful for
+catching low-hanging fruit,
+
+00:01:29.500 --> 00:01:32.190
+reporting non-standard
+server headers,
+
+00:01:32.190 --> 00:01:35.000
+and catching server configuration errors.
+
+00:01:35.413 --> 00:01:39.366
+To demonstrate this, let’s run Nikto
+against www.megacorpone.com.
+
+00:01:41.956 --> 00:01:46.500
+We’ll specify the host we
+want to scan with -host,
+
+00:01:46.882 --> 00:01:49.066
+and for the sake of this demonstration,
+
+00:01:49.066 --> 00:01:52.266
+we’ll limit the scan
+duration to 30 seconds.
+
+00:01:58.691 --> 00:02:00.866
+Although we limited the scan duration,
+
+00:02:00.866 --> 00:02:04.366
+the output still provided
+some interesting information.
+
+00:02:04.916 --> 00:02:09.400
+For example, it identified that the
+version of Apache running on the server
+
+00:02:09.400 --> 00:02:13.200
+is out of date and past its end-of-life.
+
+00:02:14.427 --> 00:02:17.866
+We have only demonstrated
+a fraction of the tools
+
+00:02:17.866 --> 00:02:20.800
+available in Kali Linux in
+this brief introduction,
+
+00:02:21.333 --> 00:02:23.833
+but the tools we have covered
+so far will serve us well
+
+00:02:23.833 --> 00:02:27.300
+for the demonstrations that
+follow in the rest of the module.

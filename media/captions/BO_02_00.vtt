@@ -1,0 +1,54 @@
+WEBVTT
+
+00:00:01.334 --> 00:00:03.834
+Buffer Overflow Walkthrough
+
+00:00:05.101 --> 00:00:09.034
+In this section, we’ll analyze a
+simple vulnerable application
+
+00:00:09.045 --> 00:00:13.179
+that does not perform proper
+sanitization of user input.
+
+00:00:13.901 --> 00:00:16.434
+We’ll analyze the application’s
+source code
+
+00:00:16.434 --> 00:00:20.601
+and discover that by passing a
+specifically crafted argument,
+
+00:00:20.612 --> 00:00:26.112
+we’ll be able to copy our controlled input
+string to a smaller-sized stack buffer,
+
+00:00:26.112 --> 00:00:29.212
+eventually overflowing its limits.
+
+00:00:29.801 --> 00:00:33.468
+This overflow will corrupt
+data on the stack,
+
+00:00:33.468 --> 00:00:36.501
+finally leading to a
+return address overwrite
+
+00:00:36.501 --> 00:00:40.501
+and complete control
+over the EIP register
+
+00:00:41.345 --> 00:00:46.945
+Gaining control of EIP is the first step
+in creating a successful buffer overflow.
+
+00:00:47.523 --> 00:00:50.557
+In this module, we’ll focus
+on controlling EIP
+
+00:00:50.557 --> 00:00:52.057
+and in further modules,
+
+00:00:52.057 --> 00:00:56.490
+we’ll explain how to leverage
+this into arbitrary code execution.

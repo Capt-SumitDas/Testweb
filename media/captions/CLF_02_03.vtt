@@ -1,0 +1,33 @@
+WEBVTT
+
+00:00:02.215 --> 00:00:04.615
+Redirecting from a File
+
+00:00:05.195 --> 00:00:08.961
+As you may have guessed, we can use the
+left-angle bracket operator
+
+00:00:08.961 --> 00:00:11.361
+to send data the “other way”.
+
+00:00:11.361 --> 00:00:16.495
+In this example, we’ll redirect the wc
+command’s Standard Input
+
+00:00:16.495 --> 00:00:21.461
+with data originating from the file we
+generated in the previous section.
+
+00:00:21.900 --> 00:00:24.461
+Let’s try this with wc -m,
+
+00:00:24.461 --> 00:00:27.195
+which counts characters in the file.
+
+00:00:28.010 --> 00:00:32.177
+Note that this effectively “connected”
+the contents of our file
+
+00:00:32.195 --> 00:00:35.961
+to the standard input of the
+wc -m command.

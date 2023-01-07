@@ -1,0 +1,138 @@
+WEBVTT
+
+00:00:01.508 --> 00:00:03.700
+Contaminating Log Files
+
+00:00:04.806 --> 00:00:08.033
+One way we can try to
+inject code onto the server
+
+00:00:08.033 --> 00:00:10.300
+is through log file poisoning.
+
+00:00:10.869 --> 00:00:15.300
+Most application servers will log
+all URLs that are requested.
+
+00:00:15.813 --> 00:00:17.533
+We can use this to our advantage
+
+00:00:17.533 --> 00:00:21.566
+by submitting a request
+that includes PHP code.
+
+00:00:22.192 --> 00:00:23.933
+Once the request is logged,
+
+00:00:23.933 --> 00:00:28.000
+we can use the log
+file in our LFI payload.
+
+00:00:28.737 --> 00:00:31.833
+The tools used in this module,
+especially DIRB,
+
+00:00:31.833 --> 00:00:35.966
+can fill the Apache log
+files with lots of noise.
+
+00:00:40.738 --> 00:00:44.100
+The next steps of this
+section are easier to see
+
+00:00:44.100 --> 00:00:47.833
+and understand if the log
+files are relatively clean.
+
+00:00:48.160 --> 00:00:52.433
+We’ll use the clear_logs script
+on the Windows 10
+
+00:00:52.433 --> 00:00:56.100
+client to clean up the contents
+of the Apache log files.
+
+00:00:59.004 --> 00:01:03.733
+Next, let’s use Netcat to connect to
+our Windows 10 lab machine
+
+00:01:03.733 --> 00:01:07.266
+on port 80 with an interesting payload.
+
+00:01:14.597 --> 00:01:17.400
+Let’s walk through the
+components of the payload.
+
+00:01:21.366 --> 00:01:25.766
+First, notice that the entire
+payload is written in PHP.
+
+00:01:26.737 --> 00:01:30.300
+The bulk of the PHP payload
+is a simple echo command
+
+00:01:30.300 --> 00:01:33.000
+that will print output to the page.
+
+00:01:34.419 --> 00:01:38.866
+This output is first wrapped
+in pre HTML tags,
+
+00:01:39.370 --> 00:01:41.300
+which preserve any line breaks
+
+00:01:41.300 --> 00:01:44.300
+or formatting in the results
+of the function call.
+
+00:01:45.598 --> 00:01:48.133
+Next is the function call itself,
+
+00:01:48.133 --> 00:01:52.066
+shell_exec, which will
+execute an OS command.
+
+00:01:53.047 --> 00:01:55.966
+Finally, the OS command is retrieved
+
+00:01:55.966 --> 00:01:59.600
+from the “cmd” parameter
+of the GET request.
+
+00:02:00.748 --> 00:02:05.933
+This one line of PHP will let
+us specify an OS command
+
+00:02:05.933 --> 00:02:10.533
+via the query string and output
+the results in the browser.
+
+00:02:11.653 --> 00:02:13.633
+Let’s send that payload now.
+
+00:02:15.220 --> 00:02:17.633
+Despite the “Bad Request”
+error that was generated
+
+00:02:17.633 --> 00:02:21.021
+because we didn’t make
+a valid HTTP request,
+
+00:02:21.021 --> 00:02:23.833
+we can verify the request was submitted
+
+00:02:23.833 --> 00:02:28.166
+by checking the Apache log files
+on our Windows 10 lab machine.
+
+00:02:32.798 --> 00:02:36.333
+We can view these logs by using
+the XAMPP Control Panel.
+
+00:02:44.214 --> 00:02:48.033
+Our payload was inserted
+into the log file successfully.
+
+00:02:48.556 --> 00:02:53.300
+Since our payload has been logged,
+we can attempt LFI execution.

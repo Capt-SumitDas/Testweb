@@ -1,0 +1,137 @@
+WEBVTT
+
+00:00:01.366 --> 00:00:04.133
+PLINK.exe
+
+00:00:05.100 --> 00:00:08.766
+So far, all the port forwarding and
+tunneling methods we’ve used
+
+00:00:08.766 --> 00:00:13.733
+have centered around tools typically
+found on UNIX-style system.
+
+00:00:13.733 --> 00:00:19.533
+Next, let’s focus on pivoting through
+Windows-based operating systems.
+
+00:00:19.533 --> 00:00:23.933
+To demonstrate this, we’ll start by
+obtaining a SYSTEM-level shell
+
+00:00:23.933 --> 00:00:29.400
+using our syncbreeze exploit we created
+in the Windows buffer overflow module.
+
+00:00:38.200 --> 00:00:40.333
+During the enumeration process,
+
+00:00:40.333 --> 00:00:46.966
+we discover a MySQL service running on
+TCP port 3306.
+
+00:00:48.033 --> 00:00:51.833
+We would like to scan this database or
+interact with it.
+
+00:00:51.833 --> 00:00:54.166
+However, because of the firewall,
+
+00:00:54.166 --> 00:00:58.800
+we cannot directly interact with this
+service from our Kali machine.
+
+00:00:58.800 --> 00:01:03.533
+To overcome this problem, we will transfer
+plink.exe,
+
+00:01:03.533 --> 00:01:06.866
+a Windows-based command line SSH client
+
+00:01:06.866 --> 00:01:12.700
+to our target with a non-interactive FTP
+file transfer method.
+
+00:01:30.900 --> 00:01:35.433
+We verify that the file was transferred
+successfully by running it.
+
+00:01:41.433 --> 00:01:46.433
+P-link’s syntax is similar to the
+UNIX-based ssh client.
+
+00:01:47.633 --> 00:01:52.800
+We’ll use plink.exe to connect via SSH,
+
+00:01:53.833 --> 00:01:55.766
+to our Kali machine,
+
+00:01:56.966 --> 00:01:58.800
+as the kali user,
+
+00:02:00.200 --> 00:02:02.033
+specifying the password,
+
+00:02:03.600 --> 00:02:06.533
+to create a remote port forward,
+
+00:02:07.333 --> 00:02:11.833
+of port 1234 on our kali machine,
+
+00:02:12.700 --> 00:02:16.300
+to the MySQL port on the Windows target.
+
+00:02:17.366 --> 00:02:21.833
+This syntax is correct, but the first
+time plink connects to a host,
+
+00:02:21.833 --> 00:02:25.833
+it will attempt to cache the host key
+in the registry.
+
+00:02:26.533 --> 00:02:30.900
+If we run the command through an rdesktop
+connection to the Windows client,
+
+00:02:45.766 --> 00:02:48.133
+we can see this interactive step.
+
+00:03:00.533 --> 00:03:05.133
+However, since this will most likely not
+work with the interactivity level
+
+00:03:05.133 --> 00:03:06.766
+we have in our current shell,
+
+00:03:06.766 --> 00:03:13.000
+we should pipe the answer to the prompt
+into the command with echo.
+
+00:03:13.966 --> 00:03:20.166
+This command, then, will successfully
+establish the remote port forward without
+
+00:03:20.166 --> 00:03:22.000
+any interaction.
+
+00:03:25.566 --> 00:03:27.466
+Now that our tunnel is active,
+
+00:03:27.466 --> 00:03:31.966
+we’ll launch an Nmap scan of the target’s
+MySQL port
+
+00:03:32.533 --> 00:03:39.266
+via our localhost port forward on TCP
+port 1234.
+
+00:03:41.533 --> 00:03:44.600
+Good. The setup seems to be working.
+
+00:03:45.933 --> 00:03:50.300
+We have successfully scanned the Windows
+10 machine’s SQL service
+
+00:03:50.300 --> 00:03:54.366
+through a remote port forward on our
+Kali attack machine.

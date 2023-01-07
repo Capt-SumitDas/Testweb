@@ -1,0 +1,75 @@
+WEBVTT
+
+00:00:01.553 --> 00:00:03.820
+Bash History Customization
+
+00:00:04.623 --> 00:00:07.523
+Earlier in this module, we
+discussed environment variables
+
+00:00:07.555 --> 00:00:09.155
+and the history command.
+
+00:00:09.289 --> 00:00:11.656
+We can use a number of environment
+variables to change
+
+00:00:11.656 --> 00:00:15.289
+how the history command
+operates and returns data,
+
+00:00:15.521 --> 00:00:21.821
+the most common include HISTCONTROL, 
+HISTIGNORE, and HISTTIMEFORMAT.
+
+00:00:23.824 --> 00:00:25.590
+The HISTCONTROL variable
+
+00:00:25.590 --> 00:00:28.990
+defines whether or not to
+remove duplicate commands,
+
+00:00:29.023 --> 00:00:32.923
+commands that begin with spaces
+from the history, or both.
+
+00:00:33.387 --> 00:00:35.587
+By default, both are removed
+
+00:00:35.587 --> 00:00:39.587
+but you may find it more useful
+to only omit duplicate commands.
+
+00:00:39.988 --> 00:00:44.455
+The HISTIGNORE variable is particularly
+useful for filtering out basic commands
+
+00:00:44.455 --> 00:00:51.255
+that are run frequently, such as
+ls, exit, history, bg, etc.
+
+00:00:52.189 --> 00:00:57.456
+Let’s run a few commands to see if
+history ignores our specified commands.
+
+00:01:07.988 --> 00:01:13.555
+As expected the ls and history commands
+do not appear in our command history.
+
+00:01:15.021 --> 00:01:17.421
+Lastly, HISTTIMEFORMAT
+
+00:01:17.421 --> 00:01:22.721
+controls date and/or time stamps
+in the output of the history command.
+
+00:01:25.389 --> 00:01:33.889
+In this example, we used %F
+(or Year-Month-Day ISO 8601 format)
+
+00:01:33.889 --> 00:01:37.923
+and %T (24-hour time).
+
+00:01:39.486 --> 00:01:44.453
+Other formats can be found in the
+str-f-time man page.

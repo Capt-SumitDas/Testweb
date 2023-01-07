@@ -1,0 +1,148 @@
+WEBVTT
+
+00:00:01.816 --> 00:00:03.416
+Environment Variables
+
+00:00:04.072 --> 00:00:08.106
+When opening a terminal window, a new 
+Bash process, which has its own
+
+00:00:08.106 --> 00:00:10.806
+environment variables, is initialized.
+
+00:00:11.806 --> 00:00:16.472
+These variables are a form of global
+storage for various settings inherited by
+
+00:00:16.472 --> 00:00:20.206
+any applications that are run during
+that terminal session.
+
+00:00:20.739 --> 00:00:24.272
+One of the most commonly-referenced
+environment variables is PATH,
+
+00:00:24.272 --> 00:00:29.006
+which is a colon-separated list of
+directory paths that Bash will search
+
+00:00:29.029 --> 00:00:32.896
+through whenever a command is run 
+without a full path.
+
+00:00:32.919 --> 00:00:36.452
+We can view the contents of a given 
+environment variable with the
+
+00:00:36.475 --> 00:00:39.842
+echo command followed by the 
+dollar sign character
+
+00:00:39.842 --> 00:00:42.342
+and an environment variable name.
+
+00:00:42.342 --> 00:00:47.309
+For example, let’s examine the contents
+of the PATH environment variable:
+
+00:00:48.329 --> 00:00:52.562
+Some other useful environment
+variables include USER…
+
+00:00:53.272 --> 00:00:54.606
+P.W.D….
+
+00:00:55.206 --> 00:00:56.406
+and HOME…
+
+00:00:56.962 --> 00:01:00.696
+which hold the values of the current
+terminal user’s username,
+
+00:01:00.696 --> 00:01:02.362
+present working directory,
+
+00:01:02.362 --> 00:01:04.796
+and home directory respectively.
+
+00:01:06.039 --> 00:01:10.339
+We can define an environment variable
+with the export command.
+
+00:01:10.339 --> 00:01:14.272
+For example, if we are scanning a target
+and don’t want to type in the system’s
+
+00:01:14.272 --> 00:01:19.272
+IP address repeatedly, we can quickly
+assign it an environment variable
+
+00:01:19.272 --> 00:01:21.172
+and use that instead:
+
+00:01:25.039 --> 00:01:28.872
+The export command makes the variable
+accessible to any subprocesses
+
+00:01:28.872 --> 00:01:32.672
+we might spawn from our
+current Bash instance.
+
+00:01:33.572 --> 00:01:37.239
+If we set an environment variable 
+without export, it will only
+
+00:01:37.239 --> 00:01:39.472
+be available in the current shell.
+
+00:01:40.129 --> 00:01:44.896
+Let’s launch another instance of Bash
+and try to display the variable again.
+
+00:01:46.766 --> 00:01:49.986
+Since we defined our variable without
+the export command, 
+
+00:01:49.986 --> 00:01:53.052
+we can’t access it in
+the new Bash instance.
+
+00:01:56.033 --> 00:01:58.662
+After exiting back to our original
+Bash session
+
+00:01:58.662 --> 00:02:00.962
+we have access to the variable again.
+
+00:02:01.606 --> 00:02:06.439
+Now let’s see what happens when we use
+export to define a variable.
+
+00:02:08.606 --> 00:02:12.339
+Nothing has changed so far but
+let’s see what happens when we
+
+00:02:12.339 --> 00:02:14.706
+launch a new Bash instance.
+
+00:02:17.486 --> 00:02:21.586
+This time, we can access the
+variable from the new instance.
+
+00:02:24.049 --> 00:02:27.482
+There are many other environment
+variables defined by default
+
+00:02:27.482 --> 00:02:29.049
+in Kali Linux.
+
+00:02:29.096 --> 00:02:33.062
+We can view these by running e-n-v
+at the command line:
+
+00:02:34.106 --> 00:02:36.406
+Take some time to review and experiment
+
+00:02:36.406 --> 00:02:39.339
+with the pre-defined environment
+variables.

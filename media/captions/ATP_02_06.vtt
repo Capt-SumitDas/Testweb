@@ -1,0 +1,66 @@
+WEBVTT
+
+00:00:01.694 --> 00:00:04.500
+Post-Exploitation Enumeration
+
+00:00:05.530 --> 00:00:09.433
+First, let’s gather some basic
+information about the host
+
+00:00:09.433 --> 00:00:12.166
+such as network configuration,
+
+00:00:15.795 --> 00:00:16.733
+hostname,
+
+00:00:19.051 --> 00:00:20.066
+OS version,
+
+00:00:21.894 --> 00:00:23.633
+and kernel information.
+
+00:00:25.568 --> 00:00:27.666
+From this basic information gathering,
+
+00:00:27.666 --> 00:00:30.666
+we learn that the host is named “Ajla”,
+
+00:00:32.109 --> 00:00:35.566
+the IP address is 10.4.4.10,
+
+00:00:36.413 --> 00:00:42.300
+and the version of Linux is
+Ubuntu 16.04 on a 4.4 kernel.
+
+00:00:43.467 --> 00:00:45.633
+Having collected this basic information,
+
+00:00:45.645 --> 00:00:49.100
+we can move on to
+more specific enumeration.
+
+00:00:49.741 --> 00:00:52.100
+Since we know that the
+target is running WordPress,
+
+00:00:52.100 --> 00:00:56.766
+we should be able to find database
+credentials in the configuration file.
+
+00:01:05.742 --> 00:01:07.600
+In the WordPress config file,
+
+00:01:07.600 --> 00:01:11.366
+we confirm that the database
+server is on a different host,
+
+00:01:12.316 --> 00:01:16.633
+we also find the active
+MariaDB credentials.
+
+00:01:17.927 --> 00:01:21.733
+To continue, we need to solidify
+our foothold into the network
+
+00:01:21.733 --> 00:01:24.633
+and create a stable pivot point.

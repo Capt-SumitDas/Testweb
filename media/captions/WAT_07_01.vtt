@@ -1,0 +1,156 @@
+WEBVTT
+
+00:00:01.539 --> 00:00:05.333
+Identifying and
+Exploiting Directory Traversals
+
+00:00:07.061 --> 00:00:13.233
+A search for directory traversals begins
+with the examination of URL query strings
+
+00:00:13.233 --> 00:00:19.366
+and form bodies in search of values
+that appear as file references,
+
+00:00:19.366 --> 00:00:26.333
+including the most common indicator:
+file extensions in URL query strings.
+
+00:00:26.918 --> 00:00:29.633
+Once we’ve identified
+some likely candidates,
+
+00:00:29.633 --> 00:00:31.700
+we can modify these values
+
+00:00:31.700 --> 00:00:36.933
+to attempt to reference files that should
+be readable by any user on the system,
+
+00:00:36.933 --> 00:00:42.700
+such as /etc/passwd on
+Linux or boot.ini on Windows.
+
+00:00:43.342 --> 00:00:47.400
+Let’s return to the sample application
+on our Windows 10 lab machine
+
+00:00:47.400 --> 00:00:49.333
+to demonstrate this vulnerability.
+
+00:00:54.840 --> 00:00:58.266
+We’ll click on “Menu” to show the sample menu.
+
+00:00:58.937 --> 00:01:00.333
+After clicking the “Menu” link,
+
+00:01:00.333 --> 00:01:04.533
+the URL is updated and contains
+a parameter named file
+
+00:01:04.533 --> 00:01:08.866
+with a value of “current_menu.php”.
+
+00:01:10.212 --> 00:01:12.200
+The file extension on a parameter value
+
+00:01:12.200 --> 00:01:16.266
+is usually a good indication that
+we should investigate further
+
+00:01:16.266 --> 00:01:22.266
+because it suggests text or code is
+being included from a different resource.
+
+00:01:22.927 --> 00:01:25.733
+Most directory traversals
+are not this obvious
+
+00:01:25.733 --> 00:01:29.200
+but a fair number of old PHP applications
+
+00:01:29.200 --> 00:01:31.733
+load pages in a similar fashion.
+
+00:01:32.262 --> 00:01:35.200
+Without knowing what the code
+looks like, we can start poking at it
+
+00:01:35.200 --> 00:01:37.900
+by changing the value of file.
+
+00:01:38.589 --> 00:01:45.266
+If we change “current_menu.php”
+to something like “old.php”,
+
+00:01:47.495 --> 00:01:50.232
+we get an error instead of the menu:
+
+00:01:51.319 --> 00:01:52.700
+Notice that the error message
+
+00:01:52.700 --> 00:01:57.000
+indicates the server failed
+to open a file for inclusion
+
+00:01:57.000 --> 00:01:59.733
+and returns a full file path.
+
+00:02:00.895 --> 00:02:06.000
+This indicates that we can likely control
+the content being rendered in the page
+
+00:02:06.000 --> 00:02:08.466
+by manipulating the file parameter.
+
+00:02:09.033 --> 00:02:12.133
+If we didn’t already know we
+were targeting a Windows host,
+
+00:02:12.133 --> 00:02:14.300
+this error message would give it away.
+
+00:02:14.838 --> 00:02:19.066
+OS information is crucial when
+exploiting a directory traversal.
+
+00:02:19.756 --> 00:02:22.866
+Since we know the application
+is running on a Windows system,
+
+00:02:22.866 --> 00:02:27.100
+let’s update our payload to
+target the Windows hosts file.
+
+00:02:29.565 --> 00:02:32.800
+This is a useful file to
+target on Windows systems
+
+00:02:32.800 --> 00:02:36.733
+since it is reliable and
+accessible by any user.
+
+00:02:38.187 --> 00:02:42.233
+Let’s change the parameter value to
+the hosts file and submit the URL.
+
+00:02:46.002 --> 00:02:48.366
+After submitting this URL in our browser,
+
+00:02:48.366 --> 00:02:51.866
+the page includes the
+content of the hosts file.
+
+00:02:53.433 --> 00:02:54.274
+Nice.
+
+00:02:54.274 --> 00:02:57.300
+It appears this directory
+traversal vulnerability
+
+00:02:57.300 --> 00:03:00.133
+allows us to read files of any type,
+
+00:03:00.133 --> 00:03:04.000
+including those outside
+the web root directory.

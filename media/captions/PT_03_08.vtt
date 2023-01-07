@@ -1,0 +1,134 @@
+WEBVTT
+
+00:00:01.917 --> 00:00:04.417
+Powercat Stand-Alone Payloads
+
+00:00:05.600 --> 00:00:09.000
+Powercat can also generate
+stand-alone payloads.
+
+00:00:09.500 --> 00:00:14.367
+In the context of Powercat, a payload is a
+set of powershell instructions
+
+00:00:14.367 --> 00:00:17.834
+as well as the portion of the
+Powercat script itself
+
+00:00:17.834 --> 00:00:21.800
+that only includes the features
+requested by the user.
+
+00:00:22.167 --> 00:00:25.067
+Let’s experiment with payloads
+in the this next example.
+
+00:00:26.150 --> 00:00:30.983
+We’ll begin by starting a netcat listener
+on Alice’s machine on port 443.
+
+00:00:34.968 --> 00:00:39.468
+Now we’ll create a stand-alone reverse
+shell payload with powercat.
+
+00:00:40.383 --> 00:00:44.750
+The syntax is the same as a reverse
+shell but we add the -g option
+
+00:00:44.750 --> 00:00:47.750
+to tell powercat we want it
+to generate a payload,
+
+00:00:47.750 --> 00:00:50.650
+and redirect the output to a file.
+
+00:00:51.266 --> 00:00:56.066
+This will produce a powershell script
+that Bob can execute on his machine.
+
+00:01:00.666 --> 00:01:03.633
+It’s worth noting that stand-alone
+payloads like this one
+
+00:01:03.633 --> 00:01:06.399
+might be easily detected by IDS.
+
+00:01:09.234 --> 00:01:11.334
+We can attempt to overcome this problem
+
+00:01:11.334 --> 00:01:17.067
+by making use of PowerShell’s ability
+to execute Base64 encoded commands.
+
+00:01:23.350 --> 00:01:26.383
+To generate a stand-alone
+encoded payload,
+
+00:01:26.383 --> 00:01:32.117
+we use the -ge option and once again
+redirect the output to a file:
+
+00:01:32.883 --> 00:01:36.450
+The file will contain an encoded
+string that can be executed
+
+00:01:36.450 --> 00:01:39.450
+using the PowerShell -E option.
+
+00:01:39.968 --> 00:01:42.635
+However, since this option was
+designed as a way to submit
+
+00:01:42.635 --> 00:01:44.796
+complex commands on the command line,
+
+00:01:44.796 --> 00:01:50.096
+the resulting script can not be executed
+in the same way as our unencoded payload.
+
+00:01:54.900 --> 00:02:01.334
+Instead, Bob needs to pass the whole
+encoded string to powershell.exe -E,
+
+00:02:01.334 --> 00:02:04.334
+so let’s copy all of this to
+the clipboard.
+
+00:02:05.100 --> 00:02:08.367
+We’ll return to powershell to
+execute our reverse shell.
+
+00:02:14.350 --> 00:02:19.283
+We run powershell.exe with the -E option…
+
+00:02:19.817 --> 00:02:22.483
+…paste in our encoded reverse shell…
+
+00:02:23.200 --> 00:02:25.200
+…and hit enter to execute it.
+
+00:02:25.767 --> 00:02:27.834
+After running the stand-alone payload,
+
+00:02:27.834 --> 00:02:31.400
+Alice receives the reverse shell
+on her waiting listener.
+
+00:02:36.217 --> 00:02:39.583
+Excellent, this is another great
+tool in our arsenal.
+
+00:02:47.583 --> 00:02:51.183
+We have covered a variety of tools
+that can handle file transfer,
+
+00:02:51.183 --> 00:02:53.550
+bind shells, and reverse shells.
+
+00:02:54.050 --> 00:02:57.183
+These tools have varying
+features, strengths,
+
+00:02:57.200 --> 00:03:00.967
+weaknesses, and applicability
+during a penetration test.

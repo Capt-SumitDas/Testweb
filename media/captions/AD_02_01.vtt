@@ -1,0 +1,87 @@
+WEBVTT
+
+00:00:01.536 --> 00:00:03.600
+Traditional Approach
+
+00:00:04.401 --> 00:00:08.533
+The first technique, which we’ll
+refer to as the “traditional” approach,
+
+00:00:08.533 --> 00:00:12.800
+uses the built-in net.exe application.
+
+00:00:13.067 --> 00:00:17.100
+Specifically, we will use the
+net user sub-command,
+
+00:00:20.473 --> 00:00:23.433
+which enumerates all local accounts.
+
+00:00:27.976 --> 00:00:30.700
+Adding the /domain flag…
+
+00:00:30.700 --> 00:00:34.433
+will enumerate all users
+in the entire domain.
+
+00:00:35.969 --> 00:00:41.666
+Once we have a list of users, we can
+query information about individual users.
+
+00:00:42.902 --> 00:00:46.566
+Based on the output, we should
+query the jeff_admin user
+
+00:00:46.566 --> 00:00:49.100
+since the name sounds promising.
+
+00:00:55.580 --> 00:01:01.433
+jeff_admin is a member of the Domain
+Admins group, which is noteworthy.
+
+00:01:02.802 --> 00:01:05.833
+In order to enumerate all
+groups in the domain
+
+00:01:05.833 --> 00:01:10.033
+we’ll add the /domain flag
+to the net group command:
+
+00:01:12.872 --> 00:01:17.266
+From the output we notice the
+custom groups Secret_Group,
+
+00:01:17.266 --> 00:01:21.133
+Nested_Group, and
+Another_Nested_Group.
+
+00:01:22.369 --> 00:01:26.466
+In Active Directory, a group,
+and all its included members,
+
+00:01:26.466 --> 00:01:32.400
+can be added as member to another group.
+This is known as a nested group.
+
+00:01:32.767 --> 00:01:37.900
+While nesting may seem confusing,
+it scales well due to its flexibility
+
+00:01:37.900 --> 00:01:41.300
+even in the largest AD implementations.
+
+00:01:41.767 --> 00:01:45.900
+Unfortunately, the net.exe
+command line tool cannot list
+
+00:01:45.900 --> 00:01:50.500
+nested groups and only shows
+the direct user members.
+
+00:01:51.869 --> 00:01:57.066
+Due to this and other limitations, we
+will explore a more flexible alternative
+
+00:01:57.066 --> 00:02:01.733
+that is more effective in
+larger real-world environments.

@@ -1,0 +1,307 @@
+WEBVTT
+
+00:00:01.597 --> 00:00:03.933
+Currently Logged on Users
+
+00:00:04.516 --> 00:00:08.133
+At this point, we can list users
+and their group memberships
+
+00:00:08.133 --> 00:00:11.600
+so we can easily locate
+administrative users.
+
+00:00:11.988 --> 00:00:14.964
+As the next step, we want to
+find logged-in users
+
+00:00:14.964 --> 00:00:17.600
+that are members of high-value groups
+
+00:00:17.600 --> 00:00:20.833
+since their credentials
+will be cached in memory.
+
+00:00:21.070 --> 00:00:24.500
+We could steal the credentials
+and authenticate with them.
+
+00:00:25.147 --> 00:00:28.533
+If we succeed in compromising
+one of the Domain Admins,
+
+00:00:28.533 --> 00:00:32.566
+we could eventually take
+over the entire domain.
+
+00:00:33.084 --> 00:00:36.533
+If we can’t immediately compromise
+one of the Domain Admins,
+
+00:00:36.533 --> 00:00:40.033
+we must compromise other
+accounts or machines
+
+00:00:40.033 --> 00:00:43.233
+to eventually gain that level of access.
+
+00:00:45.651 --> 00:00:49.966
+For example, Bob is
+logged in to CLIENT512
+
+00:00:49.966 --> 00:00:53.466
+and is a local administrator
+on all workstations.
+
+00:00:54.567 --> 00:01:01.566
+Alice is logged in to CLIENT621 and is a
+local administrator on all servers.
+
+00:01:02.300 --> 00:01:09.000
+Finally, Jeff is logged in to SERVER21 and
+is a member of the Domain Admins group.
+
+00:01:09.820 --> 00:01:15.333
+If we manage to compromise Bob’s account,
+we could pivot from CLIENT521
+
+00:01:15.333 --> 00:01:19.100
+to target Alice on CLIENT621.
+
+00:01:19.359 --> 00:01:25.533
+By extension, we may be able to pivot
+again to compromise Jeff on SERVER21,
+
+00:01:25.533 --> 00:01:27.900
+gaining domain access.
+
+00:01:28.439 --> 00:01:31.566
+In this type of scenario, we must
+tailor our enumeration
+
+00:01:31.566 --> 00:01:36.080
+to consider not only Domain
+Admins but also potential avenues
+
+00:01:36.080 --> 00:01:43.833
+of “chained compromise” including a hunt
+for a so-called derivative local admin.
+
+00:01:46.834 --> 00:01:52.600
+To do so, let’s determine how we can
+get a list of logged on users on a target.
+
+00:01:52.988 --> 00:01:56.766
+We can either directly look for
+a user logged into a computer
+
+00:01:56.766 --> 00:02:00.300
+or we could track any
+active logon sessions
+
+00:02:00.300 --> 00:02:03.266
+towards a domain
+controller or file server.
+
+00:02:04.022 --> 00:02:09.000
+The two most reliable Windows functions
+that can help us to find this information
+
+00:02:09.000 --> 00:02:15.833
+are the NetWkstaUserEnum
+and NetSessionEnum APIs.
+
+00:02:17.258 --> 00:02:22.966
+While NetWkstaUserEnum requires
+administrative permissions
+
+00:02:22.966 --> 00:02:27.300
+and returns the list of all users
+logged on to a target workstation,
+
+00:02:27.300 --> 00:02:32.566
+NetSessionEnum can be used
+as a regular domain user
+
+00:02:32.566 --> 00:02:36.866
+and returns a list of active
+user sessions on servers
+
+00:02:36.866 --> 00:02:40.700
+such as fileservers or
+domain controllers.
+
+00:02:40.980 --> 00:02:43.566
+After compromising a domain machine,
+
+00:02:43.566 --> 00:02:46.533
+we should enumerate every
+computer in the domain
+
+00:02:46.533 --> 00:02:52.766
+and then use NetWkstaUserEnum against
+the list of computers we find.
+
+00:02:53.263 --> 00:02:57.066
+Alternatively, we could try and
+find the domain controllers
+
+00:02:57.066 --> 00:03:02.166
+and any potential file servers in the
+network and use NetSessionEnum
+
+00:03:02.166 --> 00:03:07.800
+against these servers in order to
+enumerate all active users’ sessions.
+
+00:03:08.210 --> 00:03:12.466
+However, keep in mind that the
+results from these two APIs will vary
+
+00:03:12.466 --> 00:03:15.033
+depending on the permissions
+of the current user
+
+00:03:15.033 --> 00:03:18.133
+and the configuration of
+the domain environment.
+
+00:03:18.845 --> 00:03:23.966
+As a very basic example, we will
+use the NetWkstaUserEnum API
+
+00:03:23.966 --> 00:03:30.100
+to enumerate local users on the Windows 10
+client machine and NetSessionEnum
+
+00:03:30.100 --> 00:03:34.333
+to enumerate the users’ active
+sessions on the domain controller.
+
+00:03:34.808 --> 00:03:37.900
+Calling an operating system
+API from PowerShell
+
+00:03:37.900 --> 00:03:40.566
+is not completely straightforward.
+
+00:03:40.782 --> 00:03:45.666
+Fortunately, researchers have come up with
+a technique which simplifies the process.
+
+00:03:46.055 --> 00:03:49.633
+The most common solution
+is the use of PowerView,
+
+00:03:49.633 --> 00:03:54.900
+a PowerShell script that is part
+of the PowerShell Empire framework.
+
+00:03:55.094 --> 00:03:58.933
+The PowerView script is already
+on the Windows 10 client.
+
+00:04:02.452 --> 00:04:05.966
+To use it we must first import it.
+
+00:04:12.399 --> 00:04:18.133
+PowerView is quite large but we’ll
+only use the Get-NetLoggedon function
+
+00:04:18.133 --> 00:04:21.500
+to invoke NetWkstaUserEnum
+
+00:04:21.500 --> 00:04:27.433
+and the Get-NetSession function
+to invoke NetSessionEnum.
+
+00:04:28.922 --> 00:04:33.000
+First, we will enumerate logged-in
+users with Get-NetLoggedon…
+
+00:04:34.187 --> 00:04:39.433
+along with the -ComputerName
+option to specify the target machine,
+
+00:04:39.433 --> 00:04:42.200
+which in this case is the
+Windows 10 client.
+
+00:04:44.207 --> 00:04:48.400
+The output reveals the expected
+offsec user account.
+
+00:04:49.630 --> 00:04:55.566
+Next, let’s try to enumerate active
+sessions on the domain controller DC01.
+
+00:04:57.272 --> 00:04:59.666
+Remember that these sessions
+are performed against
+
+00:04:59.666 --> 00:05:02.233
+the domain controller when
+a user logs on,
+
+00:05:02.233 --> 00:05:05.966
+but originate from a specific
+workstation or server,
+
+00:05:05.966 --> 00:05:08.833
+which is the information
+we are trying to find.
+
+00:05:09.718 --> 00:05:12.766
+We can invoke the
+Get-NetSession function,
+
+00:05:13.306 --> 00:05:18.933
+again using the -ComputerName flag,
+this time targeting the domain controller.
+
+00:05:19.537 --> 00:05:22.966
+This function will
+return all active sessions.
+
+00:05:24.780 --> 00:05:29.700
+As expected, the Offsec user has an
+active session on the domain controller
+
+00:05:29.700 --> 00:05:34.133
+from the Windows 10 client
+due to an active login.
+
+00:05:35.104 --> 00:05:39.066
+The information obtained from the
+two APIs ended up being the same, 
+
+00:05:39.066 --> 00:05:42.100
+since we are targeting only
+a single machine,
+
+00:05:42.100 --> 00:05:46.000
+which also happens to be the one
+we are executing our script from.
+
+00:05:48.914 --> 00:05:51.933
+In a real Active Directory
+infrastructure, however,
+
+00:05:51.933 --> 00:05:56.066
+the information gained
+using each API might differ.
+
+00:05:58.160 --> 00:06:01.643
+Now that we can enumerate group
+membership and determine which machines
+
+00:06:01.643 --> 00:06:06.133
+users are currently logged in to, we
+have the basic skills needed
+
+00:06:06.133 --> 00:06:10.414
+to begin compromising user
+accounts with the goal of obtaining
+
+00:06:10.414 --> 00:06:13.533
+domain administrative privileges.

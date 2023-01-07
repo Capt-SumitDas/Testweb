@@ -1,0 +1,54 @@
+WEBVTT
+
+00:00:01.470 --> 00:00:03.800
+SSH Service
+
+00:00:03.800 --> 00:00:08.500
+The Secure SHell service is most commonly 
+used to remotely access a computer, 
+
+00:00:08.500 --> 00:00:11.000
+using a secure, encrypted protocol. 
+
+00:00:11.000 --> 00:00:16.166
+The SSH service is TCP-based and 
+listens by default on port 22.
+
+00:00:16.166 --> 00:00:21.500
+To start the SSH service, run systemCTL 
+with the start option
+
+00:00:21.500 --> 00:00:25.166
+followed by the service name, 
+in this case, ssh.
+
+00:00:26.085 --> 00:00:29.766
+When the command completes successfully, 
+it does not return any output
+
+00:00:29.766 --> 00:00:35.666
+but we can verify that the SSH service is 
+running and listening on TCP port 22
+
+00:00:35.666 --> 00:00:38.133
+by issuing the ss command 
+
+00:00:38.133 --> 00:00:43.766
+and piping the output into grep to 
+search the output for “sshd”.
+
+00:00:44.501 --> 00:00:47.733
+To start the SSH service automatically 
+at boot time 
+
+00:00:47.733 --> 00:00:50.300
+(after changing the default Kali 
+password),  
+
+00:00:50.300 --> 00:00:54.333
+we pass systemCTL the enable 
+parameter.
+
+00:00:55.514 --> 00:01:01.733
+We can use systemCTL to enable and 
+disable most services within Kali Linux.

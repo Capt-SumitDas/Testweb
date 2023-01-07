@@ -1,0 +1,339 @@
+WEBVTT
+
+00:00:01.871 --> 00:00:05.066
+Distributed Component Object Model
+
+00:00:05.749 --> 00:00:10.166
+Next we will take a closer look at a
+fairly new lateral movement technique
+
+00:00:10.166 --> 00:00:14.600
+that exploits the Distributed
+Component Object Model.
+
+00:00:14.852 --> 00:00:18.200
+The Microsoft Component
+Object Model (COM)
+
+00:00:18.200 --> 00:00:23.333
+is a system for creating software
+components that interact with each other
+
+00:00:23.333 --> 00:00:26.233
+within or across processes.
+
+00:00:26.764 --> 00:00:33.600
+Interaction with DCOM is performed
+over RPC on TCP port 135,
+
+00:00:33.600 --> 00:00:36.966
+and local administrator
+access is required
+
+00:00:36.966 --> 00:00:42.000
+to call the DCOM Service Control Manager
+which is essentially an API.
+
+00:00:42.455 --> 00:00:47.033
+DCOM objects related to Microsoft
+Office allow lateral movement,
+
+00:00:47.033 --> 00:00:51.166
+both through the use of Outlook
+as well as PowerPoint.
+
+00:00:51.697 --> 00:00:55.933
+Since this requires Microsoft Office
+to be installed on the target computer,
+
+00:00:55.933 --> 00:01:01.233
+this lateral movement technique is
+best used against workstations.
+
+00:01:01.334 --> 00:01:05.700
+However, in our case, we'll demonstrate this
+attack against the dedicated
+
+00:01:05.700 --> 00:01:09.866
+domain controller that already
+has Office installed.
+
+00:01:10.372 --> 00:01:16.433
+Specifically, we will leverage the
+Excel.Application DCOM object.
+
+00:01:19.771 --> 00:01:25.700
+For this example, we'll connect to the 
+Windows 10 client as the jeff_admin user,
+
+00:01:25.700 --> 00:01:28.533
+a local admin on the remote machine.
+
+00:01:32.554 --> 00:01:36.226
+To begin, we must first discover
+the available methods
+
+00:01:36.226 --> 00:01:40.800
+or sub-objects for this DCOM
+object using PowerShell.
+
+00:01:50.158 --> 00:01:54.866
+In this code, we first create an
+instance of the object using PowerShell
+
+00:01:54.866 --> 00:01:59.933
+and the CreateInstance method
+of the System.Activator class.
+
+00:02:00.894 --> 00:02:05.033
+As an argument to CreateInstance
+we must provide its type
+
+00:02:05.033 --> 00:02:09.433
+by using the
+GetTypeFromProgID method,
+
+00:02:10.470 --> 00:02:16.266
+specifying the program identifier, which
+in this case is Excel.Application,
+
+00:02:16.671 --> 00:02:20.666
+along with the IP address of
+the remote workstation.
+
+00:02:23.549 --> 00:02:27.466
+With this object instantiated we
+can discover its available
+
+00:02:27.466 --> 00:02:31.766
+methods and objects using
+the Get-Member cmdlet.
+
+00:02:41.706 --> 00:02:47.633
+The output contains many methods and
+objects but we'll focus on the Run method,
+
+00:02:47.633 --> 00:02:53.066
+which will allow us to execute a Visual
+Basic for Applications macro remotely.
+
+00:02:54.053 --> 00:02:57.666
+To use this, we’ll first create
+an Excel document.
+
+00:03:15.092 --> 00:03:20.833
+Then we’ll create a proof-of-concept
+macro by selecting the VIEW ribbon,
+
+00:03:21.870 --> 00:03:24.200
+and selecting Macros.
+
+00:03:31.281 --> 00:03:34.233
+We’ll name the macro “mymacro”
+
+00:03:41.770 --> 00:03:48.800
+In this simple proof of concept, we will
+use a VBA macro that launches notepad.exe…
+
+00:03:49.963 --> 00:03:55.433
+…and we’ll save the Excel file
+in the legacy .xls format.
+
+00:04:14.882 --> 00:04:18.300
+To execute the macro, we first
+need to copy the Excel
+
+00:04:18.309 --> 00:04:20.500
+document to the remote computer.
+
+00:04:34.056 --> 00:04:37.233
+Since we must be a local
+administrator to use DCOM,
+
+00:04:37.233 --> 00:04:42.533
+we should also have access to the
+remote filesystem through SMB.
+
+00:04:43.241 --> 00:04:50.300
+We can use the Copy method of the .NET
+System.IO.File class to copy the file.
+
+00:04:51.615 --> 00:04:54.700
+To invoke it, we specify the source file,
+
+00:04:56.166 --> 00:04:57.900
+destination file,
+
+00:04:59.164 --> 00:05:02.666
+and a flag to indicate that
+the destination file
+
+00:05:02.666 --> 00:05:05.700
+should be overwritten if present.
+
+00:05:12.958 --> 00:05:16.166
+Before we are able to execute
+the Run method on the macro,
+
+00:05:16.166 --> 00:05:20.500
+we must specify the Excel
+document it is contained in.
+
+00:05:20.854 --> 00:05:24.833
+This is done through the Open
+method of the Workbooks object,
+
+00:05:24.833 --> 00:05:30.733
+which is also available through DCOM as
+shown in the list of methods and objects.
+
+00:05:42.873 --> 00:05:46.833
+The Workbooks object is
+created from the $com
+
+00:05:46.833 --> 00:05:51.333
+COM handle we created earlier
+to perform our enumeration.
+
+00:05:52.117 --> 00:05:56.666
+We can call the Open method
+directly with code like this:
+
+00:06:07.188 --> 00:06:12.666
+However, this code results in an error
+when interacting with the remote computer.
+
+00:06:19.571 --> 00:06:22.900
+The reason for this is that
+when Excel.Application
+
+00:06:22.900 --> 00:06:27.333
+is instantiated through DCOM, it is
+done with the SYSTEM account.
+
+00:06:28.749 --> 00:06:31.500
+The SYSTEM account does
+not have a profile,
+
+00:06:31.500 --> 00:06:34.866
+which is used as part
+of the opening process.
+
+00:06:42.808 --> 00:06:46.666
+To fix this problem, we can
+simply create the Desktop folder
+
+00:06:46.666 --> 00:06:48.966
+under the appropriate directory,
+
+00:06:50.281 --> 00:06:53.933
+which is enough to meet
+the profile requirement.
+
+00:06:54.262 --> 00:06:58.533
+We can create this directory with the
+following PowerShell code:
+
+00:07:04.350 --> 00:07:07.733
+With the profile folder for the
+SYSTEM account created,
+
+00:07:07.733 --> 00:07:11.200
+we can attempt to call the
+Open method again,
+
+00:07:11.882 --> 00:07:16.433
+which now should succeed
+and open the Excel document.
+
+00:07:16.686 --> 00:07:19.633
+Finally, we can call the Run method.
+
+00:07:37.514 --> 00:07:41.133
+Let’s connect to the remote computer
+to find out if it worked.
+
+00:07:55.828 --> 00:08:01.000
+The code should have opened the Notepad
+application as a background process,
+
+00:08:04.591 --> 00:08:09.366
+executing in a high integrity context
+on the remote machine.
+
+00:08:17.965 --> 00:08:20.100
+Since Notepad is not very useful,
+
+00:08:20.100 --> 00:08:23.966
+lets upgrade this attack to
+launch a reverse shell instead.
+
+00:08:29.100 --> 00:08:33.766
+Since we are using an Office document
+we can simply reuse the Microsoft Word
+
+00:08:33.766 --> 00:08:36.100
+client side code execution technique
+
+00:08:36.100 --> 00:08:39.733
+that we covered in the
+client side attacks module.
+
+00:08:49.850 --> 00:08:55.800
+To do this, we’ll use msfvenom to create
+a payload for an HTA attack,
+
+00:08:56.533 --> 00:09:02.566
+since it contains the Base64 encoded
+payload that can be used with PowerShell.
+
+00:09:02.667 --> 00:09:04.934
+Notice that we use the IP address of
+
+00:09:04.934 --> 00:09:08.633
+the Windows 10 client’s
+second network interface,
+
+00:09:09.316 --> 00:09:14.100
+so that the domain controller can
+call back to our Netcat listener.
+
+00:09:25.026 --> 00:09:33.366
+Next we copy the line starting wit
+ “powershell.exe -nop -w hidden -e”
+
+00:09:33.366 --> 00:09:37.666
+followed by the Base64
+encoded payload,
+
+00:09:46.645 --> 00:09:53.000
+and use a simple Python script to split
+the command into smaller chunks.
+
+00:10:12.651 --> 00:10:19.266
+These smaller chunks will bypass the size
+limit on literal strings in Excel macros.
+
+00:10:29.105 --> 00:10:34.966
+Now lets update our Excel macro to
+execute PowerShell instead of Notepad.
+
+00:11:14.877 --> 00:11:19.833
+Before executing the macro, we’ll start a
+Netcat listener on the Windows 10 client
+
+00:11:19.833 --> 00:11:23.133
+to accept the reverse shell
+from the domain controller.
+
+00:12:00.236 --> 00:12:05.200
+While this attack requires access
+to both TCP 135 for COM
+
+00:12:05.200 --> 00:12:12.240
+and TCP 445 for SMB, this is a relatively
+new vector for lateral movement
+
+00:12:12.240 --> 00:12:18.500
+and may help avoid some network
+or host-based detection systems.

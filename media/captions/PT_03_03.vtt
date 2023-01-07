@@ -1,0 +1,76 @@
+WEBVTT
+
+00:00:01.926 --> 00:00:04.226
+PowerShell Bind Shells
+
+00:00:05.324 --> 00:00:08.590
+This process is reversed when
+dealing with bind shells.
+
+00:00:09.259 --> 00:00:13.459
+We first create the bind shell through
+PowerShell on Bob’s computer,
+
+00:00:13.459 --> 00:00:17.026
+and then use Netcat to connect
+to it from Alice’s.
+
+00:00:18.711 --> 00:00:20.377
+As with the reverse shell,
+
+00:00:20.377 --> 00:00:24.477
+this complex command can be
+broken down into several parts.
+
+00:00:24.926 --> 00:00:28.759
+In addition to the client, stream
+and byte variables,
+
+00:00:28.759 --> 00:00:31.426
+we also have a new listener variable
+
+00:00:31.426 --> 00:00:36.659
+that uses the System Net Sockets
+TcpListener class.
+
+00:00:37.141 --> 00:00:42.375
+This class requires two arguments:
+the listening address and port
+
+00:00:43.059 --> 00:00:48.393
+As with the reverse shell, we once again
+use the iex cmdlet to execute our commands
+
+00:00:52.533 --> 00:00:57.595
+In this command, we will again pass our
+command to powershell using the -c option.
+
+00:00:59.644 --> 00:01:03.511
+With the bind shell listening, we can
+connect to it from Alice’s machine
+
+00:01:03.511 --> 00:01:06.529
+using Netcat as we would
+with any other shell.
+
+00:01:12.459 --> 00:01:14.993
+PowerShell is ridiculously powerful
+
+00:01:14.993 --> 00:01:19.059
+and we’re not even close to scratching
+the surface in terms of its functionality.
+
+00:01:21.444 --> 00:01:24.044
+Due to Microsoft’s increasing
+use of PowerShell
+
+00:01:24.044 --> 00:01:27.411
+for Windows-based
+administration and automation,
+
+00:01:27.411 --> 00:01:31.077
+knowing how to properly use PowerShell
+to achieve our goals
+
+00:01:31.077 --> 00:01:33.244
+is extremely important.

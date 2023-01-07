@@ -1,0 +1,66 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:02.766
+Wordlists
+
+00:00:03.500 --> 00:00:09.466
+Wordlists, sometimes referred to as 
+dictionary files, are simply text files
+
+00:00:09.466 --> 00:00:15.933
+containing words for use as input to 
+programs designed to test passwords.
+
+00:00:15.933 --> 00:00:19.266
+Precision is generally more important 
+than coverage 
+
+00:00:19.266 --> 00:00:21.633
+when considering a dictionary attack, 
+
+00:00:21.633 --> 00:00:27.200
+meaning it’s more important to create a 
+lean wordlist of relevant passwords 
+
+00:00:27.200 --> 00:00:31.566
+than it is to create an enormous, 
+generic wordlist.
+
+00:00:31.566 --> 00:00:36.000
+Because of this, many wordlists are 
+based on a common theme, 
+
+00:00:36.000 --> 00:00:38.666
+such as popular culture references, 
+
+
+00:00:38.666 --> 00:00:42.700
+specific industries, or geographic 
+regions.
+
+00:00:42.700 --> 00:00:43.700
+Kali Linux includes a number of 
+these dictionary files 
+
+00:00:46.366 --> 00:00:52.833
+in the /usr/share/wordlists directory 
+and many more are hosted online.
+
+00:00:53.033 --> 00:00:56.666
+When conducting a password attack, it may 
+be tempting 
+
+00:00:56.666 --> 00:00:59.200
+to simply use these pre-built lists.
+
+00:00:59.566 --> 00:01:02.833
+However, we can be much more effective 
+in our approach 
+
+00:01:02.833 --> 00:01:08.066
+if we take the time to carefully build 
+our own custom lists.
+
+00:01:08.066 --> 00:01:13.933
+In this section, we’ll examine tools and 
+approaches to create effective wordlists.

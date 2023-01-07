@@ -1,0 +1,26 @@
+WEBVTT
+
+00:00:02.123 --> 00:00:03.866
+SMB Enumeration
+
+00:00:04.747 --> 00:00:07.733
+The security track record
+of the SMB protocol
+
+00:00:07.733 --> 00:00:11.200
+has been poor for many years
+due to its complex implementation
+
+00:00:11.200 --> 00:00:12.800
+and open nature.
+
+00:00:13.395 --> 00:00:18.666
+From unauthenticated SMB null
+sessions in Windows 2000 and XP,
+
+00:00:18.666 --> 00:00:22.903
+to a plethora of SMB bugs and
+vulnerabilities over the years,
+
+00:00:22.903 --> 00:00:25.900
+SMB has seen its fair share of action.

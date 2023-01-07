@@ -1,0 +1,208 @@
+WEBVTT
+
+00:00:01.221 --> 00:00:03.633
+Overpass the Hash
+
+00:00:04.517 --> 00:00:09.766
+With overpass the hash, we can “over”
+abuse a NTLM user hash
+
+00:00:09.766 --> 00:00:15.566
+to gain a full Kerberos Ticket Granting
+Ticket or service ticket,
+
+00:00:15.566 --> 00:00:21.533
+which grants us access to another
+machine or service as that user.
+
+00:00:24.891 --> 00:00:28.800
+To demonstrate this, let’s assume we
+have compromised a workstation
+
+00:00:28.800 --> 00:00:32.333
+that the Jeff_Admin user
+has authenticated to,
+
+00:00:32.333 --> 00:00:36.200
+and that machine is now
+caching his credentials.
+
+00:00:36.874 --> 00:00:41.800
+To simulate this cached credential,
+we will run a process as Jeff_Admin,
+
+00:00:41.800 --> 00:00:44.166
+which prompts authentication.
+
+00:00:46.512 --> 00:00:51.566
+The simplest way to do this is to right-
+click the Notepad icon on the taskbar,
+
+00:00:54.877 --> 00:00:59.766
+and shift-right click the Notepad
+icon on the popup.
+
+00:01:01.196 --> 00:01:05.300
+From here, we select
+‘Run as different user’,
+
+00:01:06.906 --> 00:01:12.466
+and enter “jeff_admin” as the username
+along with the password,
+
+00:01:14.812 --> 00:01:19.933
+which will launch Notepad in the context
+of the jeff_admin user.
+
+00:01:20.302 --> 00:01:25.333
+After successful authentication, the
+credentials will be cached on the machine.
+
+00:01:31.182 --> 00:01:35.533
+We can confirm this with the
+logonpasswords command from mimikatz.
+
+00:01:42.620 --> 00:01:49.000
+This command dumps the cached password
+hashes, including the NTLM hash
+
+00:01:49.000 --> 00:01:53.566
+for Jeff_admin which we will
+leverage to overpass the hash.
+
+00:01:54.257 --> 00:02:00.266
+The basic idea of the overpass the hash
+technique is to turn the NTLM hash
+
+00:02:00.266 --> 00:02:06.233
+into a Kerberos ticket and avoid
+the use of NTLM authentication.
+
+00:02:08.177 --> 00:02:13.666
+A simple way to do this is with the
+pth command from Mimikatz.
+
+00:02:15.498 --> 00:02:21.100
+The command requires a few arguments and
+creates a new PowerShell process
+
+00:02:21.100 --> 00:02:25.566
+that will allow us to obtain Kerberos
+tickets without performing
+
+00:02:25.566 --> 00:02:31.833
+NTLM authentication over the network,
+unlike a traditional pass-the-hash attack.
+
+00:02:32.411 --> 00:02:36.600
+As the first argument, we specify /user,
+
+00:02:37.515 --> 00:02:39.633
+and /domain,
+
+00:02:39.633 --> 00:02:44.766
+setting them to jeff_admin
+and corp.com respectively.
+
+00:02:45.168 --> 00:02:50.566
+Next, we specify the NTLM hash with /ntlm,
+
+00:02:51.514 --> 00:02:56.700
+and finally use /run to specify the
+process to create,
+
+00:02:57.471 --> 00:02:59.600
+in this case PowerShell.
+
+00:03:02.187 --> 00:03:04.966
+Now we have a new
+PowerShell session
+
+00:03:04.966 --> 00:03:08.933
+that allows us to execute
+commands as Jeff_admin.
+
+00:03:09.367 --> 00:03:13.033
+Let’s have a look at the cached
+Kerberos tickets with klist.
+
+00:03:16.070 --> 00:03:18.366
+No Kerberos tickets
+have been cached,
+
+00:03:18.366 --> 00:03:23.766
+but this is expected since Jeff_admin
+has not performed an interactive login.
+
+00:03:25.920 --> 00:03:29.033
+Let’s authenticate to a network
+share on the domain controller
+
+00:03:29.033 --> 00:03:31.066
+in order to generate a TGT.
+
+00:03:33.894 --> 00:03:36.400
+The net use command was successful.
+
+00:03:37.348 --> 00:03:42.800
+Now, we’ll use the klist command to list
+the newly requested Kerberos tickets,
+
+00:03:45.837 --> 00:03:51.433
+which includea a TGT and
+a TGS for the CIFS service.
+
+00:03:52.558 --> 00:03:57.366
+We have now converted our
+NTLM hash into a Kerberos TGT
+
+00:03:57.366 --> 00:04:01.533
+allowing us to use any tools that
+rely on Kerberos authentication,
+
+00:04:01.533 --> 00:04:06.066
+such as the official PsExec
+application from Microsoft.
+
+00:04:07.287 --> 00:04:12.533
+PsExec can run a command remotely
+but does not accept password hashes.
+
+00:04:13.240 --> 00:04:16.722
+Since we have generated Kerberos
+tickets and operate in the context
+
+00:04:16.722 --> 00:04:19.266
+of Jeff_Admin in the PowerShell session,
+
+00:04:19.266 --> 00:04:26.100
+we can obtain code execution on the
+domain controller by reusing the TGT.
+
+00:04:26.501 --> 00:04:28.033
+Let’s give it a try.
+
+00:04:33.031 --> 00:04:37.100
+We will run PsExec to launch cmd.exe
+
+00:04:37.774 --> 00:04:41.066
+remotely on the dc01 machine,
+
+00:04:43.059 --> 00:04:44.933
+as Jeff_Admin.
+
+00:04:51.071 --> 00:04:54.766
+We have successfully reused
+the Kerberos TGT
+
+00:04:54.766 --> 00:04:58.333
+to launch a command shell
+on the domain controller.
+
+00:04:58.927 --> 00:05:03.300
+We have succeeded in upgrading
+a cached NTLM password hash
+
+00:05:03.300 --> 00:05:09.400
+to a Kerberos TGT and used it
+to gain remote code execution.

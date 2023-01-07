@@ -1,0 +1,32 @@
+WEBVTT
+
+00:00:01.121 --> 00:00:02.000
+Wrapping Up
+
+00:00:03.140 --> 00:00:07.200
+In this module, we have covered
+the concept of privilege escalation
+
+00:00:07.200 --> 00:00:10.600
+on both Windows and
+Linux operating systems.
+
+00:00:11.108 --> 00:00:15.533
+We covered both manual and
+automated enumeration techniques
+
+00:00:15.533 --> 00:00:20.133
+to find important information
+for common escalation vectors.
+
+00:00:20.738 --> 00:00:24.966
+We also demonstrated how to compile
+code on both windows and Linux,
+
+00:00:24.966 --> 00:00:31.000
+as well as several privilege escalation
+attacks and various privilege escalations
+
+00:00:31.000 --> 00:00:36.333
+ based on misconfigurations
+instead of vulnerable software.

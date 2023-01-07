@@ -1,0 +1,57 @@
+WEBVTT
+
+00:00:01.600 --> 00:00:02.915
+Tab Completion
+
+00:00:03.513 --> 00:00:07.080
+The Bash shell auto-complete
+function allows us to complete
+
+00:00:07.080 --> 00:00:10.980
+filenames and directory paths
+with the Tab key.
+
+00:00:11.533 --> 00:00:15.758
+This is such a time saver that makes
+other shells, which lack this feature,
+
+00:00:15.758 --> 00:00:17.800
+feel clumsy and slow.
+
+00:00:18.372 --> 00:00:22.305
+Let’s take a look at how this works
+from the kali user home directory.
+
+00:00:22.305 --> 00:00:25.672
+We’ll start by typing the following
+command:
+
+00:00:26.300 --> 00:00:31.189
+When we hit the Tab key the first time
+after “D”, Bash suggests that there are
+
+00:00:31.189 --> 00:00:34.755
+three directories starting with that
+letter then presents our
+
+00:00:34.848 --> 00:00:37.582
+partially completed command for us.
+
+00:00:38.133 --> 00:00:40.437
+Since we decide to specify “Desktop”,
+
+00:00:40.437 --> 00:00:43.970
+we’ll type “e” followed
+by the Tab key again.
+
+00:00:43.970 --> 00:00:48.137
+At this point the Bash shell magically
+auto-completes the rest of the word
+
+00:00:48.137 --> 00:00:52.637
+“Desktop” as this is the only
+choice that starts with “De”.
+
+00:00:52.925 --> 00:00:56.125
+Refer to your lab guide
+for more Information.

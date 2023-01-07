@@ -1,0 +1,61 @@
+WEBVTT
+
+00:00:01.693 --> 00:00:03.700
+Client-Side Attacks
+
+00:00:04.600 --> 00:00:07.579
+The Metasploit Framework
+also offers many features
+
+00:00:07.579 --> 00:00:13.333
+that assist with client-side attacks,
+including various executable formats
+
+00:00:13.333 --> 00:00:16.000
+beyond those we have already explored.
+
+00:00:16.575 --> 00:00:19.566
+We can review some of
+these executable formats with the
+
+00:00:19.566 --> 00:00:23.766
+-l formats option of msfvenom
+
+00:00:29.679 --> 00:00:36.533
+The hta-psh, vba, and vba-psh formats,
+
+00:00:36.533 --> 00:00:40.266
+are designed for use
+in client-side attacks
+
+00:00:40.266 --> 00:00:44.233
+by creating either a
+malicious HTML Application
+
+00:00:44.233 --> 00:00:51.033
+or an Office macro for use in a Word or
+Excel document, respectively.
+
+00:00:55.133 --> 00:00:59.000
+The MSF also contains
+many browser exploits.
+
+00:00:59.700 --> 00:01:06.366
+For example, we can search for “flash” to
+display multiple Flash-based exploits.
+
+00:01:10.391 --> 00:01:15.133
+While the exploits are verified and most
+are stable, they are also somewhat
+
+00:01:15.133 --> 00:01:19.500
+dated due to the increasing challenges
+of developing browser exploits.
+
+00:01:21.600 --> 00:01:26.133
+If we discover a target running an older
+operating system like Windows 7
+
+00:01:26.133 --> 00:01:31.766
+with an unpatched browser, this type
+of vector may provide the opening we need.

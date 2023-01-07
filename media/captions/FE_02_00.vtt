@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:01.342 --> 00:00:03.766
+Fixing Web Exploits
+
+00:00:04.652 --> 00:00:09.766
+Web application vulnerabilities do not
+often result in memory corruption.
+
+00:00:09.981 --> 00:00:12.433
+This means that they are not affected
+
+00:00:12.433 --> 00:00:15.333
+by protections provided
+by the operating system
+
+00:00:15.333 --> 00:00:17.666
+such as DEP and ASLR
+
+00:00:17.666 --> 00:00:21.333
+and they are significantly
+easier to re-purpose.

@@ -1,0 +1,131 @@
+WEBVTT
+
+00:00:01.166 --> 00:00:03.466
+Column Number Enumeration
+
+00:00:04.566 --> 00:00:09.400
+We can add an order by clause to
+the query for simple enumeration.
+
+00:00:09.800 --> 00:00:13.833
+This clause tells the database
+to sort the results of the query
+
+00:00:13.833 --> 00:00:17.466
+by the values in one or more columns.
+
+00:00:18.033 --> 00:00:22.266
+We can use column names or
+the column index in the query.
+
+00:00:29.066 --> 00:00:32.233
+This query instructs the
+database to sort the results
+
+00:00:32.233 --> 00:00:34.933
+based on the values in the first column.
+
+00:00:35.800 --> 00:00:38.266
+If there is at least
+one column in the query,
+
+00:00:38.266 --> 00:00:42.700
+the query is valid and the
+page will render without errors.
+
+00:00:44.533 --> 00:00:49.833
+We can submit multiple queries,
+incrementing the order by clause each time
+
+00:00:49.833 --> 00:00:52.333
+until the query generates an error, 
+
+00:00:52.333 --> 00:00:57.900
+indicating that the maximum number of
+columns returned by the query in question
+
+00:00:57.900 --> 00:00:59.700
+has been exceeded.
+
+00:01:00.266 --> 00:01:03.766
+Remember that a query can
+select all the columns in a table
+
+00:01:03.766 --> 00:01:06.400
+or just a subset of columns.
+
+00:01:07.000 --> 00:01:10.366
+We need to rely on this
+trial-and-error approach
+
+00:01:10.366 --> 00:01:13.266
+if we do not have access
+to the source query.
+
+00:01:14.000 --> 00:01:17.933
+Since we will need to iterate the column
+number an arbitrary number of times,
+
+00:01:17.933 --> 00:01:21.866
+we should automate the queries
+with Burp Suite’s Repeater tool.
+
+00:01:27.100 --> 00:01:31.333
+To do this, we must locate
+the request we want to repeat.
+
+00:01:36.433 --> 00:01:41.733
+Next, we will right-click on the request
+and select Send to Repeater.
+
+00:01:42.515 --> 00:01:45.633
+The request should now
+show under the Repeater tab.
+
+00:01:48.645 --> 00:01:51.866
+Notice that the request
+has been URL-encoded
+
+00:01:51.866 --> 00:01:55.900
+and displays space characters as %20.
+
+00:01:56.860 --> 00:01:59.000
+This should not affect our query.
+
+00:01:59.592 --> 00:02:02.566
+We can click Send to submit the query.
+
+00:02:03.455 --> 00:02:05.266
+The response looks normal.
+
+00:02:05.681 --> 00:02:10.333
+We can use the search box under the
+Response pane to search for “Error”
+
+00:02:10.333 --> 00:02:14.333
+and verify there are no
+matches in the response body.
+
+00:02:24.293 --> 00:02:27.433
+Next, we can increment the order_by clause
+
+00:02:27.433 --> 00:02:29.533
+and send the query again
+
+00:02:29.533 --> 00:02:31.900
+until we receive an error message.
+
+00:02:49.875 --> 00:02:52.133
+The search box under the Response pane
+
+00:02:52.133 --> 00:02:54.900
+tells us there is an
+error in the response.
+
+00:03:00.603 --> 00:03:04.933
+Since the order by clause produced
+an error on the fourth iteration,
+
+00:03:04.933 --> 00:03:10.566
+we know that the query returns
+a result set containing three columns. 

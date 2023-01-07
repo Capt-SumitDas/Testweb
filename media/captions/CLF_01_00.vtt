@@ -1,0 +1,15 @@
+WEBVTT
+
+00:00:01.431 --> 00:00:03.033
+The Bash Environment
+
+00:00:03.582 --> 00:00:07.582
+Bash is a shell that allows us to run
+complex commands and perform different
+
+00:00:07.582 --> 00:00:09.882
+tasks from a terminal window.
+
+00:00:09.882 --> 00:00:14.382
+It incorporates useful features from both
+the KornShell and C shell.

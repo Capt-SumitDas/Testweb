@@ -1,0 +1,238 @@
+WEBVTT
+
+00:00:01.433 --> 00:00:03.000
+Recon-ng
+
+00:00:03.833 --> 00:00:10.333
+recon-ng is a module-based framework for
+web-based information gathering.
+
+00:00:10.533 --> 00:00:13.800
+It displays the results of a module to the
+terminal
+
+00:00:13.800 --> 00:00:17.300
+but can also stores the in a database.
+
+00:00:17.333 --> 00:00:22.666
+Much of the power of recon-ng lies in
+feeding the results of one module
+
+00:00:22.666 --> 00:00:24.233
+into another,
+
+00:00:24.233 --> 00:00:28.333
+allowing us to quickly expand the scope
+of our information gathering.
+
+00:00:28.666 --> 00:00:33.466
+Let’s use recon-ng to compile interesting
+data about MegaCorp One.
+
+00:00:33.733 --> 00:00:38.033
+To get started, let’s simply run recon-ng.
+
+00:00:42.966 --> 00:00:48.933
+According to the output, we need to
+install various modules to use recon-ng.
+
+00:00:49.800 --> 00:00:54.600
+We can add modules from the recon-ng
+“Marketplace”.
+
+00:00:54.866 --> 00:01:00.333
+We’ll search the marketplace from the
+main prompt with marketplace search,
+
+00:01:00.333 --> 00:01:03.500
+providing a search string as an argument.
+
+00:01:04.533 --> 00:01:09.900
+In this example, we will search for
+modules that contain the term github.
+
+00:01:11.000 --> 00:01:16.100
+Notice that some of the modules are marked
+with an asterisk in the “K” column.
+
+00:01:16.766 --> 00:01:23.366
+These modules require credentials or API
+keys for third-party providers.
+
+00:01:23.800 --> 00:01:29.566
+The recon-ng wiki maintains a short list
+of the keys used by its modules.
+
+00:01:29.566 --> 00:01:32.200
+Some of these keys are available to free
+accounts,
+
+00:01:32.200 --> 00:01:34.866
+while others require a subscription.
+
+00:01:36.000 --> 00:01:40.166
+We can learn more about a module by using
+marketplace info
+
+00:01:40.166 --> 00:01:42.133
+followed by the module name.
+
+00:01:43.333 --> 00:01:47.066
+Since the GitHub modules require API keys,
+
+00:01:47.066 --> 00:01:54.633
+let’s use this command to examine the
+domains-hosts google_site_web module.
+
+00:01:57.300 --> 00:02:02.633
+According to its description, this module searches Google with the “site” operator
+
+00:02:04.666 --> 00:02:08.233
+and it doesn’t require an API key.
+
+00:02:09.866 --> 00:02:14.366
+Let’s install the module with marketplace
+install.
+
+00:02:21.066 --> 00:02:22.600
+After installing the module,
+
+00:02:22.600 --> 00:02:28.033
+we can load it with modules load
+followed by the name of the module.
+
+00:02:30.833 --> 00:02:36.466
+Then, we’ll use info to display details
+about the module and required parameters.
+
+00:02:38.766 --> 00:02:43.400
+Notice that the output contains additional
+information about the module
+
+00:02:43.400 --> 00:02:45.833
+now that we’ve installed it and loaded it.
+
+00:02:46.166 --> 00:02:50.266
+According to the output, the module
+requires the use of a source,
+
+00:02:50.266 --> 00:02:54.233
+which is the target we want to gather
+information about.
+
+00:02:56.666 --> 00:03:02.966
+In this case, we will use options set
+SOURCE megacorpone.com
+
+00:03:02.966 --> 00:03:05.533
+to set our target domain.
+
+00:03:06.700 --> 00:03:09.433
+Finally, we run the module.
+
+00:03:14.200 --> 00:03:18.800
+The results mirror what we found from the
+Netcraft DNS search.
+
+00:03:18.800 --> 00:03:21.566
+However, we haven’t wasted our time here.
+
+00:03:22.666 --> 00:03:26.400
+Recon-ng stores results in a local
+database
+
+00:03:26.400 --> 00:03:31.833
+and these results will feed into other
+recon-ng modules.
+
+00:03:33.766 --> 00:03:38.566
+We can use the show hosts command to view
+stored data.
+
+00:03:40.400 --> 00:03:44.866
+We have five hosts in our database but no
+additional information on them.
+
+00:03:45.233 --> 00:03:49.033
+Perhaps another module can fill in the IP
+addresses.
+
+00:03:50.100 --> 00:03:54.266
+Let’s examine hosts resolve with
+marketplace info.
+
+00:03:56.300 --> 00:03:58.900
+The module description suits our needs
+
+00:03:58.900 --> 00:04:01.666
+so we will install it with marketplace
+install.
+
+00:04:04.166 --> 00:04:08.300
+Once the module is installed, we can use
+it with modules load,
+
+00:04:11.033 --> 00:04:16.566
+and run info to display information about
+the module and its options.
+
+00:04:17.866 --> 00:04:22.200
+This module will resolve the IP address
+for a host.
+
+00:04:22.966 --> 00:04:26.600
+We have four options we can set for
+the source:
+
+00:04:26.600 --> 00:04:30.900
+default, string, path, and query.
+
+00:04:31.233 --> 00:04:34.633
+Each option has a description alongside
+it.
+
+00:04:36.566 --> 00:04:39.966
+For example, in the google_site_web module
+
+00:04:39.966 --> 00:04:42.300
+we used a string value.
+
+00:04:42.500 --> 00:04:45.600
+However, we want to leverage the
+database this time.
+
+00:04:45.833 --> 00:04:47.733
+If we use the “default” value,
+
+00:04:47.733 --> 00:04:52.033
+recon-ng will look up the host information
+in its database
+
+00:04:52.033 --> 00:04:57.200
+for any records that have a host name but
+no IP address.
+
+00:04:59.433 --> 00:05:02.100
+By selecting the “default” source,
+
+00:05:02.100 --> 00:05:07.533
+the module will run against all hosts in
+our database automatically.
+
+00:05:07.533 --> 00:05:10.900
+Let’s try this out by leaving our source
+set to “default”
+
+00:05:10.900 --> 00:05:12.333
+and then running the module.
+
+00:05:15.966 --> 00:05:20.733
+Nice. We now have IP addresses for the
+five domains.
+
+00:05:20.733 --> 00:05:22.500
+If we show hosts again,
+
+00:05:22.500 --> 00:05:27.566
+we can verify the database has been
+updated with the results of both modules.

@@ -1,0 +1,293 @@
+WEBVTT
+
+00:00:02.266 --> 00:00:03.700
+Functions
+
+00:00:05.366 --> 00:00:10.533
+In terms of Bash scripting, we can think 
+of a function as a script within a script,
+
+00:00:10.533 --> 00:00:15.166
+which is useful when we need to execute 
+the same code multiple times.
+
+00:00:15.166 --> 00:00:19.000
+Rather than re-writing the same chunk of 
+code over and over,
+
+00:00:19.000 --> 00:00:23.633
+we can write it once as a function and 
+then call that function as needed.
+
+00:00:24.166 --> 00:00:28.333
+Put another way, a function is a 
+subroutine, or a code block
+
+00:00:28.333 --> 00:00:34.766
+that implements a set of operations– a 
+“black box” that performs a specific task.
+
+00:00:35.133 --> 00:00:38.233
+Functions may be written in two different 
+formats.
+
+
+00:00:38.233 --> 00:00:41.866
+The first format is more common to Bash 
+scripts.
+
+
+00:00:41.866 --> 00:00:45.733
+The second format is more familiar to C 
+programmers.
+
+
+00:00:46.066 --> 00:00:50.166
+The formats are functionally identical 
+and are a matter of personal preference.
+
+
+00:00:50.633 --> 00:00:52.766
+Consider this simple example.
+
+
+00:00:53.600 --> 00:00:57.533
+In this script, we declare a function 
+called print me..
+
+
+00:00:57.933 --> 00:01:00.966
+…that simply echoes a line to the screen.
+
+
+00:01:01.233 --> 00:01:04.600
+We then call the function by its name to 
+execute it.
+
+
+00:01:10.533 --> 00:01:12.866
+Functions can also accept arguments.
+
+
+00:01:13.000 --> 00:01:16.833
+In this case, we pass a random number 
+into the function…
+
+
+00:01:16.833 --> 00:01:21.766
+…which outputs it as $1, the function’s 
+first argument.
+
+
+00:01:22.233 --> 00:01:25.500
+Note that the function definition 
+contains parentheses.
+
+
+00:01:25.600 --> 00:01:27.966
+In other programming languages, such as C,
+
+
+00:01:27.966 --> 00:01:31.566
+these would contain the expected 
+arguments, but in Bash
+
+00:01:31.566 --> 00:01:36.100
+the parentheses serve only as decoration
+and are never used.
+
+00:01:36.466 --> 00:01:39.866
+Also note that the function definition 
+must appear in the script
+
+00:01:39.866 --> 00:01:41.633
+before it is called.
+
+
+00:01:42.166 --> 00:01:45.600
+Logically, we can’t call something 
+we’ve not defined.
+
+
+00:01:46.000 --> 00:01:48.800
+Let’s run this script to verify that it 
+works.
+
+
+00:01:50.200 --> 00:01:53.066
+In addition to passing arguments to Bash 
+functions, 
+
+00:01:53.066 --> 00:01:55.500
+we can return values from them as well.
+
+00:01:55.866 --> 00:02:00.100
+Bash functions do not actually allow you 
+to return an arbitrary value
+
+00:02:00.100 --> 00:02:01.666
+in the traditional sense.
+
+00:02:02.000 --> 00:02:05.866
+Instead, a Bash function can return an 
+exit status, 
+
+00:02:05.866 --> 00:02:09.966
+like zero for success and non-zero for 
+failure,
+
+00:02:09.966 --> 00:02:14.533
+or some other arbitrary value that we can 
+later access from the 
+
+00:02:14.533 --> 00:02:17.866
+dollar-question-mark global variable.
+
+00:02:17.866 --> 00:02:22.066
+Alternatively, we can set a global 
+variable inside the function
+
+00:02:22.066 --> 00:02:26.633
+or use command substitution to simulate a 
+traditional return.
+
+00:02:27.966 --> 00:02:32.933
+This basic example returns a random 
+number into dollar-question-mark.
+
+
+00:02:37.366 --> 00:02:41.466
+Notice that a random number is returned 
+every time we run the script.
+
+
+00:02:41.666 --> 00:02:46.433
+This is because we returned the special 
+global variable $RANDOM 
+
+00:02:46.433 --> 00:02:48.600
+into dollar-question-mark.
+
+00:02:48.800 --> 00:02:52.533
+If we used the return statement without 
+the $RANDOM argument,
+
+00:02:52.533 --> 00:02:56.600
+the exit status of the function 
+(which is 0 in this case)
+
+00:02:56.600 --> 00:02:58.433
+would be returned instead.
+
+00:02:59.066 --> 00:03:02.466
+Now that we have a basic understanding of 
+variables and functions,
+
+00:03:02.466 --> 00:03:05.733
+we can dig deeper and discuss variable 
+scope.
+
+00:03:05.900 --> 00:03:10.066
+The scope of a variable is simply the 
+context in which it has meaning.
+
+
+00:03:10.333 --> 00:03:13.300
+By default, a variable has a global scope,
+
+00:03:13.300 --> 00:03:16.433
+meaning it can be accessed throughout the 
+entire script.
+
+00:03:16.933 --> 00:03:21.733
+In contrast, a local variable can only 
+be seen within the function,
+
+00:03:21.733 --> 00:03:25.266
+lock of code, or subshell in which it is 
+defined.
+
+00:03:25.566 --> 00:03:30.100
+We can “overlay” a global variable, 
+giving it a local context, 
+
+00:03:30.100 --> 00:03:33.966
+by preceding the declaration with the 
+local keyword…
+
+00:03:34.233 --> 00:03:36.566
+…leaving the global variable untouched.
+
+
+00:03:36.866 --> 00:03:42.133
+Let’s see how local and global variables 
+work in practice with a simple example.
+
+
+00:03:43.000 --> 00:03:45.866
+Let’s highlight a few key points within 
+this code.
+
+
+00:03:46.066 --> 00:03:49.366
+First note that we declare two global 
+variables, 
+
+00:03:49.366 --> 00:03:54.166
+setting name1 to John and name2 to Jason.
+
+00:03:54.633 --> 00:03:58.200
+Then, we define a function and inside 
+that function, 
+
+00:03:58.200 --> 00:04:03.500
+declare a local variable called name1, 
+setting the value to Edward.
+
+00:04:03.900 --> 00:04:06.033
+Since this is a local variable,
+
+
+00:04:06.033 --> 00:04:09.566
+the previous global assignment is not 
+affected.
+
+00:04:09.933 --> 00:04:14.800
+name1 will still be set to John outside 
+this function.
+
+00:04:15.033 --> 00:04:18.233
+Next, we set name2 to Lucas.
+
+00:04:18.366 --> 00:04:21.066
+Since we did not use the local keyword, 
+
+00:04:21.066 --> 00:04:23.600
+we are changing the global variable, 
+
+00:04:23.600 --> 00:04:27.866
+and the assignment sticks both inside and 
+outside of the function.
+
+00:04:28.166 --> 00:04:30.366
+Let’s run this script to see it in action.
+
+
+00:04:32.700 --> 00:04:37.366
+Based on this example, we know that 
+changing the value of a local variable
+
+00:04:37.366 --> 00:04:42.366
+with the same name as a global one will 
+not affect its global value.
+
+00:04:42.533 --> 00:04:47.133
+We’ve also verified that changing the 
+value of a global variable inside of a
+
+00:04:47.133 --> 00:04:51.133
+function – without having declared a 
+local variable with the same name –
+
+00:04:51.133 --> 00:04:53.600
+will affect its global value.

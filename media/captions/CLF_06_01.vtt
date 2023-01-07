@@ -1,0 +1,142 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.100
+Backgrounding Processes (bg)
+
+00:00:03.174 --> 00:00:06.707
+The previous jobs in this module
+have been run in the foreground,
+
+00:00:06.707 --> 00:00:11.122
+which means the terminal is occupied
+and no other commands can be executed 
+
+00:00:11.122 --> 00:00:13.433
+until the current one finishes.
+
+00:00:13.433 --> 00:00:15.939
+Since most of our examples
+have been short and sweet,
+
+00:00:15.939 --> 00:00:17.633
+this hasn’t caused a problem.
+
+00:00:17.922 --> 00:00:19.009
+We will, however,
+
+00:00:19.009 --> 00:00:22.933
+ be running longer and more
+complex commands in later modules,
+
+00:00:22.933 --> 00:00:25.142
+which we can send to the background,
+
+00:00:25.142 --> 00:00:27.742
+in order to regain
+control of the terminal
+
+00:00:27.742 --> 00:00:29.966
+and execute additional commands.
+
+00:00:30.359 --> 00:00:32.342
+The quickest way to background
+a process
+
+00:00:32.342 --> 00:00:35.530
+is to append an ampersand to
+the end of the command
+
+00:00:35.530 --> 00:00:39.363
+to send it to the background
+immediately after it starts.
+
+00:00:39.487 --> 00:00:41.133
+Let’s try a brief example.
+
+00:00:41.422 --> 00:00:47.433
+We’ll send 400 ICMP echo requests to the
+local interface with the ping command,
+
+00:00:47.433 --> 00:00:49.400
+and write the results to a file.
+
+00:00:50.122 --> 00:00:52.933
+The execution automatically
+runs in the background,
+
+00:00:52.933 --> 00:00:56.088
+ leaving the shell free for
+additional operations.
+
+00:00:56.088 --> 00:00:59.796
+But what would have happened if we had
+forgotten to append the ampersand
+
+00:00:59.796 --> 00:01:01.466
+at the end of the command?
+
+00:01:02.127 --> 00:01:04.533
+This command will run
+in the foreground,
+
+00:01:04.533 --> 00:01:08.033
+and we are forced to either
+cancel the command with control-c,
+
+00:01:08.033 --> 00:01:12.066
+or wait until the command finishes
+to regain control of the terminal.
+
+00:01:12.066 --> 00:01:14.714
+The other option is to suspend the job
+
+00:01:14.714 --> 00:01:17.680
+using control-z after it
+has already started.
+
+00:01:17.969 --> 00:01:19.780
+Once a job has been suspended,
+
+00:01:19.780 --> 00:01:23.614
+we can resume it in the
+background using the bg command.
+
+00:01:24.378 --> 00:01:25.966
+The job is now running in
+the background
+
+00:01:25.966 --> 00:01:28.933
+ and we can continue using the
+terminal as we wish.
+
+00:01:30.565 --> 00:01:31.501
+While doing this, 
+
+00:01:31.501 --> 00:01:34.801
+keep in mind that some
+processes are time-sensitive
+
+00:01:34.801 --> 00:01:39.500
+and may give incorrect results if
+left suspended for too long.
+
+00:01:39.685 --> 00:01:41.766
+For instance, in the ping example,
+
+00:01:41.766 --> 00:01:44.300
+the echo reply may come back
+
+00:01:44.300 --> 00:01:47.733
+but if theprocess is suspended
+when the packet comes in,
+
+00:01:47.733 --> 00:01:51.366
+the process may miss it, leading
+to incorrect output.
+
+00:01:51.686 --> 00:01:55.315
+Always consider the context of what
+the commands you are running are doing
+
+00:01:55.315 --> 00:01:57.300
+when engaging in job control.

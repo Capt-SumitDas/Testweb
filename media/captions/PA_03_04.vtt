@@ -1,0 +1,153 @@
+WEBVTT
+
+00:00:01.618 --> 00:00:06.066
+HTTP POST Attack with THC-Hydra
+
+00:00:07.366 --> 00:00:12.447
+As an additional example, we will perform
+an HTTP POST attack
+
+00:00:12.447 --> 00:00:16.266
+against our Windows Apache server 
+using Hydra.
+
+00:00:16.266 --> 00:00:20.328
+When a HTTP POST request is 
+used for user login, 
+
+00:00:20.328 --> 00:00:23.691
+it is most often through the use 
+of a web form, 
+
+00:00:23.691 --> 00:00:29.166
+which means we should use the 
+“http-form-post” service module.
+
+00:00:29.735 --> 00:00:34.300
+We can supply the service name
+followed by -U 
+
+00:00:34.300 --> 00:00:38.833
+to obtain additional information
+about the required arguments:
+
+00:00:40.366 --> 00:00:44.600
+From this output, we determine that we 
+need to provide a number of arguments 
+
+00:00:44.600 --> 00:00:48.266
+that will require us to perform some 
+application discovery.
+
+00:00:52.553 --> 00:00:55.609
+First, we need the IP address and the URL
+
+00:00:55.609 --> 00:00:59.433
+of the webpage containing the web 
+form on our Windows client.
+
+00:00:59.433 --> 00:01:04.500
+We'll provide the IP address as 
+the first argument to hydra.
+
+00:01:10.755 --> 00:01:14.818
+Next, we must understand the web 
+form we want to brute force 
+
+00:01:14.818 --> 00:01:19.033
+by inspecting the HTML code of the
+target web page.
+
+00:01:21.701 --> 00:01:27.470
+We can view the HTML by right-clicking
+the page and selecting View Page Source
+
+00:01:27.470 --> 00:01:29.333
+ from the context menu.
+
+00:01:32.089 --> 00:01:37.766
+The form indicates that the POST request
+is handled by frontpage.php, 
+
+00:01:37.766 --> 00:01:41.166
+which is the URL we will feed to Hydra.
+
+00:01:41.166 --> 00:01:45.366
+The hydra syntax requires the 
+form parameters, 
+
+00:01:45.366 --> 00:01:49.033
+which in this case are user and pass.
+
+00:01:49.952 --> 00:01:53.633
+Since we’re going to attack the admin user
+login with a wordlist, 
+
+00:01:53.633 --> 00:01:57.566
+the combined argument to Hydra
+becomes the following,
+
+00:01:58.572 --> 00:02:03.933
+with PASS acting as a placeholder for our
+wordlist file entries.
+
+00:02:03.933 --> 00:02:07.000
+We must also provide the condition 
+string to indicate
+
+00:02:07.000 --> 00:02:10.233
+when a login attempt is unsuccessful.
+
+00:02:15.066 --> 00:02:19.400
+We can find this by attempting a manual 
+login against the page.
+
+00:02:26.487 --> 00:02:32.266
+In our example, the web page returns
+the text “INVALID LOGIN”.
+
+00:02:40.009 --> 00:02:45.733
+Putting these pieces together, we can 
+complete the http-form-post syntax.
+
+00:02:45.733 --> 00:02:49.133
+The complete command can now 
+be executed.
+
+00:02:50.839 --> 00:02:55.800
+We’ll supply the admin user 
+name and rockyou wordlist,
+
+00:02:55.800 --> 00:03:02.866
+request verbose output with 
+-vV, and use -f to stop the attack 
+
+00:03:02.866 --> 00:03:06.066
+when the first successful result is found.
+
+00:03:06.766 --> 00:03:10.400
+In addition, we will supply the 
+service module name,
+
+00:03:11.143 --> 00:03:14.233
+and its required arguments.
+
+00:03:22.764 --> 00:03:26.200
+Although this required some investigation
+of the application, 
+
+00:03:26.200 --> 00:03:30.666
+the result is worth it as we discovered
+a valid password.
+
+00:03:31.633 --> 00:03:35.466
+Let’s verify that this is indeed the
+correct password.
+
+00:03:49.903 --> 00:03:56.400
+Excellent, hydra successfully found the
+correct admin password for us.
+
+00:04:00.730 --> 00:04:07.600
+The other service modules included with 
+Hydra are well worth the effort to master.

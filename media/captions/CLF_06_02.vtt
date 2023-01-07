@@ -1,0 +1,51 @@
+WEBVTT
+
+00:00:01.476 --> 00:00:04.876
+Jobs Control: jobs and fg
+
+00:00:05.389 --> 00:00:08.889
+To quickly check on the status
+of our ICMP echo requests, 
+
+00:00:08.889 --> 00:00:13.922
+we need to make use of two additional
+commands: jobs and fg.
+
+00:00:14.212 --> 00:00:18.679
+Let’s begin by starting and suspending
+two long-running commands.
+
+00:00:28.899 --> 00:00:30.966
+The built-in jobs utility
+
+00:00:30.966 --> 00:00:34.766
+lists the jobs that are running
+in the current terminal session.
+
+00:00:35.112 --> 00:00:36.845
+Running the fg command
+
+00:00:36.845 --> 00:00:39.712
+followed by a percent sign
+and job number
+
+00:00:39.712 --> 00:00:41.979
+returns a job to the foreground.
+
+00:00:41.979 --> 00:00:47.279
+We’ll use ctrl-c to terminate this
+ping process and run jobs again.
+
+00:00:49.999 --> 00:00:51.399
+With only one job running,
+
+00:00:51.410 --> 00:00:56.443
+we can run fg without any additional
+arguments to return it to the foreground.
+
+00:00:58.489 --> 00:01:03.056
+Specific jobs can also be referenced
+by their process ID number
+
+00:01:03.056 --> 00:01:04.756
+or command name

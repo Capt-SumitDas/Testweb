@@ -1,0 +1,68 @@
+WEBVTT
+
+00:00:01.496 --> 00:00:03.333
+Cracking the Password
+
+00:00:04.258 --> 00:00:06.033
+Now that we have the password hash,
+
+00:00:06.033 --> 00:00:09.633
+we will need to crack it to
+get the plaintext password.
+
+00:00:15.792 --> 00:00:17.933
+Instead of running a brute force attack,
+
+00:00:17.933 --> 00:00:23.066
+we use the “rockyou” wordlist,
+which is included in Kali Linux.
+
+00:00:23.753 --> 00:00:29.033
+Before we continue, let’s create a file
+containing the password hash…
+
+00:00:31.540 --> 00:00:34.195
+…and attempt to crack the password
+
+00:00:34.195 --> 00:00:35.800
+with John the Ripper.
+
+00:00:36.839 --> 00:00:42.400
+We will use the –wordlist option
+along with the path to our wordlist,
+
+00:00:42.819 --> 00:00:46.700
+and provide the filename
+that contains the password hash.
+
+00:00:50.608 --> 00:00:54.433
+It appears that John the Ripper has cracked the password.
+
+00:00:54.433 --> 00:00:58.466
+Let’s try to log in to the
+web application with this password.
+
+00:01:03.071 --> 00:01:08.200
+We’ll browse the default
+WordPress login page at /wp-admin…
+
+00:01:12.633 --> 00:01:14.291
+and attempt to log in
+
+00:01:14.300 --> 00:01:19.333
+as the wp_ajla_admin user
+with the password we discovered.
+
+00:01:25.702 --> 00:01:27.233
+The credentials worked.
+
+00:01:27.233 --> 00:01:30.133
+We're presented with
+the admin dashboard.
+
+00:01:30.638 --> 00:01:33.966
+Now that we are logged in,
+we can continue our enumeration
+
+00:01:33.966 --> 00:01:36.366
+to discover our next attack vector.

@@ -1,0 +1,62 @@
+WEBVTT
+
+00:00:01.824 --> 00:00:04.391
+Persistent Bash Customization
+
+00:00:05.371 --> 00:00:10.038
+The behavior of interactive shells in
+Bash is determined by the system-wide
+
+00:00:10.038 --> 00:00:17.204
+bashrc file located in /etc/bash.bashrc.
+
+00:00:17.804 --> 00:00:22.938
+The system-wide Bash settings can be
+overridden by editing the .bashrc file
+
+00:00:22.938 --> 00:00:25.804
+located in any user’s home directory.
+
+00:00:26.404 --> 00:00:29.771
+In the previous section, we explored
+the alias command,
+
+00:00:29.771 --> 00:00:33.204
+which sets an alias for the
+current terminal session.
+
+00:00:33.371 --> 00:00:37.238
+We can also insert this command
+into the .bashrc file
+
+00:00:37.238 --> 00:00:41.304
+in a user’s home directory to set
+a persistent alias.
+
+00:00:41.498 --> 00:00:45.764
+The .bashrc script is executed
+any time that user logs in.
+
+00:00:45.764 --> 00:00:49.164
+Since this file is a shell script, we can
+insert any command
+
+00:00:49.164 --> 00:00:52.298
+that could be executed from
+the command prompt.
+
+00:00:52.311 --> 00:00:56.044
+Let’s examine a few lines of
+our default .bashrc file.
+
+00:00:58.291 --> 00:01:03.591
+You might recognize the HISTSIZE and
+HISTFILESIZE environment variables…
+
+00:01:06.064 --> 00:01:09.598
+and the alias command that
+displays colored output.
+
+00:01:09.598 --> 00:01:13.598
+You will also find some other aliases
+in this file that are commented out.

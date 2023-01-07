@@ -1,0 +1,313 @@
+WEBVTT
+
+00:00:01.515 --> 00:00:03.915
+Offline Exploit Resources
+
+00:00:04.940 --> 00:00:09.407
+Access to the Internet is not always
+guaranteed during a penetration test.
+
+00:00:09.940 --> 00:00:13.840
+In cases where the assessment takes
+place in an isolated environment,
+
+00:00:13.840 --> 00:00:17.607
+the Kali Linux distribution
+comes with various tools
+
+00:00:17.631 --> 00:00:20.631
+that provide offline access
+to exploits.
+
+00:00:21.915 --> 00:00:22.915
+SearchSploit
+
+00:00:23.915 --> 00:00:27.848
+The Exploit Database provides a
+downloadable archived copy
+
+00:00:27.848 --> 00:00:30.282
+of all hosted exploit code.
+
+00:00:30.698 --> 00:00:36.598
+This archive is included by default
+in Kali in the exploitdb package.
+
+00:00:37.182 --> 00:00:40.715
+We recommended that you update
+the package before any assessment
+
+00:00:40.740 --> 00:00:43.707
+in order to ensure that you
+have the latest exploits.
+
+00:00:44.498 --> 00:00:49.131
+As with any other package, this is
+done using the apt utility.
+
+00:00:57.340 --> 00:01:00.891
+The exploitdb package stores
+its copy of the database
+
+00:01:00.891 --> 00:01:04.657
+in the
+/usr/share/exploitdb/ directory.
+
+00:01:07.265 --> 00:01:12.765
+This directory is split into two major
+sections: exploits and shellcodes.
+
+00:01:14.465 --> 00:01:17.531
+The exploits directory is
+further divided into seperate
+
+00:01:17.531 --> 00:01:19.765
+directories for each
+operating system,
+
+00:01:19.765 --> 00:01:22.565
+architecture, and scripting language.
+
+00:01:25.640 --> 00:01:29.273
+Manually searching the Exploit Database
+is by no means ideal,
+
+00:01:29.273 --> 00:01:33.540
+especially given the large quantity
+of exploits in the archive.
+
+00:01:35.940 --> 00:01:39.373
+This is where the searchsploit
+utility comes in handy.
+
+00:01:42.940 --> 00:01:45.807
+To display its usage, we
+simply run searchsploit
+
+00:01:45.807 --> 00:01:48.407
+from the command line
+without any parameters.
+
+00:01:53.898 --> 00:01:55.965
+As the built-in examples reveal,
+
+00:01:55.965 --> 00:01:59.798
+searchsploit allows us to search
+through the entire archive
+
+00:01:59.798 --> 00:02:04.731
+and display results based on various
+search terms provided as arguments.
+
+00:02:06.173 --> 00:02:10.673
+The options allow us to narrow
+our search, change the output format,
+
+00:02:10.698 --> 00:02:13.398
+update the database, and more:
+
+00:02:16.307 --> 00:02:22.273
+Finally, the “Notes” section of the help
+menu reveals helpful search tips.
+
+00:02:26.240 --> 00:02:31.240
+For example, we can search for
+all available remote exploits
+
+00:02:31.240 --> 00:02:36.340
+that target the SMB service on
+the Windows operating system
+
+00:02:36.365 --> 00:02:38.231
+with this syntax.
+
+00:02:40.540 --> 00:02:45.773
+Searchsploit returns the results in
+a table containing the exploit title
+
+00:02:45.773 --> 00:02:49.507
+and the path to its location
+on the filesystem.
+
+00:02:54.073 --> 00:02:56.107
+Nmap NSE Scripts
+
+00:02:57.407 --> 00:03:01.107
+Nmap is one of the most popular
+tools for enumeration.
+
+00:03:01.831 --> 00:03:06.765
+One very powerful feature includes
+the Nmap Scripting Engine,
+
+00:03:06.765 --> 00:03:11.931
+which introduces the ability to
+automate various tasks using scripts.
+
+00:03:12.415 --> 00:03:16.615
+The Nmap Scripting Engine comes with a
+variety of scripts to enumerate,
+
+00:03:16.615 --> 00:03:21.848
+bruteforce, fuzz, detect,
+and exploit services.
+
+00:03:22.531 --> 00:03:26.431
+A complete list of scripts provided
+by the Nmap Scripting Engine
+
+00:03:26.431 --> 00:03:31.231
+can be found under
+/usr/share/nmap/scripts.
+
+00:03:32.431 --> 00:03:37.165
+Using grep to quickly search
+the NSE scripts for the word “Exploits”
+
+00:03:37.165 --> 00:03:39.598
+returns a number of results.
+
+00:03:40.248 --> 00:03:45.215
+We can list information on
+specific NSE scripts by running nmap
+
+00:03:45.240 --> 00:03:50.607
+with the script-help option
+followed by the script filename.
+
+00:03:51.640 --> 00:03:54.707
+This provides information
+about the vulnerability
+
+00:03:54.707 --> 00:03:57.440
+and external information resources.
+
+00:04:04.831 --> 00:04:09.098
+The Browser Exploitation Framework (BeEF)
+
+00:04:10.665 --> 00:04:15.065
+The Browser Exploitation Framework
+is a penetration testing tool
+
+00:04:15.065 --> 00:04:19.531
+focussed on client-side attacks
+executed within a web browser.
+
+00:04:20.040 --> 00:04:23.873
+Needless to say, it includes
+a plethora of exploits.
+
+00:04:24.340 --> 00:04:28.673
+To list the available exploits, we must
+first start the required services.
+
+00:04:29.348 --> 00:04:35.548
+We can do this automatically in Kali
+Linux using the beef-xss command.
+
+00:04:42.099 --> 00:04:46.765
+Once beef has started, we can login to the
+framework with our web browser.
+
+00:04:59.856 --> 00:05:03.756
+Now that we’re logged in, we
+need to hook a victim browser.
+
+00:05:03.756 --> 00:05:07.948
+Since advanced hooking is outside
+the scope of this particular module,
+
+00:05:07.973 --> 00:05:11.673
+we’ll just use the demo page
+provided by the framework
+
+00:05:11.673 --> 00:05:15.073
+by clicking the highlighted
+demo page link.
+
+00:05:18.199 --> 00:05:21.199
+This will allow BeEF to hook our browser.
+
+00:05:22.857 --> 00:05:27.557
+Once our browser is hooked, it will appear
+in the “Hooked Browsers” panel
+
+00:05:27.582 --> 00:05:32.015
+of the BeEF console as the
+localhost IP address.
+
+00:05:37.273 --> 00:05:40.807
+Clicking our IP
+(now known as a zombie)
+
+00:05:40.807 --> 00:05:46.340
+presents us with a new page containing
+details about our victim browser.
+
+00:05:48.773 --> 00:05:51.407
+We can then proceed to
+the Commands tab
+
+00:05:51.407 --> 00:05:56.107
+where we can find various
+enumeration scripts and exploits.
+
+00:06:01.231 --> 00:06:05.631
+The Beef project is frequently
+updated with new features and exploits
+
+00:06:05.631 --> 00:06:08.273
+and is well worth experimenting with.
+
+00:06:17.440 --> 00:06:19.307
+The Metasploit Framework
+
+00:06:20.007 --> 00:06:22.240
+Metasploit is an excellent framework
+
+00:06:22.290 --> 00:06:26.657
+built to assist in the development
+and execution of exploits.
+
+00:06:27.274 --> 00:06:30.640
+This framework is available
+in Kali Linux by default
+
+00:06:30.690 --> 00:06:34.723
+and can be started with
+the msfconsole command.
+
+00:06:37.857 --> 00:06:41.023
+We’ll cover this framework
+extensively in another module
+
+00:06:41.073 --> 00:06:45.573
+but for now we’ll simply focus
+on listing the exploits available
+
+00:06:45.573 --> 00:06:48.607
+within the framework
+with the search command.
+
+00:06:49.307 --> 00:06:55.540
+To demonstrate, consider this search for
+the popular MS08-067 vulnerability.
+
+00:06:58.040 --> 00:07:01.340
+Metasploit’s search command
+includes numerous keywords
+
+00:07:01.340 --> 00:07:03.773
+to help us find a particular exploit.
+
+00:07:06.340 --> 00:07:11.873
+To list all the available options, we can
+run search with the -h command.
+
+00:07:13.489 --> 00:07:17.322
+Metasploit allows us to
+search by CVE, type,
+
+00:07:17.322 --> 00:07:21.622
+platform, Exploit Database ID,
+and much more.

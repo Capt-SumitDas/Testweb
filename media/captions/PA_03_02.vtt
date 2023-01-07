@@ -1,0 +1,67 @@
+WEBVTT
+
+00:00:01.588 --> 00:00:04.588
+Remote Desktop Protocol Attack 
+with Crowbar
+
+00:00:04.833 --> 00:00:09.865
+Crowbar is a network authentication 
+cracking tool primarily designed 
+
+00:00:09.865 --> 00:00:13.566
+to leverage SSH keys rather 
+than passwords.
+
+00:00:13.566 --> 00:00:17.988
+It’s also one of the few tools that can 
+reliably and efficiently 
+
+00:00:17.988 --> 00:00:19.833
+perform password attacks 
+ against the RDP service 
+
+00:00:19.833 --> 00:00:23.633
+on modern versions of Windows.
+
+00:00:23.633 --> 00:00:27.366
+Let’s try this tool against our Windows 
+client machine.
+
+00:00:27.627 --> 00:00:31.766
+First, we need to install Crowbar from
+the Kali repository:
+
+00:00:39.557 --> 00:00:44.200
+Next, we’ll create a small wordlist that 
+contains the password 
+
+00:00:44.200 --> 00:00:45.866
+for our Windows client.
+
+00:00:50.632 --> 00:00:55.000
+To invoke crowbar, we specify 
+the protocol,
+
+00:00:56.307 --> 00:00:58.066
+the target server,
+
+00:00:59.079 --> 00:01:00.766
+a username,
+
+00:01:01.973 --> 00:01:03.300
+a wordlist,
+
+00:01:04.705 --> 00:01:07.033
+and the number of threads.
+
+00:01:10.241 --> 00:01:15.400
+Great, Crowbar discovered working 
+credentials for the “admin” user.
+
+00:01:16.560 --> 00:01:19.943
+Note that we only specified 
+a single thread 
+
+00:01:19.943 --> 00:01:25.600
+since the remote desktop protocol does not
+reliably handle multiple threads.

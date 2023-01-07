@@ -1,0 +1,66 @@
+WEBVTT
+
+00:00:01.833 --> 00:00:04.926
+Cross-Site Scripting (XSS)
+
+00:00:06.326 --> 00:00:10.866
+One of the most important features
+of awell-defended web application is
+
+00:00:10.866 --> 00:00:12.508
+data sanitization,
+
+00:00:12.508 --> 00:00:16.433
+a process in which
+user input is processed,
+
+00:00:16.433 --> 00:00:21.900
+removing or transforming all
+dangerous characters or strings.
+
+00:00:22.510 --> 00:00:25.433
+Unsanitized data allows
+an attacker to inject
+
+00:00:25.433 --> 00:00:28.233
+and potentially execute malicious code.
+
+00:00:29.159 --> 00:00:33.100
+When this unsanitized input
+is displayed on a web page,
+
+00:00:33.100 --> 00:00:36.833
+this creates a
+Cross-Site Scripting vulnerability.
+
+00:00:37.883 --> 00:00:41.233
+Once thought to be a
+relatively low-risk vulnerability,
+
+00:00:41.233 --> 00:00:45.133
+XSS today is both high-risk and prevalent,
+
+00:00:45.133 --> 00:00:49.033
+allowing attackers to
+inject client side scripts
+
+00:00:49.033 --> 00:00:51.833
+into web pages viewed by other users.
+
+00:00:52.657 --> 00:00:56.333
+Regardless of how the XSS
+payload is delivered and executed,
+
+00:00:56.333 --> 00:00:59.900
+the injected scripts run
+under the context of the user
+
+00:00:59.900 --> 00:01:02.066
+viewing the affected page.
+
+00:01:03.162 --> 00:01:05.566
+That is to say, the user’s browser,
+
+00:01:05.566 --> 00:01:09.233
+not the web application,
+executes the XSS payload.

@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:01.633 --> 00:00:03.000
+Wrapping Up
+
+00:00:04.233 --> 00:00:09.100
+In this module, we covered the concepts
+of port forwarding and tunneling.
+
+00:00:12.866 --> 00:00:18.400
+The module contains tools to apply these
+techniques on both Windows
+
+00:00:18.400 --> 00:00:24.366
+and UNIX-based operating systems,
+which allow us to bypass various firewall
+
+00:00:24.366 --> 00:00:29.366
+as well as deep packet inspection devices.

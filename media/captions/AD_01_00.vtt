@@ -1,0 +1,124 @@
+WEBVTT
+
+00:00:01.833 --> 00:00:03.766
+Active Directory Theory
+
+00:00:04.735 --> 00:00:07.780
+Active Directory consists of several
+components with the most
+
+00:00:07.780 --> 00:00:11.746
+important being the
+domain controller (DC).
+
+00:00:12.455 --> 00:00:16.233
+The domain controller is the hub
+and core of Active Directory
+
+00:00:16.233 --> 00:00:19.500
+because it stores all information
+about how the specific
+
+00:00:19.500 --> 00:00:22.466
+instance of Active
+Directory is configured.
+
+00:00:22.812 --> 00:00:28.400
+It also enforces various sets of rules
+that govern how objects within the domain
+
+00:00:28.400 --> 00:00:29.933
+interact with each other,
+
+00:00:29.933 --> 00:00:34.233
+and what services and tools
+are available to end users.
+
+00:00:36.637 --> 00:00:41.433
+When an instance of Active Directory
+is configured, a domain is created
+
+00:00:41.433 --> 00:00:48.100
+with a name such as corp.com where
+corp is the name of the organization.
+
+00:00:48.549 --> 00:00:51.800
+Within this domain, we can add
+various types of objects,
+
+00:00:51.814 --> 00:00:55.533
+including computer and user objects.
+
+00:00:55.913 --> 00:00:59.207
+System administrators usually organize
+these objects with the help of
+
+00:00:59.207 --> 00:01:05.800
+Organizational Units (OU), which are
+comparable to file system folders
+
+00:01:05.800 --> 00:01:11.133
+in that they are containers used
+to store and group other objects.
+
+00:01:12.309 --> 00:01:16.233
+Computer objects represent actual
+servers and workstations
+
+00:01:16.233 --> 00:01:21.100
+that are part of the domain,
+also referred to as domain-joined,
+
+00:01:22.016 --> 00:01:26.333
+and user objects represent
+employees in the organization.
+
+00:01:29.826 --> 00:01:35.666
+All AD objects contain attributes, which
+vary according to the type of object.
+
+00:01:36.098 --> 00:01:41.166
+For example, a user object may
+include attributes such as first name, 
+
+00:01:41.166 --> 00:01:44.866
+last name, username, and password.
+
+00:01:47.875 --> 00:01:51.308
+Typically, client computers on an
+internal network are connected
+
+00:01:51.308 --> 00:01:56.233
+to the domain controller and to
+various other internal member servers
+
+00:01:56.233 --> 00:02:00.966
+such as database servers,
+file storage servers, and so forth.
+
+00:02:01.606 --> 00:02:05.966
+In addition, many organizations have
+Internet-connected web servers
+
+00:02:05.966 --> 00:02:09.366
+ which sometimes are also
+members of the internal domain.
+
+00:02:10.075 --> 00:02:12.800
+Active Directory can be intimidating
+
+00:02:12.800 --> 00:02:17.900
+as it includes many concepts and
+features that we can’t fully cover.
+
+00:02:18.159 --> 00:02:22.100
+Instead, we’ll introduce basic
+AD terms and language
+
+00:02:22.100 --> 00:02:25.266
+and provide you with additional
+knowledge required
+
+00:02:25.266 --> 00:02:28.666
+to perform enumeration
+and exploitation.

@@ -1,0 +1,284 @@
+WEBVTT
+
+00:00:01.600 --> 00:00:05.533
+Retrieving Password Hashes
+
+00:00:05.533 --> 00:00:09.257
+Most systems that use a password 
+authentication mechanism 
+
+00:00:09.257 --> 00:00:13.433
+need to store these passwords locally
+on the machine.
+
+00:00:13.433 --> 00:00:16.500
+Rather than storing passwords 
+in clear text, 
+
+00:00:16.500 --> 00:00:22.233
+modern authentication mechanisms usually
+store them as hashes to improve security.
+
+00:00:22.233 --> 00:00:25.140
+This means that during the authentication 
+process,
+
+00:00:25.140 --> 00:00:29.034
+the password presented by the 
+user is hashed 
+
+00:00:29.034 --> 00:00:32.866
+and compared with the previously 
+stored message digest.
+
+00:00:32.866 --> 00:00:37.475
+Identifying the exact type of hash 
+without having further information 
+
+00:00:37.475 --> 00:00:40.655
+about the program or mechanism 
+that generated it 
+
+00:00:40.655 --> 00:00:44.633
+can be very challenging and sometimes
+even impossible.
+
+00:00:44.633 --> 00:00:48.600
+When attempting to identify a message
+digest type, 
+
+00:00:48.600 --> 00:00:52.600
+there are three important hash
+properties to consider.
+
+00:00:52.600 --> 00:00:58.066
+These include the length of the hash, 
+the character set used in the hash, 
+
+00:00:58.066 --> 00:01:01.892
+and any special characters used 
+by the hash.
+
+00:01:01.892 --> 00:01:08.200
+A useful tool that can assist with hash 
+type identification is hashid.
+
+00:01:08.200 --> 00:01:14.466
+To use it, we simply run the tool and 
+paste in the hash we wish to identify.
+
+00:01:17.735 --> 00:01:21.700
+Here, we analyzed two different hashes.
+
+00:01:21.700 --> 00:01:25.600
+While the first example returned 
+multiple possible matches,
+
+00:01:25.600 --> 00:01:30.566
+the second narrowed down the hash 
+type to SHA-512 Crypt.
+
+00:01:31.179 --> 00:01:37.000
+Next, let’s retrieve and analyze a few
+hashes on our Kali Linux system.
+
+00:01:38.634 --> 00:01:45.566
+Many Linux systems have the user password
+hashes stored in the /etc/shadow file, 
+
+00:01:45.566 --> 00:01:48.500
+which requires root permissions to read:
+
+00:01:49.623 --> 00:01:56.366
+The shadow file entry starts with the user
+name followed by the password hash.
+
+00:01:57.183 --> 00:02:00.533
+The hash is divided into sub-fields, 
+
+00:02:00.533 --> 00:02:05.066
+the first of which references the 
+SHA-512 algorithm.
+
+00:02:05.577 --> 00:02:08.944
+The next sub-field is the salt,
+
+00:02:09.182 --> 00:02:14.000
+A salt is a random value that’s used along
+with the clear text password
+
+00:02:14.000 --> 00:02:16.700
+ to calculate a password hash.
+
+00:02:16.700 --> 00:02:21.888
+This prevents hash-lookup attacks since
+the password hash will vary 
+
+00:02:21.888 --> 00:02:23.866
+based on the salt value.
+
+00:02:26.045 --> 00:02:29.088
+Let’s now turn our focus to 
+Windows targets 
+
+00:02:29.088 --> 00:02:31.825
+and discuss the various 
+hash implementations 
+
+00:02:31.825 --> 00:02:34.866
+and how we can leverage them 
+during an assessment.
+
+00:02:34.866 --> 00:02:38.466
+On Windows systems, hashed user 
+passwords are stored 
+
+00:02:38.466 --> 00:02:42.100
+in the Security Accounts Manager, or SAM. 
+
+00:02:42.100 --> 00:02:46.266
+To deter offline SAM database 
+password attacks, 
+
+00:02:46.266 --> 00:02:49.800
+Microsoft introduced the SYSKEY feature, 
+
+00:02:49.800 --> 00:02:53.000
+which partially encrypts the SAM file.
+
+00:02:53.000 --> 00:02:58.900
+Windows NT-based operating systems, 
+up to and including Windows 2003, 
+
+00:02:58.900 --> 00:03:04.833
+store two different password hashes: 
+LAN Manager, or LM,
+
+00:03:04.833 --> 00:03:13.333
+which is based on DES, and NT LAN Manager,
+or NTLM, which uses MD4 hashing.
+
+00:03:15.206 --> 00:03:21.177
+LAN Manager is known to be very weak since
+passwords longer than seven characters 
+
+00:03:21.177 --> 00:03:26.800
+are split into two strings and each piece
+is hashed separately.
+
+00:03:26.800 --> 00:03:33.043
+Each password string is also converted to
+upper-case before being hashed 
+
+00:03:33.043 --> 00:03:38.367
+and, moreover, the LM hashing system does
+not include salts,
+
+00:03:38.367 --> 00:03:41.633
+making a hash-lookup attack feasible.
+
+00:03:43.533 --> 00:03:48.966
+From Windows Vista on, the operating
+system disables LM by default
+
+00:03:48.966 --> 00:03:54.018
+and uses NTLM, which, among other things,
+is case sensitive,
+
+00:03:54.018 --> 00:03:58.559
+supports all Unicode characters, and does
+not split the hash 
+
+00:03:58.559 --> 00:04:00.966
+into smaller, weaker parts.
+
+00:04:00.966 --> 00:04:06.933
+However, NTLM hashes stored in the SAM
+database are still not salted.
+
+00:04:08.431 --> 00:04:12.600
+It’s worth mentioning that the SAM
+database cannot be copied 
+
+00:04:12.600 --> 00:04:14.700
+while the operating system is running 
+
+00:04:14.700 --> 00:04:19.333
+because the Windows kernel keeps
+an exclusive file system lock on it.
+
+00:04:24.100 --> 00:04:28.133
+However, we can use mimikatz, 
+which is covered in much greater depth
+
+00:04:28.133 --> 00:04:34.500
+in another module, to mount in-memory
+attacks designed to dump the SAM hashes.
+
+00:04:34.500 --> 00:04:39.722
+Among other things, mimikatz modules
+facilitate password hash extraction 
+
+00:04:39.722 --> 00:04:43.166
+from the LSASS process memory
+where they are cached.
+
+00:05:00.293 --> 00:05:05.366
+Since LSASS is a privileged process 
+running under the SYSTEM user, 
+
+00:05:05.379 --> 00:05:09.533
+we need to launch mimikatz from 
+an administrative command prompt.
+
+00:05:11.882 --> 00:05:17.533
+To extract password hashes, we must first
+execute two commands.
+
+00:05:17.533 --> 00:05:23.572
+The first is privilege::debug, which 
+enables the SeDebugPrivilge access right
+
+00:05:23.572 --> 00:05:27.000
+required to tamper with another process.
+
+00:05:27.000 --> 00:05:31.326
+If this command fails, mimikatz was most
+likely not executed
+
+00:05:31.326 --> 00:05:33.300
+with administrative privileges.
+
+00:05:36.636 --> 00:05:40.833
+It’s important to understand that LSASS 
+is a SYSTEM process, 
+
+00:05:40.833 --> 00:05:44.352
+which means it has even higher privileges
+than mimikatz
+
+00:05:44.352 --> 00:05:47.266
+running with administrative privileges.
+
+00:05:47.266 --> 00:05:52.033
+To address this, we can use the 
+token::elevate command 
+
+00:05:52.033 --> 00:05:57.666
+to elevate the security token from high
+integrity to SYSTEM integrity.
+
+00:06:02.533 --> 00:06:07.600
+If mimikatz is launched from a SYSTEM
+shell, this step is not required.
+
+00:06:09.533 --> 00:06:16.000
+Now we can use lsadump::sam to dump the
+contents of the SAM database.
+
+00:06:17.225 --> 00:06:21.166
+Nice, mimikatz has elegantly and 
+effectively 
+
+00:06:21.166 --> 00:06:23.633
+dumped the hashes as requested.

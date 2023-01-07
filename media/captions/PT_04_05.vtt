@@ -1,0 +1,63 @@
+WEBVTT
+
+00:00:01.223 --> 00:00:03.556
+Following TCP Streams
+
+00:00:04.267 --> 00:00:06.700
+Wireshark allows us to
+view network traffic
+
+00:00:06.700 --> 00:00:09.067
+including the contents
+of each packet.
+
+00:00:09.400 --> 00:00:12.767
+However, we’re often more interested
+in streams of data
+
+00:00:12.796 --> 00:00:14.796
+between various applications.
+
+00:00:15.063 --> 00:00:19.330
+We can make use of Wireshark’s
+ability to reassemble a specific session
+
+00:00:19.330 --> 00:00:22.030
+and display it in various formats.
+
+00:00:22.430 --> 00:00:27.096
+To view a particular TCP stream, we
+can right-click a packet of interest,
+
+00:00:27.096 --> 00:00:31.330
+such as the one containing the
+USER command in our FTP session…
+
+00:00:33.126 --> 00:00:35.126
+…then select Follow >
+
+00:00:36.163 --> 00:00:37.430
+TCP Stream.
+
+00:00:39.467 --> 00:00:43.100
+The reassembled TCP stream
+is much easier to read,
+
+00:00:43.100 --> 00:00:46.300
+and we can review our
+interaction with the FTP server.
+
+00:00:46.870 --> 00:00:49.903
+Because FTP is a clear-text protocol,
+
+00:00:49.933 --> 00:00:55.100
+we can see the commands and output
+sent and received by our FTP client.
+
+00:00:58.493 --> 00:01:02.960
+We can clear the filter clicking the ‘x’
+to the right of the display filter.
+
+00:01:03.463 --> 00:01:06.230
+Note that this does not
+restart the capture.

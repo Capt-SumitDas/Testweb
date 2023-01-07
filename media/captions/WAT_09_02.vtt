@@ -1,0 +1,149 @@
+WEBVTT
+
+00:00:01.408 --> 00:00:05.000
+Identifying SQL Injection Vulnerabilities
+
+00:00:06.187 --> 00:00:09.533
+Before we can find SQL
+injection vulnerabilities,
+
+00:00:09.533 --> 00:00:13.066
+we must first identify
+locations where data
+
+00:00:13.066 --> 00:00:15.300
+might pass through a database.
+
+00:00:15.766 --> 00:00:18.200
+Authentication is usually
+backed by a database
+
+00:00:18.200 --> 00:00:21.366
+and depending on the
+nature of the web application,
+
+00:00:21.366 --> 00:00:25.333
+other areas including products
+on an E-commerce site
+
+00:00:25.333 --> 00:00:27.633
+or message threads on a forum
+
+00:00:27.633 --> 00:00:30.400
+generally require database interaction.
+
+00:00:31.010 --> 00:00:32.900
+We can use the single quote,
+
+00:00:33.244 --> 00:00:36.133
+which SQL uses as a string delimiter,
+
+00:00:36.133 --> 00:00:40.866
+as a simple check for
+potential SQL injection vulnerabilities.
+
+00:00:41.635 --> 00:00:44.833
+If the application doesn’t
+handle this character correctly,
+
+00:00:44.833 --> 00:00:47.900
+it will likely result in a database error
+
+00:00:47.900 --> 00:00:52.466
+and can indicate that a SQL
+injection vulnerability exists.
+
+00:00:53.048 --> 00:00:56.800
+Knowing this, we generally begin
+our attack by inputing a single quote
+
+00:00:56.800 --> 00:01:02.133
+into every field that we suspect might
+pass its parameter to the database.
+
+00:01:02.801 --> 00:01:07.800
+We will need to use this trial and error
+approach when black box testing.
+
+00:01:08.589 --> 00:01:11.766
+If we have access to the
+application’s source code,
+
+00:01:11.766 --> 00:01:17.000
+we can review it for SQL queries
+being built by string concatenation.
+
+00:01:17.646 --> 00:01:21.333
+In PHP, this might look
+something like the following.
+
+00:01:22.481 --> 00:01:25.566
+If user data is included
+in a SQL statement
+
+00:01:25.566 --> 00:01:28.133
+without being sanitized in any way,
+
+00:01:28.133 --> 00:01:31.900
+the chances of SQL injection
+occurring are very high.
+
+00:01:34.015 --> 00:01:37.100
+Let’s break this down
+further with some examples.
+
+00:01:38.308 --> 00:01:41.133
+In a normal login, a user might submit
+
+00:01:41.133 --> 00:01:47.433
+“Tom” and “password123”
+for their username and password.
+
+00:01:48.180 --> 00:01:52.133
+Notice how the submitted values
+are wrapped in single quotes.
+
+00:01:53.493 --> 00:01:58.666
+Let’s take a look at what happens if
+a single quote is submitted as a value.
+
+00:02:00.320 --> 00:02:03.133
+Since single quotes
+are used for delimiters,
+
+00:02:03.133 --> 00:02:07.033
+the above query reads as an empty username
+
+00:02:07.033 --> 00:02:10.133
+and then a misplaced string of
+
+00:02:10.133 --> 00:02:14.833
+“and password =”, creating a syntax error.
+
+00:02:16.966 --> 00:02:20.766
+If the web application shows
+error messages in its pages,
+
+00:02:20.766 --> 00:02:23.733
+we would receive output
+similar to the following.
+
+00:02:25.404 --> 00:02:28.466
+This error message tells us several things:
+
+00:02:28.466 --> 00:02:31.733
+we’ve caused an error in a SQL statement,
+
+00:02:32.195 --> 00:02:35.266
+the database software is MariaDB,
+
+00:02:36.280 --> 00:02:40.200
+and the server is running
+XAMPP on Windows.
+
+00:02:43.355 --> 00:02:46.033
+Let’s look at how we can
+leverage this vulnerability
+
+00:02:46.033 --> 00:02:49.200
+to gain access to the admin page.

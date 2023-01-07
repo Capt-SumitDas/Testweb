@@ -1,0 +1,42 @@
+WEBVTT
+
+00:00:00.933 --> 00:00:03.933
+Antivirus Evasion
+
+00:00:04.866 --> 00:00:07.233
+In an attempt to compromise a target
+machine,
+
+00:00:07.233 --> 00:00:13.000
+attackers often disable or otherwise
+bypass antivirus software installed on
+
+00:00:13.000 --> 00:00:14.000
+these systems.
+
+00:00:14.800 --> 00:00:19.766
+As penetration testers we must understand
+and be able to mimic these techniques
+
+00:00:19.766 --> 00:00:22.400
+in order to demonstrate this potential
+threat.
+
+00:00:23.233 --> 00:00:27.033
+In this module, we will discuss the
+purpose of antivirus software
+
+00:00:27.033 --> 00:00:30.466
+and outline how it is deployed in most
+companies.
+
+00:00:31.133 --> 00:00:34.966
+We’ll examine various methods used to
+detect malicious software 
+
+00:00:34.966 --> 00:00:39.966
+and explore someof the available tools
+that will allow us to bypass antivirus
+
+00:00:39.966 --> 00:00:42.600
+software on target machines.

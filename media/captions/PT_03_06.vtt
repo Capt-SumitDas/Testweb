@@ -1,0 +1,32 @@
+WEBVTT
+
+00:00:01.350 --> 00:00:03.417
+Powercat Reverse Shells
+
+00:00:04.201 --> 00:00:07.367
+The reverse shell process is
+similar to what we’ve already seen.
+
+00:00:07.817 --> 00:00:10.717
+We begin with the Netcat
+listener on Alice’s machine.
+
+00:00:13.850 --> 00:00:17.950
+Next, Bob will use powercat
+to send a reverse shell.
+
+00:00:21.601 --> 00:00:25.967
+In this example, the -e option specifies
+the application to execute
+
+00:00:25.967 --> 00:00:28.601
+once a connection is made
+to the listening port.
+
+00:00:29.734 --> 00:00:33.834
+After hitting enter, Alice’s Netcat
+listener will receive the shell.
+
+00:00:37.934 --> 00:00:41.501
+As expected, we received a
+reverse shell with powercat.

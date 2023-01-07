@@ -1,0 +1,81 @@
+WEBVTT
+
+00:00:01.600 --> 00:00:02.900
+DIRB
+
+00:00:03.705 --> 00:00:06.266
+DIRB is a web content scanner
+
+00:00:06.266 --> 00:00:09.066
+that uses a wordlist to find directories
+
+00:00:09.066 --> 00:00:12.933
+and pages by issuing
+requests to the server.
+
+00:00:12.933 --> 00:00:16.366
+DIRB can identify valid
+web pages on a web server
+
+00:00:16.366 --> 00:00:19.566
+even if the main index page is missing.
+
+00:00:19.833 --> 00:00:24.297
+By default, DIRB will identify
+interesting directories on the server
+
+00:00:24.297 --> 00:00:28.500
+but it can also be customized to
+search for specific directories,
+
+00:00:28.500 --> 00:00:30.400
+use custom dictionaries,
+
+00:00:30.400 --> 00:00:35.600
+set a custom cookie or header on
+each request, and much more.
+
+00:00:35.600 --> 00:00:38.766
+Let’s run DIRB on www.megacorpone.com.
+
+00:00:41.364 --> 00:00:45.333
+We will supply several arguments:
+the URL to scan,
+
+00:00:46.831 --> 00:00:49.733
+-r to scan non-recursively,
+
+00:00:50.599 --> 00:00:56.933
+and -z 10 to add a 10 millisecond
+delay to each request.
+
+00:01:02.069 --> 00:01:07.966
+According to the output,
+DIRB made 4,612 requests
+
+00:01:07.966 --> 00:01:14.733
+and reported the URL, status code,
+and size of nine distinct resources.
+
+00:01:15.339 --> 00:01:19.500
+By default, the tool will recurse
+into newly-discovered directories,
+
+00:01:19.500 --> 00:01:22.433
+but in this case, our non-recursive scan
+
+00:01:22.433 --> 00:01:26.300
+simply reports directories
+without descending into them.
+
+00:01:26.923 --> 00:01:31.766
+Obviously, we could begin with a
+non-recursive scan against a large target
+
+00:01:31.766 --> 00:01:34.933
+and recursively search
+interesting directories,
+
+00:01:34.933 --> 00:01:39.433
+or begin with a full recursive
+scan depending on our needs.

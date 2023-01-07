@@ -1,0 +1,58 @@
+WEBVTT
+
+00:00:01.500 --> 00:00:03.400
+SSL Server Test
+
+00:00:04.700 --> 00:00:10.933
+Another scanning tool we can use is the
+SSL Server Test from Qualys SSL Labs.
+
+00:00:16.433 --> 00:00:20.833
+This tool analyzes a server’s SSL/TLS
+configuration
+
+00:00:20.833 --> 00:00:24.600
+and compares it against current best
+practices.
+
+00:00:24.966 --> 00:00:29.266
+It will also identify some SSL/TLS related
+vulnerabilties,
+
+00:00:29.266 --> 00:00:31.866
+such as Poodle or Heartbleed.
+
+00:00:32.133 --> 00:00:37.366
+Let’s scan www.megacorpone.com and check
+the results.
+
+00:00:48.500 --> 00:00:52.066
+The results are not as bad as the
+Security Headers check.
+
+00:00:52.400 --> 00:00:57.266
+However, the weak Diffie-Hellman key
+exchange, RC4 ciphers,
+
+00:00:57.266 --> 00:01:02.066
+and lack of Forward Secrecy suggest our
+target is not applying
+
+00:01:02.066 --> 00:01:06.300
+current best practices for SSL/TLS
+hardening.
+
+00:01:07.466 --> 00:01:10.433
+For example, disabling RC4 ciphers
+
+00:01:10.433 --> 00:01:15.233
+has been recommended for several years
+due to mulitple vulnerabilities.
+
+00:01:15.833 --> 00:01:19.600
+We can use these findings to get an
+insight on the security practices,
+
+00:01:19.600 --> 00:01:22.900
+or lack thereof, within the target
+organization.

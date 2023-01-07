@@ -1,0 +1,85 @@
+WEBVTT
+
+00:00:02.200 --> 00:00:03.300
+Arguments
+
+
+00:00:04.166 --> 00:00:08.266
+Not all Bash scripts require arguments 
+but it is extremely important to
+
+00:00:08.266 --> 00:00:11.866
+understand how they are interpreted by 
+Bash and how to use them.
+
+
+00:00:12.400 --> 00:00:15.600
+We’ve already executed Linux commands with arguments.
+
+
+00:00:15.600 --> 00:00:20.633
+For example, when we run ls -l /var/log…
+ 
+
+00:00:20.633 --> 00:00:28.000
+…both -l and /var/log are arguments to 
+the ls command.
+
+
+00:00:28.966 --> 00:00:33.133
+Bash scripts are no different–we can 
+supply command-line arguments and 
+
+
+00:00:33.140 --> 00:00:35.100
+use them in our scripts.
+
+00:00:38.400 --> 00:00:42.133
+This simple script uses echo to display 
+a string.
+
+
+00:00:42.133 --> 00:00:47.634
+The $1 and $2 variables represent the 
+first and second arguments passed 
+
+
+00:00:47.634 --> 00:00:49.200
+to the script.
+
+00:00:50.233 --> 00:00:56.400
+In addition, $0 refers to the name of the
+script itself.
+
+00:00:56.497 --> 00:01:01.331
+Let’s give our script executable 
+permissions and run it while providing
+
+00:01:01.331 --> 00:01:02.321
+two arguments.
+
+
+00:01:04.066 --> 00:01:09.200
+As expected, our script runs and Bash 
+echoes the two arguments we provided.
+
+
+00:01:11.433 --> 00:01:14.400
+There are a number of other special Bash 
+variables, 
+
+00:01:14.400 --> 00:01:19.933
+like dollar question mark to display 
+the exit status of the last process…
+
+00:01:19.933 --> 00:01:23.800
+…and $RANDOM, which generates a random 
+number.
+
+
+00:01:23.800 --> 00:01:27.900
+Refer to your lab guide for other 
+special Bash variables that you
+
+00:01:27.900 --> 00:01:29.266
+ can use in your scripts.

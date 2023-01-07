@@ -1,0 +1,70 @@
+WEBVTT
+
+00:00:00.937 --> 00:00:02.200
+Wrapping Up
+
+00:00:03.120 --> 00:00:08.100
+In this course we have taken a journey
+through many tunnels and shells.
+
+00:00:10.360 --> 00:00:15.700
+We started with only a hostname and
+basic information about the target.
+
+00:00:16.304 --> 00:00:22.294
+We used our penetration testing skills to
+obtain access to a Wordpress webserver 
+
+00:00:22.294 --> 00:00:25.633
+that later allowed us to
+compromise a database. 
+
+00:00:25.975 --> 00:00:29.366
+The database gave us a foothold
+into the internal network
+
+00:00:29.366 --> 00:00:33.433
+where we were able to obtain
+access to a user’s workstation.
+
+00:00:34.169 --> 00:00:36.966
+We escalated privileges on
+the user’s workstation
+
+00:00:36.966 --> 00:00:40.133
+and obtained information
+about the domain.
+
+00:00:40.553 --> 00:00:43.133
+We then used our internal access
+
+00:00:43.133 --> 00:00:46.933
+to gain a foothold on a
+Jenkins development server.
+
+00:00:47.248 --> 00:00:50.433
+Once we escalated our
+privileges on the Jenkins server,
+
+00:00:50.433 --> 00:00:54.766
+we found that a domain
+administrator was also logged in.
+
+00:00:55.266 --> 00:00:58.466
+Finally, we impersonated
+the domain administrator
+
+00:00:58.466 --> 00:01:01.200
+to log in to the domain controller.
+
+00:01:02.593 --> 00:01:06.433
+During this journey, we learned
+about the importance of enumeration,
+
+00:01:06.433 --> 00:01:10.535
+the real-world difficulties of
+tunneling, and many other
+
+00:01:10.535 --> 00:01:15.533
+valuable lessons that apply
+to real-world penetration tests.

@@ -1,0 +1,27 @@
+WEBVTT
+
+00:00:00.733 --> 00:00:03.733
+File Transfers
+
+00:00:03.733 --> 00:00:07.900
+The term post-exploitation refers to the 
+actions performed by an attacker
+
+00:00:07.900 --> 00:00:11.333
+once they have gained some level 
+of control of a target.
+
+00:00:11.333 --> 00:00:15.433
+These actions include elevating 
+privileges, expanding control 
+
+00:00:15.433 --> 00:00:19.100
+into additional machines, installing 
+backdoors, 
+
+00:00:19.100 --> 00:00:21.400
+cleaning up evidence of the attack, 
+
+00:00:21.400 --> 00:00:26.133
+uploading files and tools to the target, 
+etcetera.

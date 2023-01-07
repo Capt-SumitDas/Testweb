@@ -1,0 +1,74 @@
+WEBVTT
+
+00:00:01.366 --> 00:00:02.733
+Maltego
+
+00:00:03.533 --> 00:00:07.866
+Maltego is a very powerful data mining
+tool
+
+00:00:07.866 --> 00:00:12.733
+that offers an endless combination of
+search tools and strategies.
+
+00:00:19.100 --> 00:00:22.466
+Maltego's learning curve can be steep,
+
+00:00:22.466 --> 00:00:25.633
+and it is frankly overkill for this
+module,
+
+00:00:25.633 --> 00:00:29.766
+but its impressive capability warrants
+an introduction.
+
+00:00:33.300 --> 00:00:39.300
+Maltego searches thousands of online data
+sources, and uses extremely clever
+
+00:00:39.300 --> 00:00:44.233
+“transforms” to convert one piece of
+information into another.
+
+00:00:46.033 --> 00:00:51.333
+For example, if we are performing a user
+information gathering campaign,
+
+00:00:51.333 --> 00:00:56.100
+we could submit an email address, and
+through various automated searches,
+
+00:00:56.100 --> 00:01:02.000
+“transform” that into an associated phone
+number or street address.
+
+00:01:02.433 --> 00:01:06.466
+During an organizational information
+gathering exercise,
+
+00:01:06.466 --> 00:01:12.433
+we could submit a domain name and
+“transform” that into a web server,
+
+00:01:12.433 --> 00:01:18.066
+then a list of email addresses, then a
+list of associated social media accounts,
+
+00:01:18.066 --> 00:01:22.966
+and then into a potential password list
+for that email account.
+
+00:01:23.366 --> 00:01:28.400
+The combinations are endless, and
+the discovered information is presented
+
+00:01:28.400 --> 00:01:34.400
+in a scaleable graph that allows easy
+zoom-and-pan navigation.
+
+00:01:34.933 --> 00:01:39.766
+Maltego Community Edition or Maltego CE
+
+00:01:39.766 --> 00:01:45.433
+is included in Kali and requires a free
+registration to use.

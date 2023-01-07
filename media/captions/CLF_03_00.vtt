@@ -1,0 +1,30 @@
+WEBVTT
+
+00:00:01.312 --> 00:00:03.579
+Text Searching and Manipulation
+
+00:00:04.209 --> 00:00:07.809
+In this section we’ll gain efficiency with
+file and text handling
+
+00:00:07.809 --> 00:00:09.942
+by introducing a few commands:
+
+00:00:09.942 --> 00:00:10.942
+grep,
+
+00:00:10.942 --> 00:00:11.676
+sed,
+
+00:00:11.676 --> 00:00:12.542
+cut,
+
+00:00:12.542 --> 00:00:13.542
+and awk.
+
+00:00:14.004 --> 00:00:17.270
+Advanced usage of some of these tools
+requires a good understanding
+
+00:00:17.270 --> 00:00:19.537
+of how regular expressions work.

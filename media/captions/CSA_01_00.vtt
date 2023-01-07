@@ -1,0 +1,31 @@
+WEBVTT
+
+00:00:01.287 --> 00:00:02.720
+Know Your Target
+
+00:00:03.841 --> 00:00:08.541
+From an attacker’s standpoint, the primary
+difficulty with client-side attacks
+
+00:00:08.554 --> 00:00:12.454
+lies in enumeration of the
+victim’s client software.
+
+00:00:13.320 --> 00:00:16.187
+The secret to success in
+client-side attacks is,
+
+00:00:16.187 --> 00:00:19.420
+as with most things related
+to penetration testing,
+
+00:00:19.420 --> 00:00:22.687
+accurate and thorough
+information gathering.
+
+00:00:23.300 --> 00:00:27.466
+We can use both passive and active
+information gathering techniques
+
+00:00:27.466 --> 00:00:30.666
+against our client-side attack targets.

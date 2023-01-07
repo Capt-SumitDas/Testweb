@@ -1,0 +1,49 @@
+WEBVTT
+
+00:00:01.165 --> 00:00:02.632
+Capture Filters
+
+00:00:04.232 --> 00:00:07.632
+When Wireshark loads, we’re
+presented with a basic window
+
+00:00:07.632 --> 00:00:10.565
+where we can select the network
+interface we want to monitor
+
+00:00:10.565 --> 00:00:14.298
+as well as set display
+and capture filters.
+
+00:00:15.151 --> 00:00:18.851
+We can use capture filters to reduce
+the amount of captured traffic
+
+00:00:18.851 --> 00:00:22.751
+and narrow our focus to the
+packets we wish to analyze.
+
+00:00:23.551 --> 00:00:27.018
+We’ll start by selecting the
+interface we’d like to monitor
+
+00:00:27.018 --> 00:00:30.484
+and we’ll enter a capture
+filter for our lab subnet.
+
+00:00:31.832 --> 00:00:36.065
+In this case, we use the net filter
+to only capture traffic
+
+00:00:36.065 --> 00:00:38.465
+within a specified address range.
+
+00:00:38.998 --> 00:00:40.732
+With the capture filter set,
+
+00:00:40.732 --> 00:00:46.765
+we can start the capture by double-clicking
+our VPN network interface, tap0,
+
+00:00:46.765 --> 00:00:49.365
+from the list of available interfaces.

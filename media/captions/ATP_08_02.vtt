@@ -1,0 +1,203 @@
+WEBVTT
+
+00:00:00.875 --> 00:00:02.933
+Exploiting Jenkins
+
+00:00:04.058 --> 00:00:08.300
+Let’s create a project that will allow
+us to execute system commands.
+
+00:00:08.900 --> 00:00:13.933
+First, we will select the New Item link
+at the top left to create a new item.
+
+00:00:15.308 --> 00:00:19.725
+When the new Item page opens,
+we’ll give the item a non-malicious
+
+00:00:19.725 --> 00:00:22.766
+sounding name like “Access”,
+
+00:00:23.616 --> 00:00:28.400
+select Freestyle project, and click OK.
+
+00:00:31.141 --> 00:00:33.800
+To have Jenkins execute
+a system command,
+
+00:00:33.800 --> 00:00:37.500
+we can use the Build
+configuration section.
+
+00:00:38.525 --> 00:00:41.366
+We will select Add build step
+
+00:00:41.366 --> 00:00:46.533
+and select “Execute Windows batch
+command” from the dropdown.
+
+00:00:48.183 --> 00:00:53.533
+When the Command text box
+appears, we will enter in “whoami”.
+
+00:00:55.308 --> 00:00:59.233
+Later we'll change this to other
+commands we wish to execute.
+
+00:01:00.058 --> 00:01:02.966
+For now we’ll click Save to continue.
+
+00:01:04.066 --> 00:01:07.366
+Jenkins will then open
+the item’s main page.
+
+00:01:08.016 --> 00:01:12.300
+From here, we can select Build
+Now to run the command.
+
+00:01:15.900 --> 00:01:20.633
+When the build is executed, a new item
+will be displayed under Build History.
+
+00:01:21.533 --> 00:01:25.333
+Clicking on the “#1” will open
+up the build page.
+
+00:01:26.033 --> 00:01:31.600
+From the build page, we can select Console
+Output to view the output of our command.
+
+00:01:32.700 --> 00:01:35.666
+This will open up the
+“Console Output” page
+
+00:01:35.666 --> 00:01:38.933
+that displays the output of
+the whoami command.
+
+00:01:39.658 --> 00:01:45.333
+According to the output Jenkins is running
+the code as the jenkinsuser account.
+
+00:01:46.533 --> 00:01:51.866
+With that information handy, we can start
+attempting to get a meterpreter shell.
+
+00:01:52.466 --> 00:01:58.600
+It’s safe to assume that since Poultry
+used antivirus, Cevapi will as well.
+
+00:01:58.900 --> 00:02:03.900
+We should be able to use the same whoami
+backdoored shell that we generated
+
+00:02:03.900 --> 00:02:08.666
+earlier and attempt to obtain
+a meterpreter shell on Cevapi.
+
+00:02:08.991 --> 00:02:12.966
+We will first have to set up a web server
+to download the shell from,
+
+00:02:12.966 --> 00:02:18.400
+use Jenkins to download the shell,
+start a metasploit listener on Kali,
+
+00:02:18.400 --> 00:02:23.033
+and finally run the backdoored
+executable using Jenkins.
+
+00:02:26.358 --> 00:02:29.366
+First, let’s create a new
+directory to work from
+
+00:02:29.366 --> 00:02:33.866
+and copy the old whoami.exe
+payload to it.
+
+00:02:40.366 --> 00:02:46.233
+Next, we will start an HTTP server to
+allow Cevapi to download the payload.
+
+00:02:52.483 --> 00:02:57.066
+In Jenkins, we will click the Access
+link at the top left of the screen
+
+00:02:57.066 --> 00:02:59.033
+within the breadcrumbs.
+
+00:02:59.783 --> 00:03:03.233
+This will take us back to
+the Access item page.
+
+00:03:03.883 --> 00:03:08.733
+Next, we click Configure in the sidebar
+to open the configuration page,
+
+00:03:08.733 --> 00:03:11.800
+which allows us to change
+the Build command.
+
+00:03:14.675 --> 00:03:18.200
+We will attempt to use PowerShell
+to download the file.
+
+00:03:23.275 --> 00:03:27.433
+With the PowerShell command
+set, we will click Save,
+
+00:03:28.533 --> 00:03:32.166
+which will take us back
+to the “Access” item page.
+
+00:03:33.066 --> 00:03:37.233
+From here, we select Build Now
+to execute the command.
+
+00:03:39.808 --> 00:03:45.100
+If the command worked, we will see a
+log entry in our Python HTTP server.
+
+00:03:47.600 --> 00:03:51.866
+Now that our file is downloaded,
+we can stop the HTTP server,
+
+00:03:54.366 --> 00:03:57.033
+and configure our metasploit listener.
+
+00:04:07.758 --> 00:04:12.833
+Next, we will go back to Jenkins and
+reconfigure the item to run the shell.
+
+00:04:19.583 --> 00:04:22.833
+This can be done by setting
+the command to execute
+
+00:04:22.833 --> 00:04:25.500
+to the path of the downloaded binary.
+
+00:04:34.825 --> 00:04:39.600
+When we are ready to capture the shell,
+we click Build Now in Jenkins.
+
+00:04:42.800 --> 00:04:44.833
+If everything went according to plan,
+
+00:04:44.833 --> 00:04:48.333
+we should capture the
+reverse shell in metasploit.
+
+00:04:54.858 --> 00:05:00.733
+As expected, the user running the
+Jenkins builds is named jenkinsuser.
+
+00:05:04.183 --> 00:05:08.500
+This user is also not in
+any administrator groups.
+
+00:05:09.075 --> 00:05:10.400
+Now that we have a shell,
+
+00:05:10.400 --> 00:05:15.333
+let’s enumerate Cevapi in the
+hopes of finding a privilege escalation.

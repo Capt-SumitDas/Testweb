@@ -1,0 +1,255 @@
+WEBVTT
+
+00:00:01.344 --> 00:00:04.433
+Unquoted Search Path Exploitation
+
+00:00:05.323 --> 00:00:08.837
+Since we know that antivirus
+is running, we will use shellter
+
+00:00:08.837 --> 00:00:11.366
+to inject a meterpreter payload
+
+00:00:11.366 --> 00:00:16.266
+into a Windows binary that
+will hopefully bypass McAfee.
+
+00:00:20.548 --> 00:00:24.100
+First, we will make a directory
+named poultry to work out of
+
+00:00:24.100 --> 00:00:27.733
+and copy a legitimate
+windows binary to it.
+
+00:00:32.087 --> 00:00:36.166
+The windows binary we’ll
+select is whoami.exe,
+
+00:00:36.166 --> 00:00:39.561
+which has a lower chance of
+being caught by AV
+
+00:00:39.561 --> 00:00:45.100
+than some other binaries since it is a
+well-known and legitimate utility.
+
+00:00:47.625 --> 00:00:52.766
+With the binary copied, we will generate
+a meterpreter payload to use with shellter
+
+00:00:55.797 --> 00:01:00.000
+We will specify a Windows reverse
+TCP meterpreter payload
+
+00:01:00.000 --> 00:01:02.333
+to match our target operating system.
+
+00:01:03.391 --> 00:01:09.000
+Our Kali system’s IP is specified
+in the LHOST option,
+
+00:01:09.168 --> 00:01:13.266
+and we select port 80
+with the LPORT option.
+
+00:01:14.300 --> 00:01:20.033
+We selected port 80 hoping to evade any
+potential outbound firewall restrictions.
+
+00:01:20.201 --> 00:01:24.566
+Next, we will encode the
+binary using the -e flag
+
+00:01:24.566 --> 00:01:29.600
+and specify 7 encoding iterations with -i.
+
+00:01:30.201 --> 00:01:33.233
+Finally, we will output in raw format
+
+00:01:33.233 --> 00:01:38.266
+with the -f flag and redirect
+the payload to a file.
+
+00:01:40.792 --> 00:01:44.433
+With the payload generated,
+we can now launch shellter
+
+00:01:44.433 --> 00:01:48.133
+to dynamically inject it
+into the whoami binary.
+
+00:01:52.487 --> 00:01:56.200
+When we first start shellter,
+it prompts us to select
+
+00:01:56.200 --> 00:01:59.166
+automatic or manual operation mode.
+
+00:01:59.383 --> 00:02:02.266
+We will select “A” for automatic mode,
+
+00:02:03.108 --> 00:02:06.333
+and then specify the target PE file.
+
+00:02:08.065 --> 00:02:13.233
+After entering the full path of the
+binary, shellter makes a backup of it.
+
+00:02:18.020 --> 00:02:23.200
+We are now prompted to “Enable Stealth
+Mode”, which we will skip in this scenario
+
+00:02:23.200 --> 00:02:26.433
+since we don’t need the
+binary to function properly
+
+00:02:26.433 --> 00:02:29.033
+after the execution of our payload.
+
+00:02:30.476 --> 00:02:33.433
+Next, we are prompted to select a payload.
+
+00:02:33.649 --> 00:02:37.666
+We will be using the custom payload we
+generated with msfvenom.
+
+00:02:39.590 --> 00:02:41.733
+When prompted to “Select Payload”,
+
+00:02:41.733 --> 00:02:45.366
+we provide the full path to
+our generated payload.
+
+00:02:47.772 --> 00:02:53.533
+Finally, shellter will ask whether or not
+this payload is a reflective DLL loader,
+
+00:02:53.533 --> 00:02:55.866
+and in this case, it is not.
+
+00:03:01.086 --> 00:03:05.862
+The payload will then be injected
+into the binary and shellter
+
+00:03:05.862 --> 00:03:10.100
+will provide us with a
+“Injection: Verified!” message.
+
+00:03:10.821 --> 00:03:15.137
+Now that the target PE has been
+successfully backdoored, we can transfer
+
+00:03:15.137 --> 00:03:19.633
+the binary to Poultry and place
+it in the correct location.
+
+00:03:22.375 --> 00:03:27.733
+To transfer the binary, we will again use
+the http server module in python.
+
+00:03:30.018 --> 00:03:33.670
+When the http server is started,
+we can navigate to it
+
+00:03:33.670 --> 00:03:38.133
+by opening our Kali IP
+in Internet Explorer.
+
+00:03:47.490 --> 00:03:52.766
+We’ll download whoami.exe and save
+it to the Downloads directory.
+
+00:04:02.965 --> 00:04:09.533
+Next, we will rename the binary to
+Current.exe and copy it to C:\Puppet.
+
+00:04:12.564 --> 00:04:16.970
+This will ensure that Current.exe
+will be executed before Windows
+
+00:04:16.970 --> 00:04:21.200
+attempts to execute the real
+binary on service startup.
+
+00:04:27.694 --> 00:04:31.098
+Next, we need to configure a listener
+with the same settings
+
+00:04:31.098 --> 00:04:34.066
+that we used earlier to
+generate the payload.
+
+00:04:48.210 --> 00:04:52.931
+We will also instruct Metasploit to
+migrate the shell into another process
+
+00:04:52.931 --> 00:04:55.366
+to ensure that the
+shell stays connected
+
+00:04:55.366 --> 00:04:58.633
+even if Windows thinks the
+service has failed to start.
+
+00:04:59.042 --> 00:05:01.700
+To do this, we will set AutoRunScript
+
+00:05:01.700 --> 00:05:05.966
+to migrate to a new process when
+the meterpreter session starts.
+
+00:05:11.523 --> 00:05:16.033
+With everything in place, we’ll
+attempt to restart the Poultry box
+
+00:05:16.033 --> 00:05:18.633
+and wait for our reverse shell.
+
+00:05:33.907 --> 00:05:39.500
+After poultry restarts, we receive
+a new meterpreter session.
+
+00:05:44.142 --> 00:05:45.700
+Very nice.
+
+00:05:46.926 --> 00:05:49.366
+In order to have a persistent backdoor,
+
+00:05:49.366 --> 00:05:54.400
+we can run net user to reset
+the password for poultryadmin.
+
+00:05:55.410 --> 00:05:59.000
+Since the shell we will get back is
+running with SYSTEM privileges,
+
+00:05:59.000 --> 00:06:02.300
+we shouldn’t have issues
+resetting the password.
+
+00:06:03.478 --> 00:06:08.400
+With the password changed, we can
+attempt to log in via remote desktop.
+
+00:06:13.739 --> 00:06:17.000
+This time, we do not
+need the /d flag
+
+00:06:17.000 --> 00:06:20.600
+since we are logging in
+as the local admin user.
+
+00:06:26.685 --> 00:06:28.933
+After authenticating to the workstation,
+
+00:06:28.933 --> 00:06:33.233
+we’re presented with the
+poultryadmin user’s desktop.
+
+00:06:33.906 --> 00:06:35.733
+With admin access to Poultry,
+
+00:06:35.733 --> 00:06:39.466
+we can start looking for
+access to the domain controller.

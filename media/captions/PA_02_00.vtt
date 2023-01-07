@@ -1,0 +1,188 @@
+WEBVTT
+
+00:00:01.333 --> 00:00:05.166
+Brute Force Wordlists
+
+00:00:05.166 --> 00:00:09.566
+In contrast to a dictionary attack, a 
+brute force password attack
+
+00:00:09.566 --> 00:00:14.400
+calculates and tests every possible 
+character combination
+
+00:00:14.400 --> 00:00:18.700
+that could make up a 
+password until the correct one is found.
+
+00:00:18.700 --> 00:00:23.000
+While this may sound like a simple 
+approach that guarantees results,
+
+00:00:23.000 --> 00:00:25.966
+it is extremely time-consuming.
+
+00:00:25.966 --> 00:00:29.566
+Depending on the length and complexity of 
+the password 
+
+00:00:29.566 --> 00:00:32.800
+and the computational power 
+of the testing system, 
+
+00:00:32.800 --> 00:00:39.666
+it can take a very long time, even years, 
+to brute force a strong password.
+
+00:00:39.666 --> 00:00:41.833
+We could even combine these two 
+concepts 
+
+00:00:41.833 --> 00:00:44.633
+and create brute force wordlists, 
+
+00:00:44.633 --> 00:00:48.400
+dictionary files that contain every 
+possible password 
+
+00:00:48.400 --> 00:00:51.366
+that matches a specific pattern.
+
+00:00:51.366 --> 00:00:55.866
+For example, consider a scenario that 
+reveals a very specific 
+
+00:00:55.866 --> 00:00:58.066
+password enforcement policy.
+
+00:01:00.766 --> 00:01:03.566
+Looking at the passwords, we notice a 
+distinct pattern
+
+00:01:03.566 --> 00:01:06.233
+in the password structure.
+
+00:01:07.100 --> 00:01:13.000
+Each password begins with a capital letter
+followed by two lower-case letters, 
+
+00:01:13.000 --> 00:01:17.633
+then two special characters, and 
+finally, three digits.
+
+00:01:19.700 --> 00:01:23.866
+Armed with this knowledge, it would be 
+incredibly helpful to create a wordlist 
+
+00:01:23.866 --> 00:01:28.566
+that contains every possible password 
+that matches this pattern.
+
+00:01:28.900 --> 00:01:33.266
+Crunch, included with Kali Linux, is a 
+powerful wordlist generator
+
+00:01:33.266 --> 00:01:35.333
+that can handle this task.
+
+00:01:35.333 --> 00:01:39.633
+To use it, we must first describe the 
+pattern we need crunch to replicate, 
+
+00:01:41.033 --> 00:01:46.066
+and for this we’ll use placeholders that 
+represent specific types of characters.
+
+00:01:48.233 --> 00:01:51.333
+To generate a wordlist that matches 
+our requirements, 
+
+00:01:51.333 --> 00:01:56.566
+we’ll specify a minimum and maximum word 
+length of eight characters,
+
+00:01:56.566 --> 00:02:00.800
+and describe our rule pattern with -t:
+
+00:02:02.666 --> 00:02:06.800
+The command works as expected, 
+but as noted, the output 
+
+00:02:06.800 --> 00:02:11.700
+would consume a massive 160 GB 
+of disk space!
+
+00:02:11.700 --> 00:02:15.933
+Remember that brute force techniques 
+prioritize password coverage
+
+00:02:15.933 --> 00:02:20.600
+at the expense of speed, and 
+in this case, disk space.
+
+00:02:21.500 --> 00:02:25.433
+We can also define a character 
+set with crunch.
+
+00:02:25.433 --> 00:02:31.466
+For example, we can create a brute 
+force wordlist accounting for passwords
+
+00:02:31.466 --> 00:02:33.833
+between four and six characters in length,
+
+00:02:34.200 --> 00:02:39.800
+containing only the characters 0-9 and A-F,
+
+00:02:39.800 --> 00:02:43.300
+and we’ll write the output to a file:
+
+00:02:46.400 --> 00:02:50.966
+Notice the file output size is 
+significantly smaller 
+
+00:02:50.966 --> 00:02:57.433
+than the previous example, primarily due 
+to the removal of special characters.
+
+00:02:59.033 --> 00:03:06.066
+However, the wordlist file is impressive, 
+containing over 17 million passwords.
+
+00:03:07.900 --> 00:03:13.366
+In addition, we can generate passwords
+based on pre-defined character-sets.
+
+00:03:15.666 --> 00:03:21.966
+For example, we can specify the path 
+to the character set file with -f,
+
+00:03:21.966 --> 00:03:28.500
+and choose the mixed alpha set which 
+includes all lower and upper case letters:
+
+00:03:30.600 --> 00:03:33.700
+Although this particular command 
+generates an enormous 
+
+00:03:33.700 --> 00:03:40.100
+131 GB wordlist file, it offers rather 
+impressive password coverage.
+
+00:03:40.600 --> 00:03:44.933
+Spend time with JTR and crunch and think 
+of how each one 
+
+00:03:44.933 --> 00:03:47.333
+can be used most effectively.
+
+00:03:49.000 --> 00:03:53.366
+As we will discover in the next section, 
+we need to avoid the temptation
+
+00:03:53.366 --> 00:03:58.466
+to rely on massive and generic wordlists 
+as they can have adverse effects 
+
+00:03:58.466 --> 00:04:01.166
+on our client’s production environment.

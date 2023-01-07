@@ -1,0 +1,115 @@
+WEBVTT
+
+00:00:01.654 --> 00:00:04.300
+Post-Exploitation Enumeration
+
+00:00:05.316 --> 00:00:07.200
+Now that we have a shell on Zora,
+
+00:00:07.200 --> 00:00:12.866
+let’s collect some general information
+about the host to see what we can learn.
+
+00:00:13.504 --> 00:00:17.166
+Let’s start by checking the
+flavor of Linux that is running.
+
+00:00:20.216 --> 00:00:24.866
+Alpine Linux is a security-oriented
+Linux distribution
+
+00:00:24.866 --> 00:00:28.566
+based on mussel libc and busybox.
+
+00:00:29.181 --> 00:00:31.966
+This is useful information
+and reveals that the server
+
+00:00:31.966 --> 00:00:36.700
+will likely not have very many
+services or applications running.
+
+00:00:37.550 --> 00:00:40.366
+Anything out of the ordinary
+might be a good target
+
+00:00:40.366 --> 00:00:43.233
+so let’s continue to collect information.
+
+00:00:45.526 --> 00:00:52.233
+The proc version file tells us that the
+distro was built in October of 2019.
+
+00:00:52.918 --> 00:00:56.833
+Other than that, we can take note of
+the kernel version and move forward.
+
+00:00:57.684 --> 00:01:00.400
+Let’s have a look at the
+environment variables.
+
+00:01:02.409 --> 00:01:05.833
+Unfortunately, the environment
+variables don’t tell us much.
+
+00:01:08.693 --> 00:01:11.748
+Looking at the running processes
+also does not reveal
+
+00:01:11.748 --> 00:01:14.300
+any useful information on
+what we could exploit.
+
+00:01:14.843 --> 00:01:18.662
+Let’s run netstat to see if we
+have access to any new ports
+
+00:01:18.662 --> 00:01:22.500
+not exposed from the
+sandbox external network.
+
+00:01:24.958 --> 00:01:29.833
+Unfortunately the open ports don’t provide
+us with any new information either.
+
+00:01:30.329 --> 00:01:32.133
+Let’s check the filesystem.
+
+00:01:34.709 --> 00:01:38.666
+The contents of /etc/fstab
+are interesting.
+
+00:01:38.666 --> 00:01:43.700
+A share is mounted from
+the 10.5.5.20 host.
+
+00:01:44.692 --> 00:01:48.566
+Let’s poke around the scripts
+share and see what we can find.
+
+00:01:55.941 --> 00:01:59.838
+We seem to have discovered a set of
+credentials in the system report file
+
+00:01:59.838 --> 00:02:02.133
+for a user named alex.
+
+00:02:02.937 --> 00:02:06.033
+We also seem to have found
+the name of the target
+
+00:02:06.033 --> 00:02:08.533
+where the share is
+mounted, “Poultry”.
+
+00:02:09.644 --> 00:02:12.266
+Looking at the type of
+scripts in this directory
+
+00:02:12.266 --> 00:02:17.333
+and taking into account that the user
+seems to be a part of the “sandbox” domain
+
+00:02:17.333 --> 00:02:20.600
+we might be looking at
+a Windows computer.

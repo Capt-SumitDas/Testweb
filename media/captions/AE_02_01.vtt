@@ -1,0 +1,123 @@
+WEBVTT
+
+00:00:01.966 --> 00:00:03.433
+Detection Methods
+
+00:00:04.100 --> 00:00:07.833
+There are multiple methods that antivirus
+manufacturers use
+
+00:00:07.833 --> 00:00:09.733
+to detect malicious software.
+
+00:00:10.433 --> 00:00:15.066
+The most common methods used are
+signature-based detection,
+
+00:00:15.066 --> 00:00:20.466
+heuristic-based detection, and
+behavioral-based detection.
+
+00:00:22.600 --> 00:00:28.066
+Signature-based antivirus detection is
+mostly considered a blacklist technology.
+
+00:00:28.700 --> 00:00:33.966
+An antivirus signature is a continuous
+sequence of bytes within malware
+
+00:00:33.966 --> 00:00:36.200
+ that uniquely identifies it.
+
+00:00:36.733 --> 00:00:41.666
+In other words, the filesystem is scanned
+for known malware signatures and if any
+
+00:00:41.666 --> 00:00:45.266
+are detected, the offending files are
+quarantined.
+
+00:00:45.833 --> 00:00:50.000
+With correct tools, we can bypass
+signature-based detection
+
+00:00:50.000 --> 00:00:55.033
+by simply changing or obfuscating the
+contents of a known malicious file
+
+00:00:55.033 --> 00:00:58.600
+ in order to break the identifying byte
+sequence.
+
+00:00:59.133 --> 00:01:02.133
+To address the pitfalls of
+signature-based detection,
+
+00:01:02.133 --> 00:01:06.766
+antivirus manufacturers introduced
+additional detection methods
+
+00:01:06.766 --> 00:01:09.933
+to improve the effectiveness of their
+products.
+
+00:01:12.300 --> 00:01:19.300
+Heuristic-Based Detection is a detection
+method that relies on various rules and
+
+00:01:19.300 --> 00:01:23.000
+algorithms to determine whether or not an
+action is considered malicious.
+
+00:01:24.000 --> 00:01:28.300
+This is often achieved by stepping
+through the instruction set of a binary
+
+00:01:28.300 --> 00:01:33.666
+file or by attempting to decompile and
+then analyze the source code.
+
+00:01:35.400 --> 00:01:39.266
+The idea is to look for various patterns
+and program calls,
+
+00:01:39.266 --> 00:01:43.600
+as opposed to simple byte sequences, that 
+are considered malicious.
+
+00:01:45.366 --> 00:01:50.498
+Alternatively, Behavior-Based Detection
+dynamically analyzes the behavior
+
+00:01:50.498 --> 00:01:52.300
+ of a binary file.
+
+00:01:52.900 --> 00:01:57.666
+This is often achieved by executing the
+file in question in an emulated
+
+00:01:57.666 --> 00:02:01.766
+environment, such as a small virtual
+machine, and looking for behaviors
+
+00:02:01.766 --> 00:02:04.666
+ or actions that are considered malicious.
+
+00:02:05.333 --> 00:02:08.733
+Since these techniques do not require a
+malware signature,
+
+00:02:08.733 --> 00:02:14.722
+they can be used to identify unknown
+malware, or variations of known malware,
+
+00:02:14.722 --> 00:02:16.000
+ more effectively.
+
+00:02:16.433 --> 00:02:21.466
+It’s worth noting that the majority of
+antivirus developers use a combination of
+
+00:02:21.466 --> 00:02:25.733
+these detection methods to achieve higher
+detection rates.

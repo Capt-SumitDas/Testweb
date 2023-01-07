@@ -1,0 +1,249 @@
+WEBVTT
+
+00:00:01.700 --> 00:00:03.233
+Getting a Shell
+
+00:00:04.233 --> 00:00:08.433
+Getting a reverse shell from SyncBreeze
+should now be as simple as replacing our
+
+00:00:08.433 --> 00:00:12.833
+buffer of D’s with the shellcode and
+launching our exploit.
+
+00:00:16.133 --> 00:00:22.866
+Our shellcode will be sent in place of the
+D’s, after the offset, eip, and filler.
+
+00:00:33.633 --> 00:00:38.833
+However, in this particular case, we have
+another hurdle to overcome.
+
+00:00:38.833 --> 00:00:45.500
+Let’s execute this JMP ESP instruction
+with F7 to land in our shellcode.
+
+00:00:45.500 --> 00:00:51.200
+In the previous step, we generated an
+encoded shellcode using msfvenom.
+
+00:00:51.200 --> 00:00:56.000
+Because of the encoding, the shellcode is
+not directly executable
+
+00:00:56.000 --> 00:01:00.066
+and is therefore prepended by a decoder
+stub.
+
+00:01:00.533 --> 00:01:05.566
+The job of this stub is to iterate over
+the encoded shellcode bytes
+
+00:01:05.566 --> 00:01:10.300
+and decode them back to their original
+executable form.
+
+00:01:10.433 --> 00:01:15.766
+In order to perform this task, the decoder
+needs to gather its address in memory
+
+00:01:15.766 --> 00:01:21.466
+and from there look a few bytes ahead to
+locate the encoded shellcode
+
+00:01:21.466 --> 00:01:23.300
+that it needs to decode.
+
+00:01:23.533 --> 00:01:28.200
+As part of the process of gathering the decoder stub’s location in memory,
+
+00:01:28.200 --> 00:01:32.266
+the code performs a sequence of assembly instructions,
+
+00:01:32.266 --> 00:01:36.966
+which are commonly referred to as a GetPC
+routine.
+
+00:01:36.966 --> 00:01:42.333
+This is essentially a short routine that
+moves the value of the EIP register
+
+00:01:42.333 --> 00:01:49.533
+(sometimes referred to as the Program
+Counter or PC) into another register.
+
+00:01:50.366 --> 00:01:55.166
+As with other GetPC routines, those used
+by shikata_ga_nai
+
+00:01:55.166 --> 00:01:58.733
+have an unfortunate side-effect of writing
+some data
+
+00:01:58.733 --> 00:02:02.233
+at and around the top of the stack.
+
+00:02:10.266 --> 00:02:14.633
+This eventually mangles at least a couple
+of bytes close to the address
+
+00:02:14.633 --> 00:02:17.166
+pointed to by the ESP register.
+
+00:02:21.433 --> 00:02:26.666
+After we single step through the first 3
+decoder instructions with F7,
+
+00:02:26.666 --> 00:02:29.833
+we receive an access violation.
+
+00:02:30.300 --> 00:02:34.800
+In the memory dump pane, we find that our
+return address, offset,
+
+00:02:34.800 --> 00:02:38.566
+and other data was overwritten by the
+decoder.
+
+00:02:38.933 --> 00:02:43.566
+Unfortunately, this small change on the
+stack is a problem for us
+
+00:02:43.566 --> 00:02:49.666
+because the decoder starts exactly at the
+address pointed to by the ESP register.
+
+00:02:50.533 --> 00:02:58.033
+In short, the GetPC routine execution ends
+up changing a few bytes of the decoder
+
+00:02:58.033 --> 00:03:02.266
+itself (and potentially the encoded
+shellcode),
+
+00:03:02.466 --> 00:03:07.900
+which eventually fails the decoding
+process and crashes the target process.
+
+00:03:08.400 --> 00:03:13.133
+One method to avoid this issue is to
+adjust ESP backwards
+
+00:03:13.133 --> 00:03:15.266
+before executing the decoder.
+
+00:03:15.766 --> 00:03:21.733
+Alternatively, we could create a wide
+“landing pad” for our JMP ESP,
+
+00:03:21.733 --> 00:03:26.233
+such that when execution lands anywhere on
+this pad,
+
+00:03:26.233 --> 00:03:29.100
+it will continue on to our payload.
+
+00:03:37.300 --> 00:03:42.733
+This may sound complicated, but we simply
+precede our payload with a series of
+
+00:03:42.733 --> 00:03:50.766
+No Operation (or NOP) instructions, which
+have an opcode value of hex 90.
+
+00:03:52.066 --> 00:03:58.533
+As the name suggests, these instructions
+do nothing, and simply pass execution
+
+00:03:58.533 --> 00:04:00.533
+to the next instruction.
+
+00:04:18.266 --> 00:04:25.066
+Used in this way, these instructions,
+also defined as a NOP sled or NOP slide,
+
+00:04:25.066 --> 00:04:30.500
+will let the CPU “slide” through the NOPs
+until the payload is reached.
+
+00:04:37.766 --> 00:04:42.366
+In both cases, by the time the execution
+reaches the shellcode decoder,
+
+00:04:42.366 --> 00:04:48.733
+the stack pointer points far enough away
+from it so as to not corrupt the shellcode
+
+00:04:48.733 --> 00:04:53.366
+when the GetPC routine overwrites a few
+bytes on the stack.
+
+00:05:02.300 --> 00:05:03.966
+In our final exploit,
+
+00:05:03.966 --> 00:05:09.233
+we add 10 NOPs immediately before our
+reverse shell payload.
+
+00:05:11.900 --> 00:05:15.500
+Let’s send this exploit and check it out
+in the debugger.
+
+00:05:24.133 --> 00:05:29.766
+We’ll execute our JMP ESP instruction and
+land in our NOP sled.
+
+00:05:30.500 --> 00:05:34.033
+Now let’s step through the first steps of
+the encoder
+
+00:05:34.033 --> 00:05:36.900
+to make sure we’ve solved our issue.
+
+00:05:48.133 --> 00:05:52.333
+Great, the decoder is working properly
+now.
+
+00:05:52.866 --> 00:05:58.033
+Let’s restart sync breeze and run our
+exploit without the debugger attached.
+
+00:06:10.933 --> 00:06:13.733
+In anticipation of the reverse shell
+payload,
+
+00:06:13.733 --> 00:06:17.600
+we’ll configure a Netcat listener on port
+443.
+
+00:06:25.466 --> 00:06:30.833
+Now we’ll execute the exploit, which
+should hopefully provide us with a
+
+00:06:30.833 --> 00:06:34.133
+SYSTEM reverse shell from our victim
+machine.
+
+00:06:45.400 --> 00:06:48.233
+Excellent! It works.
+
+00:06:48.233 --> 00:06:53.933
+We have created a fully working exploit
+for a buffer overflow vulnerability
+
+00:06:53.933 --> 00:06:55.533
+from scratch.
+
+00:06:55.900 --> 00:07:00.400
+However, there is still one small
+inconvenience to overcome.
+
+00:07:02.166 --> 00:07:05.100
+Notice that once we exit the reverse
+shell,
+
+00:07:05.100 --> 00:07:09.600
+the SyncBreeze service crashes and exits.
+
+00:07:14.033 --> 00:07:15.733
+This is far from ideal.

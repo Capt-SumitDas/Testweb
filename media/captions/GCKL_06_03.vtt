@@ -1,0 +1,73 @@
+WEBVTT
+
+00:00:01.233 --> 00:00:05.466
+apt-cache search and apt show
+
+00:00:05.466 --> 00:00:09.400
+The apt-cache search command displays 
+much of the information stored
+
+00:00:09.400 --> 00:00:12.166
+in the internal cached package database.
+
+00:00:12.166 --> 00:00:17.366
+For example, let’s say we would like to 
+install the pure-ftpd application.
+
+00:00:17.366 --> 00:00:21.166
+The first thing we have to do is to find 
+out whether or not the application
+
+00:00:21.166 --> 00:00:24.566
+is present in the Kali Linux 
+repositories.
+
+00:00:24.566 --> 00:00:30.433
+To do this, we simply provide the search 
+term to apt-cache search.
+
+00:00:30.433 --> 00:00:33.500
+The output reveals that the application 
+is, in fact, 
+
+00:00:33.500 --> 00:00:35.966
+present in the Kali repository.
+
+00:00:35.966 --> 00:00:40.933
+There are also a few authentication 
+extensions for the pure-ftpd application
+
+00:00:40.933 --> 00:00:43.366
+that we could install if needed.
+
+00:00:43.366 --> 00:00:48.000
+Interestingly enough, the resource-agents 
+package is showing up in our search
+
+00:00:48.000 --> 00:00:52.866
+even though its name does not contain the 
+“pure-ftpd” keyword. 
+
+00:00:52.866 --> 00:00:57.400
+This is because apt-cache search looks 
+for the requested keyword 
+
+00:00:57.400 --> 00:01:01.800
+in the package’s description rather than 
+in the package name itself.
+
+00:01:01.800 --> 00:01:06.266
+To confirm that the resource-agents 
+package description really contains
+
+00:01:06.266 --> 00:01:11.600
+the “pure-ftpd” keyword, pass the package 
+name to apt show.
+
+00:01:14.233 --> 00:01:18.800
+The output reveals why the 
+resource-agents application was 
+
+00:01:18.800 --> 00:01:23.266
+mysteriously showing up in the previous 
+search for pure-ftpd.

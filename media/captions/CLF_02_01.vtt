@@ -1,0 +1,37 @@
+WEBVTT
+
+00:00:02.333 --> 00:00:04.086
+Redirection to a New File
+
+00:00:05.245 --> 00:00:09.200
+In the previous command examples,
+the output was printed to the screen.
+
+00:00:11.266 --> 00:00:13.196
+This is convenient most of the time,
+
+00:00:13.196 --> 00:00:18.203
+but we can use the right-angle bracket
+operator to save the output to a file
+
+00:00:18.203 --> 00:00:21.503
+to keep it for future reference
+or manipulation.
+
+00:00:22.200 --> 00:00:25.332
+If we redirect the output to a
+non-existent file,
+
+00:00:25.611 --> 00:00:28.345
+the file will be created automatically.
+
+00:00:30.458 --> 00:00:34.558
+However, if we save the output to
+a file that already exists,
+
+00:00:34.558 --> 00:00:37.824
+that file’s content will be replaced.
+
+00:00:40.033 --> 00:00:44.406
+Be very careful with redirection!
+There is no undo function!

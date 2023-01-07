@@ -1,0 +1,410 @@
+WEBVTT
+
+00:00:01.966 --> 00:00:06.133
+HTTPTunnel-ing Through Deep Packet
+Inspection
+
+00:00:07.166 --> 00:00:12.866
+So far, we have traversed firewalls based
+on port filters and stateful inspection.
+
+
+00:00:13.066 --> 00:00:17.433
+However, certain deep packet content
+inspection devices
+
+00:00:17.433 --> 00:00:20.433
+may only allow specific protocols.
+
+00:00:20.633 --> 00:00:24.266
+If, for example, the SSH protocol is not
+allowed,
+
+00:00:24.266 --> 00:00:28.400
+all the tunnels that relied on this
+protocol would fail.
+
+00:00:28.766 --> 00:00:32.366
+To demonstrate this, we will consider a
+new scenario.
+
+00:00:34.400 --> 00:00:37.000
+Similar to our other Linux scenarios,
+
+00:00:37.000 --> 00:00:41.033
+let’s assume we have compromised a server
+through a vulnerability,
+
+00:00:41.033 --> 00:00:43.500
+elevated our privileges to root,
+
+00:00:43.500 --> 00:00:47.800
+and have gained access to the passwords
+for both the root
+
+00:00:47.800 --> 00:00:50.400
+and student users on the machine.
+
+00:00:51.033 --> 00:00:55.166
+Even though our compromised Linux server
+does not actually have deep packet
+
+00:00:55.166 --> 00:00:58.633
+inspection implemented, for the purposes
+of this section
+
+00:00:58.633 --> 00:01:02.733
+we will assume that a deep packet content
+inspection feature
+
+00:01:02.733 --> 00:01:07.900
+has been implemented that only allows the
+HTTP protocol.
+
+00:01:08.366 --> 00:01:12.666
+Because of this an SSH-based tunnel will
+not work here.
+
+00:01:12.966 --> 00:01:21.533
+In addition, the firewall in this scenario
+only allows ports 80, 443, and 1234
+
+00:01:21.533 --> 00:01:23.866
+inbound and outbound.
+
+00:01:24.200 --> 00:01:28.800
+Port 80 and 443 are allowed because this
+machine is a web server,
+
+00:01:29.133 --> 00:01:32.733
+but 1234 was obviously an oversight
+
+00:01:32.733 --> 00:01:38.233
+since it does not currently map to any
+listening port on the internal network.
+
+00:01:40.800 --> 00:01:42.466
+In order to simulate this scenario,
+
+00:01:42.466 --> 00:01:47.300
+our dedicated Debian box will stand in as
+the compromised Linux server.
+
+00:01:56.433 --> 00:02:01.166
+We will run the http tunneling script on
+our dedicated Linux client
+
+00:02:01.166 --> 00:02:07.466
+so it allows inbound traffic on ports, 80,
+443 and 1234.
+
+00:02:15.700 --> 00:02:20.100
+In this case, our goal is to initiate a
+remote desktop connection
+
+00:02:20.100 --> 00:02:25.400
+from our Kali Linux machine to the Windows
+Server 2016 machine
+
+00:02:25.400 --> 00:02:31.300
+through the compromised Linux server
+using only the HTTP protocol.
+
+00:02:33.000 --> 00:02:40.166
+We will rely on HTTPTunnel to encapsulate
+our traffic within HTTP requests
+
+00:02:40.166 --> 00:02:44.366
+thereby creating an “HTTP tunnel”.
+
+00:02:45.766 --> 00:02:49.233
+HTTPTunnel uses a client/server model
+
+00:02:49.233 --> 00:02:54.366
+and we’ll need to first install the tool
+and then run both a client and a server.
+
+00:02:54.666 --> 00:03:00.833
+We can install HTTPtunnel from the Kali
+Linux repositories using apt.
+
+00:03:09.266 --> 00:03:13.800
+Before diving in, let’s describe the
+traffic flow we are trying to achieve.
+
+00:03:16.000 --> 00:03:20.800
+First, remember that we have a shell on
+the internal Linux server.
+
+00:03:21.066 --> 00:03:26.566
+This shell is HTTP-based, which is the
+only protocol allowed through the firewall
+
+00:03:26.566 --> 00:03:30.233
+and we are connected to it via port 443.
+
+00:03:30.633 --> 00:03:37.333
+We will create a local port forward on
+this machine bound to port 8888,
+
+00:03:37.333 --> 00:03:43.600
+which will forward all connections to the
+Windows Server on port 3389.
+
+00:03:44.066 --> 00:03:49.333
+Note that this port forward is not
+affected by the HTTP protocol restriction
+
+00:03:49.333 --> 00:03:53.433
+because both machines are on the same
+internal network
+
+00:03:53.433 --> 00:03:57.266
+and the traffic does not traverse the
+deep packet inspection device.
+
+00:03:57.833 --> 00:04:02.733
+However, the protocol restriction will
+create a problem for us when we attempt
+
+00:04:02.733 --> 00:04:07.400
+to connect a tunnel from the Linux server
+to our Kali Linux machine.
+
+00:04:07.866 --> 00:04:10.900
+This is where our SSH-based tunnel
+
+00:04:10.900 --> 00:04:14.300
+will be blocked because of the disallowed
+protocol.
+
+00:04:14.933 --> 00:04:18.600
+To solve this, we will create an
+HTTP-based tunnel
+
+00:04:18.600 --> 00:04:21.866
+between the machines using HTTPTunnel.
+
+00:04:22.433 --> 00:04:26.066
+Port forwarding with encapsulation can be
+complicated
+
+00:04:26.066 --> 00:04:30.733
+because we have to consider firewall
+rules, protocol limitations, 
+
+00:04:30.733 --> 00:04:36.033
+and both inbound and outbound ports.
+Let’s review what’s going on.
+
+00:04:36.566 --> 00:04:42.966
+The “input” of this HTTP tunnel will be
+on port 8080 of our Kali Linux machine
+
+00:04:42.966 --> 00:04:47.333
+and the tunnel will “output” to the
+compromised Linux machine
+
+00:04:47.333 --> 00:04:50.433
+on listening port 1234.
+
+00:04:51.200 --> 00:04:55.400
+Here the HTTP requests will be decapsulated,
+
+00:04:55.400 --> 00:05:00.766
+and the traffic will be handed off to the
+listening port 8888
+
+00:05:00.766 --> 00:05:06.733
+on the compromised Linux server, which,
+thanks to our SSH-based local forward,
+
+00:05:06.733 --> 00:05:11.500
+is redirected to our Windows target’s
+Remote Desktop port.
+
+00:05:12.333 --> 00:05:16.633
+When this is set up, we will initiate a
+Remote Desktop session to our Kali Linux
+
+00:05:16.633 --> 00:05:19.500
+machine’s localhost port 8080.
+
+00:05:20.166 --> 00:05:23.600
+The request will be HTTP-encapsulated
+
+00:05:23.600 --> 00:05:29.300
+and sent across the HTTPTunnel as HTTP
+traffic
+
+00:05:29.300 --> 00:05:36.500
+to port 1234 on the Linux server, where
+it will decapsulated and finally
+
+00:05:36.500 --> 00:05:40.466
+sent to our Windows Target’s Remote
+desktop port
+
+00:05:40.466 --> 00:05:44.633
+via the SSH local port forward tunnel.
+
+00:05:47.600 --> 00:05:49.800
+To begin building our tunnel,
+
+00:05:49.800 --> 00:05:53.900
+we first need to obtain a shell on the
+Linux client.
+
+00:05:57.733 --> 00:06:00.000
+For the purposes of this demonstation,
+
+00:06:00.000 --> 00:06:05.233
+we will use a CMS Made Simple exploit
+that has been modified
+
+00:06:05.233 --> 00:06:08.266
+to contain a reverse shell payload.
+
+00:06:15.600 --> 00:06:20.533
+We also need to upgrade our
+non-interactive shell using python,
+
+00:06:21.433 --> 00:06:27.000
+so we can create a local port forward
+between our compromised Linux machine
+
+00:06:27.000 --> 00:06:31.700
+and the Windows remote desktop target
+using SSH.
+
+00:06:32.333 --> 00:06:38.000
+Remember, protocol does not matter here
+because this traffic is unaffected
+
+00:06:38.000 --> 00:06:42.133
+by deep packet inspection on the internal
+network.
+
+00:06:43.000 --> 00:06:48.233
+To do this, we will create a local
+forward from this machine and will log in
+
+00:06:48.233 --> 00:06:52.566
+as the student user using the password we
+found earlier.
+
+00:06:53.500 --> 00:06:58.366
+We will forward all requests on port 8888,
+
+00:06:59.000 --> 00:07:02.900
+to the Windows Server’s remote
+desktop port.
+
+00:07:11.233 --> 00:07:16.733
+Using ss, we confirm that port 8888 is
+listening.
+
+00:07:17.866 --> 00:07:23.500
+Next, we must create an HTTPTunnel out to
+our Kali Linux machine
+
+00:07:23.500 --> 00:07:29.566
+in order to slip our traffic past the
+HTTP-only protocol restriction.
+
+00:07:30.366 --> 00:07:37.666
+HTTPTunnel uses both a client named htc,
+and a server named hts.
+
+00:07:37.900 --> 00:07:39.533
+We will set up the server,
+
+00:07:40.400 --> 00:07:44.100
+which will listen on localhost port 1234,
+
+00:07:44.933 --> 00:07:50.200
+and will decapsulate the traffic from the
+incoming HTTP stream
+
+00:07:51.033 --> 00:07:56.066
+and redirect it to localhost port 8888
+
+00:07:56.833 --> 00:07:59.433
+which, thanks to the previous command,
+
+00:07:59.433 --> 00:08:04.633
+is redirected to the Windows Target’s
+remote desktop port.
+
+00:08:12.900 --> 00:08:20.566
+The ps and ss commands show that the
+HTTPTunnel server is up and running.
+
+00:08:21.733 --> 00:08:28.000
+Next, we need an HTTPTunnel client that
+will take our remote desktop traffic
+
+00:08:28.000 --> 00:08:31.700
+and encapsulate it into an HTTP stream
+
+00:08:31.700 --> 00:08:36.533
+and send it to the listening HTTPTunnel
+server.
+
+00:08:37.600 --> 00:08:42.500
+The htc command will listen on localhost
+port 8080,
+
+00:08:43.066 --> 00:08:48.066
+HTTP-encapsulate the traffic and forward
+it across the firewall,
+
+00:08:48.933 --> 00:08:55.366
+to our listening HTTPTunnel server on
+port 1234.
+
+00:09:02.433 --> 00:09:09.866
+Again, the ps and ss commands show that
+the HTTPTunnel client is up and running.
+
+00:09:12.800 --> 00:09:19.433
+Now, all traffic sent to port 8080 on our
+Kali Linux machine will be redirected
+
+00:09:19.433 --> 00:09:24.400
+into our HTTPTunnel, where it is
+HTTP-encapsulated,
+
+00:09:24.400 --> 00:09:30.433
+sent across the firewall to the
+compromised Linux server and decapsulated,
+
+00:09:30.433 --> 00:09:36.433
+and redirected again to the Windows
+Server’s remote desktop service.
+
+00:09:36.766 --> 00:09:39.900
+We can test that this is working by
+sniffing the traffic
+
+00:09:39.900 --> 00:09:43.033
+to ensure it is HTTP-encapsulated.
+
+00:10:03.500 --> 00:10:09.166
+Next, we’ll lauch a remote desktop client
+against our Kali Linux machine’s
+
+00:10:09.166 --> 00:10:11.066
+listening port 8080.
+
+00:10:15.833 --> 00:10:21.400
+Excellent. The remote desktop connection
+was successful.
+
+00:10:32.300 --> 00:10:37.433
+Inspecting the traffic, we can confirm
+that it is HTTP-encapsulated
+
+00:10:37.433 --> 00:10:42.000
+and would have successfully bypassed the
+protocol restrictions.

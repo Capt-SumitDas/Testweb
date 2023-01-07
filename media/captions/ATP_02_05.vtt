@@ -1,0 +1,222 @@
+WEBVTT
+
+00:00:01.724 --> 00:00:03.400
+Obtaining a Shell
+
+00:00:04.810 --> 00:00:08.400
+To obtain a shell, we first
+must package the plugin
+
+00:00:08.400 --> 00:00:10.833
+in a way that WordPress can handle.
+
+00:00:11.870 --> 00:00:14.433
+WordPress expects plugins
+to be in a zip file,
+
+00:00:14.433 --> 00:00:18.633
+which will be extracted into the
+plugins directory on the server. 
+
+00:00:19.528 --> 00:00:22.266
+WordPress places the
+contents of the zip file
+
+00:00:22.266 --> 00:00:25.700
+into a folder that matches
+the name of the zip file itself.
+
+00:00:26.364 --> 00:00:29.933
+Because of this, we will need to
+make note of the name of the file
+
+00:00:29.933 --> 00:00:33.733
+in order to be able to access
+our PHP shell later on.
+
+00:00:36.703 --> 00:00:40.600
+The generated zip file
+is named plugin-shell.zip
+
+00:00:40.600 --> 00:00:44.433
+and will be extracted
+to a plugin-shell folder
+
+00:00:44.433 --> 00:00:47.500
+within the plugins
+directory on the server.
+
+00:00:48.544 --> 00:00:52.533
+Now that the plugin package is generated,
+it’s time to upload the shell.
+
+00:00:59.153 --> 00:01:01.266
+We’ll select Upload Plugin
+
+00:01:01.266 --> 00:01:05.433
+then find and open our
+newly-created zip file.
+
+00:01:15.703 --> 00:01:20.100
+Finally, to install the plugin,
+we click Install Now.
+
+00:01:23.563 --> 00:01:28.033
+Installing the plugin will upload
+the zip and extract the contents.
+
+00:01:28.988 --> 00:01:30.500
+Now that the plugin is installed,
+
+00:01:30.500 --> 00:01:35.666
+we can attempt to use it to run system
+commands on the WordPress target.
+
+00:01:44.026 --> 00:01:46.900
+We can simply use cURL for this.
+
+00:01:47.930 --> 00:01:52.633
+The file that we are targeting
+is named plugin-shell.php.
+
+00:01:53.736 --> 00:01:56.800
+Remember that we must
+also set a cmd parameter
+
+00:01:56.800 --> 00:02:01.100
+containing the command we are attempting
+to execute on the target system.
+
+00:02:03.503 --> 00:02:04.400
+It worked!
+
+00:02:04.735 --> 00:02:09.566
+Based on the output, we are running
+commands as the www-data user.
+
+00:02:10.768 --> 00:02:13.400
+Now it’s time to upload a meterpreter payload
+
+00:02:13.400 --> 00:02:15.966
+to obtain a full reverse shell.
+
+00:02:17.974 --> 00:02:21.933
+First let’s generate a meterpreter
+payload with msfvenom.
+
+00:02:23.500 --> 00:02:28.233
+We are selecting the Linux reverse
+TCP meterpreter payload
+
+00:02:28.233 --> 00:02:31.300
+since we know that the
+target is running on Ubuntu
+
+00:02:31.300 --> 00:02:33.700
+from our previous enumeration efforts.
+
+00:02:34.849 --> 00:02:38.466
+The LHOST option will
+point to our Kali IP address
+
+00:02:38.466 --> 00:02:42.000
+and we are selecting an LPORT of 443
+
+00:02:42.000 --> 00:02:45.933
+in an attempt to evade
+any outbound firewall rules.
+
+00:02:46.970 --> 00:02:49.266
+We’ll generate the payload as an elf file
+
+00:02:49.266 --> 00:02:53.800
+and redirect the output
+to a file named shell.elf.
+
+00:02:56.815 --> 00:02:59.300
+With the meterpreter
+reverse shell generated,
+
+00:02:59.300 --> 00:03:03.100
+we’ll start a web server to allow
+the target to download the shell.
+
+00:03:06.943 --> 00:03:09.866
+With the shell generated
+and the web server running,
+
+00:03:09.866 --> 00:03:13.066
+we will instruct the target
+to download the shell.
+
+00:03:16.604 --> 00:03:21.500
+We will use wget from the target to
+download the shell from our Kali system.
+
+00:03:22.649 --> 00:03:27.600
+However, we must encode
+any space characters with “%20”
+
+00:03:27.600 --> 00:03:30.766
+since we cannot use spaces in URLs.
+
+00:03:33.468 --> 00:03:38.200
+If the command worked, we should
+see an entry in our webserver’s log.
+
+00:03:43.081 --> 00:03:46.566
+Good. Our shell was successfully downloaded.
+
+00:03:49.596 --> 00:03:53.000
+Next we need to start a Metasploit payload handler,
+
+00:03:53.000 --> 00:03:55.366
+make the shell executable,
+
+00:03:55.366 --> 00:04:00.133
+and run the elf file on the target to acquire a meterpreter shell.
+
+00:04:02.103 --> 00:04:06.166
+In our msfconsole command,
+we pass the same payload settings
+
+00:04:06.166 --> 00:04:08.233
+we used when generating the shell.
+
+00:04:11.412 --> 00:04:16.700
+With our listener waiting, let’s make
+the shell executable and run it.
+
+00:04:21.790 --> 00:04:26.266
+We will make the shell
+executable with chmod +x.
+
+00:04:27.132 --> 00:04:27.966
+Once again,
+
+00:04:27.966 --> 00:04:33.733
+we need to urlencode sensitive
+characters such as space and “+”.
+
+00:04:35.927 --> 00:04:40.066
+At this point, the shell should be
+executable so it’s finally time to obtain
+
+00:04:40.066 --> 00:04:41.500
+a reverse shell.
+
+00:04:44.403 --> 00:04:48.533
+This can be done by
+executing our shell.elf file.
+
+00:04:49.637 --> 00:04:53.166
+Returning to our listener, we should
+see that we have captured a shell.
+
+00:04:57.017 --> 00:05:00.066
+Now that we have a meterpreter session
+on the WordPress machine,
+
+00:05:00.066 --> 00:05:03.800
+we will move on to
+post-exploitation enumeration.

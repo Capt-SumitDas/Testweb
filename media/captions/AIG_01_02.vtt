@@ -1,0 +1,57 @@
+WEBVTT
+
+00:00:01.241 --> 00:00:02.866
+Automating Lookups
+
+00:00:03.677 --> 00:00:07.666
+Now that we have some initial data
+from the megacorpone.com domain,
+
+00:00:07.666 --> 00:00:10.800
+we can continue to use
+additional DNS queries
+
+00:00:10.800 --> 00:00:14.100
+to discover more
+hostnames and IP addresses
+
+00:00:14.100 --> 00:00:16.300
+belonging to the same domain.
+
+00:00:16.700 --> 00:00:17.700
+For example,
+
+00:00:17.700 --> 00:00:20.098
+we know that the domain has a web server,
+
+00:00:20.098 --> 00:00:24.700
+with the hostname “www.megacorpone.com”.
+
+00:00:25.437 --> 00:00:27.900
+Let’s run host against this hostname.
+
+00:00:32.098 --> 00:00:35.500
+Now, let’s see if megacorpone.com
+
+00:00:35.500 --> 00:00:39.133
+has a server with
+the hostname “idontexist”.
+
+00:00:40.520 --> 00:00:45.800
+First, we queried a valid hostname and
+received an IP resolution response.
+
+00:00:46.450 --> 00:00:50.866
+By contrast, our second query
+returned an NXDOMAIN error,
+
+00:00:50.866 --> 00:00:55.733
+indicating that a public DNS record
+does not exist for that hostname.
+
+00:00:57.033 --> 00:00:59.733
+Now that we understand
+how to search for valid hostnames,
+
+00:00:59.733 --> 00:01:01.700
+we can automate our efforts.

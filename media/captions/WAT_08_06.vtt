@@ -1,0 +1,97 @@
+WEBVTT
+
+00:00:01.526 --> 00:00:03.766
+Expanding Your Repertoire
+
+00:00:04.947 --> 00:00:07.000
+Now that we’ve walked through the basics,
+
+00:00:07.000 --> 00:00:10.266
+let’s look at some ways
+to expand our repertoire.
+
+00:00:10.825 --> 00:00:14.300
+First, let’s look at some
+Apache alternatives.
+
+00:00:14.788 --> 00:00:19.433
+Kali includes several tools
+that can create HTTP servers.
+
+00:00:19.699 --> 00:00:21.529
+This is especially helpful
+
+00:00:21.529 --> 00:00:26.800
+if we need to quickly stand up
+HTTP servers on arbitrary ports.
+
+00:00:29.241 --> 00:00:31.994
+For example, we can start an HTTP server
+
+00:00:31.994 --> 00:00:35.866
+on an arbitrary port in Python 2.x
+
+00:00:35.866 --> 00:00:43.466
+by using the SimpleHTTPServer module
+followed by the desired TCP port number.
+
+00:00:49.840 --> 00:00:54.766
+The syntax is slightly different with 
+Python 3 as the module name is different.
+
+00:00:55.423 --> 00:00:58.133
+Both commands will start an HTTP server
+
+00:00:58.133 --> 00:01:02.800
+and host any files or directories
+from the current working path.
+
+00:01:08.685 --> 00:01:11.400
+PHP includes a built-in web server
+
+00:01:11.400 --> 00:01:14.600
+that can be launched with the -S flag
+
+00:01:14.600 --> 00:01:17.900
+followed by the address and port to use.
+
+00:01:21.291 --> 00:01:25.866
+We can also launch an HTTP server
+with a Ruby “one liner”.
+
+00:01:28.547 --> 00:01:32.500
+The command requires
+several flags including -run
+
+00:01:32.500 --> 00:01:34.893
+to load un.rb,
+
+00:01:34.893 --> 00:01:38.766
+which contains replacements
+for common Unix commands,
+
+00:01:40.080 --> 00:01:44.533
+-e httpd to run the HTTP server,
+
+00:01:45.802 --> 00:01:49.333
+a dot to serve content
+from the current directory
+
+00:01:49.333 --> 00:01:53.100
+and -p to set the TCP port.
+
+00:02:00.175 --> 00:02:03.266
+We can also use busybox
+to run an HTTP server
+
+00:02:03.266 --> 00:02:05.933
+with httpd as the function,
+
+00:02:07.136 --> 00:02:09.566
+-f to run interactively
+
+00:02:10.476 --> 00:02:14.466
+and -p to specify the TCP port to use.
+
+00:02:19.189 --> 00:02:22.600
+Next, let’s discuss PHP wrappers.

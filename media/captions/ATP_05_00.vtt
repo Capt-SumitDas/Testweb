@@ -1,0 +1,12 @@
+WEBVTT
+
+00:00:01.198 --> 00:00:03.533
+Targeting the Database Again
+
+00:00:04.836 --> 00:00:10.566
+Now we have root database credentials
+for Zora’s MariaDB instance.
+
+00:00:12.651 --> 00:00:18.733
+Let’s try the UDF exploit again using
+these new, higher-level, permissions.

@@ -1,0 +1,248 @@
+WEBVTT
+
+00:00:01.500 --> 00:00:05.300
+Practical Bash Usage – Example 3
+
+00:00:05.833 --> 00:00:09.733
+As penetration testers, we’re always 
+trying to find efficiencies to
+
+00:00:09.733 --> 00:00:13.766
+minimize the amount of time we spend 
+analyzing data,
+
+00:00:13.766 --> 00:00:18.233
+especially the volumes of data we 
+recover during various scans.
+
+00:00:18.500 --> 00:00:23.833
+Let’s assume we’re tasked with scanning 
+a class C subnet to identify web servers
+
+00:00:23.833 --> 00:00:28.300
+and determine whether or not they present 
+an interesting attack surface.
+
+00:00:28.300 --> 00:00:33.466
+Port scanning is the process of 
+inspecting TCP or UDP ports on a remote
+
+00:00:33.466 --> 00:00:38.200
+machine with the intention of detecting 
+what services are running on the target
+
+00:00:38.200 --> 00:00:41.400
+and potentially what attack vectors exist.
+
+00:00:41.400 --> 00:00:45.733
+We discuss port scanning in much more 
+detail in another module, but for now,
+
+00:00:45.733 --> 00:00:50.433
+let’s keep it general as this is a great 
+example that shows how Bash scripting
+
+00:00:50.433 --> 00:00:53.700
+can automate a rather tedious task.
+
+00:00:53.700 --> 00:00:58.766
+In order to accomplish our goal, we would 
+first port scan the entire subnet to
+
+00:00:58.766 --> 00:01:03.339
+pinpoint potential open web services, 
+then we could manually
+
+00:01:03.339 --> 00:01:05.100
+browse their web pages.
+
+00:01:05.600 --> 00:01:10.600
+To begin, let’s create a temporary folder 
+to be used for this exercise
+
+
+00:01:10.600 --> 00:01:12.733
+and cd into it.
+
+00:01:14.966 --> 00:01:20.133
+Now let’s move on to the interesting part,
+a scan of the class C subnet.
+
+00:01:20.433 --> 00:01:25.268
+We will only focus on port 80 to keep the 
+scope somewhat manageable and we will use
+
+00:01:25.268 --> 00:01:27.533
+nmap as our port scanning tool.
+
+00:01:27.800 --> 00:01:33.366
+This is a pretty straight-forward scan, 
+with -A for aggressive scanning
+
+00:01:33.366 --> 00:01:40.885
+-p to specify the port or port range, and
+–open to only return machines with
+
+00:01:40.885 --> 00:01:42.633
+ open ports.
+
+00:01:42.866 --> 00:01:48.700
+We also include -oG to save the scan 
+results in greppable format.
+
+00:01:48.933 --> 00:01:54.733
+Again, don’t fret if nmap is new to you 
+as we’ll go into further detail later.
+
+00:01:55.866 --> 00:01:59.533
+Nmap certainly provided a decent amount 
+of output to work with.
+
+00:02:00.000 --> 00:02:04.066
+Let’s inspect the output file to 
+familiarize ourselves with its format.
+
+00:02:05.466 --> 00:02:09.633
+Interestingly, it looks like each IP 
+address is repeated twice,
+
+00:02:09.633 --> 00:02:12.566
+the first line displaying the machine 
+status,
+
+00:02:12.566 --> 00:02:15.833
+and the second displaying the port number 
+being scanned.
+
+00:02:16.133 --> 00:02:20.733
+Since we are only interested in unique IP 
+addresses, some clean up is necessary.
+
+00:02:21.033 --> 00:02:23.933
+Let’s grep for lines containing port 80.
+
+00:02:25.733 --> 00:02:29.366
+This is a great start but notice that 
+the first line is irrelevant.
+
+00:02:32.100 --> 00:02:36.500
+To exclude it, we will grep again with -v,
+which is a “reverse-grep",
+
+00:02:36.500 --> 00:02:39.733
+showing only lines that do not match the 
+search string.
+
+00:02:39.933 --> 00:02:42.466
+In this case, we don’t want any lines 
+that contain
+
+00:02:42.466 --> 00:02:44.782
+the case-sensitive keyword “Nmap”.
+
+00:02:47.900 --> 00:02:49.866
+Our output is looking much better.
+
+00:02:51.300 --> 00:02:53.933
+Let’s try to extract just the IP 
+addresses,
+
+00:02:53.933 --> 00:02:56.566
+as this is all we are really interested 
+in.
+
+00:02:56.566 --> 00:03:01.666
+To do this, we’ll use awk to print the 
+second field, using Tab as a delimiter.
+
+00:03:03.166 --> 00:03:07.000
+Good. This looks like a clean IP address 
+list.
+
+00:03:07.000 --> 00:03:11.400
+For the next step, we’ll use a Bash 
+one-liner to loop through the list of IPs 
+
+00:03:11.400 --> 00:03:16.866
+above and run cutycapt, which is a web 
+page rendering capture utility.
+
+00:03:16.866 --> 00:03:21.266
+We will use –url to specify the target 
+web site
+
+00:03:21.266 --> 00:03:25.366
+and –out to specify the name of the 
+output file.
+
+00:03:25.366 --> 00:03:27.833
+Once our loop is finished and our prompt 
+is returned,
+
+00:03:27.833 --> 00:03:30.766
+we should have a number of screenshot 
+files.
+
+00:03:32.633 --> 00:03:35.433
+Outstanding. We are getting closer to our 
+goal.
+
+00:03:36.066 --> 00:03:41.166
+We could examine these files individually 
+but the more attractive option is to once
+
+00:03:41.166 --> 00:03:45.000
+again put our scripting knowledge to work 
+and see if there is anything else
+
+00:03:45.000 --> 00:03:46.233
+ we can automate.
+
+00:03:46.233 --> 00:03:50.562
+This will require not only Bash scripting 
+skills but also a bit of basic
+
+00:03:50.562 --> 00:03:51.933
+HTML knowledge.
+
+00:03:52.733 --> 00:03:57.200
+This script builds an HTML file called 
+web.html, 
+
+00:03:57.200 --> 00:03:59.966
+starting with the most basic tags.
+
+00:03:59.966 --> 00:04:08.000
+Then, the ls and awk statements insert 
+each PNG file name into an HTML IMG tag.
+
+00:04:08.633 --> 00:04:12.933
+Finally, we append HTML and end tags 
+into the file.
+
+00:04:13.233 --> 00:04:18.100
+Now let’s run our script and check out 
+the resultant page in our browser.
+
+00:04:23.933 --> 00:04:28.366
+The result is simple, but effective, 
+giving us a view of each
+
+00:04:28.366 --> 00:04:30.466
+ web server’s main page.
+
+00:04:30.466 --> 00:04:35.300
+Hopefully, these brief practical examples 
+have given you an idea about some of the
+
+00:04:35.300 --> 00:04:38.233
+ possibilities that Bash scripting has to 
+offer.
+
+00:04:38.233 --> 00:04:42.100
+Learning to use Bash effectively will be 
+essential when trying 
+
+00:04:42.100 --> 00:04:46.233
+to quickly automate a large number of 
+tasks during assessments.

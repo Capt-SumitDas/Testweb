@@ -1,0 +1,29 @@
+WEBVTT
+
+00:00:01.508 --> 00:00:02.208
+curl
+
+00:00:03.012 --> 00:00:09.245
+Curl is a tool used to transfer data to or
+from a server using a host of protocols,
+
+00:00:09.541 --> 00:00:13.774
+A penetration tester can use curl
+to download or upload files 
+
+00:00:13.774 --> 00:00:16.108
+and build complex requests.
+
+00:00:16.574 --> 00:00:19.508
+Its most basic use is very similar to wget
+
+00:00:19.508 --> 00:00:23.808
+but with a lower-case o to specify
+the output filename.
+
+00:00:26.383 --> 00:00:27.916
+Curl is incredibly versatile
+
+00:00:27.916 --> 00:00:32.150
+and you'll find ample documentation
+and example usage online.

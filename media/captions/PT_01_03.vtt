@@ -1,0 +1,82 @@
+WEBVTT
+
+00:00:01.452 --> 00:00:03.819
+Transferring Files with Netcat
+
+00:00:04.510 --> 00:00:09.544
+Netcat can also be used to transfer files,
+both text and binary,
+
+00:00:09.565 --> 00:00:11.631
+from one computer to another.
+
+00:00:11.989 --> 00:00:15.289
+To send a file from our Kali machine
+to the Windows system,
+
+00:00:15.289 --> 00:00:20.189
+we’ll use another client-server setup
+similar to the previous chat example,
+
+00:00:20.189 --> 00:00:21.956
+with some minor differences.
+
+00:00:23.123 --> 00:00:27.623
+On the Windows machine, we’ll run
+a Netcat listener on port 4444
+
+00:00:27.623 --> 00:00:33.489
+and redirect any output into a
+file called incoming.exe
+
+00:00:34.907 --> 00:00:40.440
+On our Kali system, we’ll push the
+wget.exe file to the Windows machine
+
+00:00:40.440 --> 00:00:43.907
+through TCP port 4444.
+
+00:00:45.407 --> 00:00:51.174
+Notice that we are redirecting
+wget.exe into the Netcat connection.
+
+00:00:52.531 --> 00:00:56.898
+After hitting enter, the connection is
+received by Netcat on the Windows machine.
+
+00:00:58.565 --> 00:01:00.831
+Notice that we have not
+received any feedback from
+
+00:01:00.831 --> 00:01:03.865
+Netcat about our file upload progress.
+
+00:01:04.044 --> 00:01:07.810
+This is completely normal and
+means we need to make a best guess
+
+00:01:07.831 --> 00:01:10.798
+and give the file enough
+time to be transferred.
+
+00:01:11.498 --> 00:01:14.331
+In this case, since the file we're
+uploading is small,
+
+00:01:14.331 --> 00:01:16.331
+we can just wait a few seconds,
+
+00:01:16.374 --> 00:01:20.707
+then check whether the file has been
+fully uploaded to the Windows machine
+
+00:01:20.707 --> 00:01:22.240
+by attempting to run it.
+
+00:01:26.152 --> 00:01:30.719
+We can see that this is, in fact,
+the wget.exe executable
+
+00:01:30.719 --> 00:01:34.019
+which means the file
+transfer was successful.

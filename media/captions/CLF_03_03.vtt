@@ -1,0 +1,50 @@
+WEBVTT
+
+00:00:01.472 --> 00:00:02.200
+cut
+
+00:00:02.847 --> 00:00:07.247
+The cut command is simple, but often
+comes in quite handy.
+
+00:00:07.732 --> 00:00:10.998
+Cut is used to extract a section
+of text from a line
+
+00:00:10.998 --> 00:00:13.374
+and output it to standard output.
+
+00:00:13.772 --> 00:00:17.239
+Some of the most commonly-used
+switches include -f
+
+00:00:17.239 --> 00:00:19.405
+for the field number we are cutting
+
+00:00:19.405 --> 00:00:22.972
+and -d to define the field delimiter.
+
+00:00:24.389 --> 00:00:25.089
+Here,
+
+00:00:25.421 --> 00:00:29.088
+we echoed a line of text and piped it
+to the cut command
+
+00:00:29.088 --> 00:00:31.489
+to extract the second field
+
+00:00:31.489 --> 00:00:33.989
+using a comma as the field delimiter.
+
+00:00:34.305 --> 00:00:38.472
+The same command can be used to
+cut lines found in text files.
+
+00:00:38.772 --> 00:00:42.672
+This time, a list of users is
+extracted from etc/passwd
+
+00:00:42.672 --> 00:00:47.205
+by using a colon as a delimiter and
+retrieving the first field.

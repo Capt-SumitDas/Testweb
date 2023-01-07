@@ -1,0 +1,33 @@
+WEBVTT
+
+00:00:01.612 --> 00:00:03.912
+Exploiting Microsoft Office
+
+00:00:04.820 --> 00:00:08.187
+When leveraging client-side
+vulnerabilities it's important to use
+
+00:00:08.187 --> 00:00:13.387
+applications that are trusted by the
+victim in their every-day line of work.
+
+00:00:13.820 --> 00:00:16.987
+Unlike potentially suspicious-
+looking web links,
+
+00:00:16.987 --> 00:00:19.820
+Microsoft Office client-side attacks
+
+00:00:19.820 --> 00:00:25.187
+are often successful because it is difficult
+to differentiate malicious content
+
+00:00:25.187 --> 00:00:26.454
+from benign.
+
+00:00:27.066 --> 00:00:30.866
+In this section, we will explore
+various client-side attack vectors that
+
+00:00:30.866 --> 00:00:34.100
+leverage Microsoft Office applications.

@@ -1,0 +1,75 @@
+WEBVTT
+
+00:00:01.033 --> 00:00:03.000
+Fixing Exploits
+
+00:00:04.000 --> 00:00:07.800
+Writing an exploit from scratch
+can be difficult and time-consuming.
+
+00:00:08.068 --> 00:00:10.300
+But it can be equally difficult
+and time-consuming
+
+00:00:10.300 --> 00:00:15.000
+ to find a public exploit that fits
+our exact needs during an engagement.
+
+00:00:15.643 --> 00:00:16.666
+One great compromise
+
+00:00:16.666 --> 00:00:20.866
+is to modify a public exploit to suit
+our specific needs.
+
+00:00:21.560 --> 00:00:24.033
+There are challenges with
+this solution, however.
+
+00:00:24.770 --> 00:00:28.500
+In the case of memory corruption
+exploits like buffer overflows,
+
+00:00:28.500 --> 00:00:33.900
+we may need to modify basic target
+parameters such as the socket information,
+
+00:00:33.900 --> 00:00:37.300
+return address, payload, and offsets.
+
+00:00:38.037 --> 00:00:41.666
+Because of this, we should always
+read the exploit code carefully,
+
+00:00:41.666 --> 00:00:43.533
+modify it as needed
+
+00:00:43.533 --> 00:00:48.033
+and test it against our own
+sandboxed target whenever possible.
+
+00:00:48.645 --> 00:00:52.900
+Additionally, exploits that are coded to
+run on a particular operating system
+
+00:00:52.900 --> 00:00:57.466
+and architecture may need to be
+ported to a different platform.
+
+00:00:58.354 --> 00:01:01.433
+In this module, we will overcome
+many of these challenges
+
+00:01:01.433 --> 00:01:03.833
+as we walk through the steps required
+
+00:01:03.833 --> 00:01:06.266
+to modify public exploit code
+
+00:01:06.266 --> 00:01:10.133
+to fit a specific attack
+platform and target.
+
+00:01:10.683 --> 00:01:16.066
+We will explore both memory
+corruption exploits and web exploits.

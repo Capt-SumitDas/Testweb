@@ -1,0 +1,59 @@
+WEBVTT
+
+00:00:01.233 --> 00:00:02.266
+Netcraft
+
+00:00:03.466 --> 00:00:07.566
+Netcraft is an Internet services company
+based in England
+
+00:00:07.566 --> 00:00:09.933
+offering a free web portal
+
+00:00:09.933 --> 00:00:13.400
+that performs various information gathering
+functions.
+
+00:00:21.333 --> 00:00:26.266
+The use of services such as those offered
+by Netcraft is considered a passive
+
+00:00:26.266 --> 00:00:30.133
+technique since we never interact with our
+target directly.
+
+00:00:30.500 --> 00:00:33.033
+Let’s review some of Netcraft’s
+capabilities.
+
+00:00:39.933 --> 00:00:43.966
+For example, we can use Netcraft’s DNS
+search page,
+
+00:00:44.133 --> 00:00:49.266
+to gather information about the
+megacorpone.com domain.
+
+00:00:55.733 --> 00:00:59.666
+For each server found, we can view a
+“site report”.
+
+00:01:06.066 --> 00:01:11.266
+These reports provide additional
+information and history about the server.
+
+00:01:11.366 --> 00:01:15.000
+The beginning of the report covers
+registration information.
+
+00:01:15.166 --> 00:01:20.633
+However, if we scoll down, we discover
+various “site technology” entries.
+
+
+00:01:25.233 --> 00:01:27.866
+This list of subdomains and technologies
+
+00:01:27.866 --> 00:01:33.233
+will prove useful as we move on to active
+information gathering and exploitation.

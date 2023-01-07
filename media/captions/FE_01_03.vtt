@@ -1,0 +1,29 @@
+WEBVTT
+
+00:00:01.313 --> 00:00:03.966
+Changing the Socket Information
+
+00:00:05.467 --> 00:00:09.800
+We already know that this exploit targets
+a remotely-accessible vulnerability
+
+00:00:09.800 --> 00:00:13.800
+which means that our code needs to
+establish a connection to the target
+
+00:00:13.800 --> 00:00:15.133
+at some point.
+
+00:00:24.653 --> 00:00:26.133
+Inspecting the C code,
+
+00:00:26.133 --> 00:00:30.633
+we notice that it uses hard coded
+values for the IP address
+
+00:00:31.018 --> 00:00:33.166
+as well as the for port
+
+00:00:34.521 --> 00:00:38.800
+These will be the first values that
+we will need to adjust in our exploit.

@@ -1,0 +1,49 @@
+WEBVTT
+
+00:00:01.433 --> 00:00:02.900
+Email Harvesting
+
+00:00:03.533 --> 00:00:08.133
+Let’s begin our user information gathering
+with some basic email harvesting.
+
+
+00:00:08.966 --> 00:00:15.166
+In this case, we will use theHarvester,
+which gathers emails, names, subdomains,
+
+00:00:15.166 --> 00:00:20.033
+IPs, and URLs from multiple public data
+sources.
+
+00:00:21.100 --> 00:00:26.233
+We can run theHarvester with -d to specify
+the target domain,
+
+00:00:26.666 --> 00:00:30.733
+and -b to set the data source to search.
+
+00:00:35.000 --> 00:00:37.366
+We found some email addresses,
+
+00:00:37.833 --> 00:00:40.666
+one of which appears to be new to us.
+
+00:00:41.533 --> 00:00:46.066
+We have also found some new subdomains of
+megacorpone.com.
+
+00:00:46.600 --> 00:00:50.833
+This is a good reminder that information
+gathering is not always a neat,
+
+00:00:50.833 --> 00:00:52.400
+linear process.
+
+00:00:52.966 --> 00:00:57.666
+We may be looking for information on users
+and find something else about our target.
+
+00:00:59.333 --> 00:01:03.066
+This is one reason it’s important to keep
+good notes.

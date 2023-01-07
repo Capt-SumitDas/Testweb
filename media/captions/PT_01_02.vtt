@@ -1,0 +1,83 @@
+WEBVTT
+
+00:00:01.133 --> 00:00:03.999
+Listening on a TCP/UDP Port
+
+00:00:04.617 --> 00:00:07.683
+Listening on a TCP or UDP
+port using Netcat
+
+00:00:07.683 --> 00:00:10.550
+is useful for receiving a
+network connection.
+
+00:00:10.969 --> 00:00:15.035
+Let’s try implementing a simple chat
+service involving two machines,
+
+00:00:15.035 --> 00:00:18.535
+using Netcat both as a client
+and as a server.
+
+00:00:21.302 --> 00:00:24.135
+We’ll connect to our Windows
+client with rdesktop,
+
+00:00:24.135 --> 00:00:27.369
+which is a basic Linux
+Remote Desktop client.
+
+00:00:34.401 --> 00:00:36.734
+Now let’s launch a command prompt.
+
+00:00:42.867 --> 00:00:45.601
+Then we’ll change to the
+practical tools directory,
+
+00:00:45.601 --> 00:00:50.501
+where we have the applications we
+need for this module, including Netcat.
+
+00:00:57.385 --> 00:01:00.918
+Let’s proceed with our scenario
+and set up Netcat to listen for
+
+00:01:00.918 --> 00:01:05.118
+incoming connections on TCP port 4444.
+
+00:01:05.801 --> 00:01:12.634
+We’ll use the -n and -v options again
+along with -l to create a listener,
+
+00:01:12.634 --> 00:01:16.667
+and -p to specify the
+listening port number.
+
+00:01:17.883 --> 00:01:22.283
+Now that we have bound port 4444
+on this Windows machine to Netcat,
+
+00:01:22.283 --> 00:01:25.717
+let’s connect to that port
+from our Linux machine…
+
+00:01:33.967 --> 00:01:36.101
+…and enter a line of text.
+
+00:01:37.767 --> 00:01:39.434
+Our text will be sent…
+
+00:01:41.967 --> 00:01:45.101
+…and we can continue the “chat”
+from the Windows machine.
+
+00:01:47.167 --> 00:01:48.767
+Although this is a simple example,
+
+00:01:48.767 --> 00:01:52.234
+it demonstrates several
+important features in Netcat.
+
+00:01:58.318 --> 00:02:02.618
+Netcat can be used for far more
+than just a simple chat application.

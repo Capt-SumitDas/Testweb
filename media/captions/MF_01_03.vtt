@@ -1,0 +1,279 @@
+WEBVTT
+
+00:00:01.350 --> 00:00:03.016
+Auxiliary Modules
+
+00:00:03.616 --> 00:00:07.350
+The Metasploit Framework includes
+hundreds of auxiliary modules
+
+00:00:07.350 --> 00:00:12.583
+that provide functionality such as
+protocol enumeration, port scanning,
+
+00:00:12.583 --> 00:00:15.416
+fuzzing, sniffing, and more.
+
+00:00:16.258 --> 00:00:21.825
+The modules all follow a common
+slash-delimited hierarchical syntax,
+
+00:00:21.825 --> 00:00:25.700
+which makes it easy to explore
+and use the modules.
+
+00:00:26.166 --> 00:00:29.600
+There are too many to cover here,
+but we will demonstrate the syntax
+
+00:00:29.600 --> 00:00:33.433
+and operation of some of the
+most common auxiliary modules.
+
+00:00:33.833 --> 00:00:38.400
+To list all auxiliary modules, we
+run the show auxiliary command.
+
+
+00:00:43.241 --> 00:00:47.708
+This displays a very long list
+of all auxiliary modules.
+
+00:00:49.375 --> 00:00:53.375
+We can use search to reduce
+this considerable output.
+
+00:00:55.858 --> 00:01:01.658
+Metasploit allows us to filter by
+app, type, platform, and more.
+
+00:01:04.933 --> 00:01:08.633
+For example, we can search
+for auxiliary modules…
+
+00:01:09.250 --> 00:01:11.850
+that have “smb” in their name.
+
+00:01:17.391 --> 00:01:21.825
+Once we find a module of interest, we
+invoke it with the “use” command.
+
+00:01:26.900 --> 00:01:31.733
+After invoking the module, we can request
+more details about it with info.
+
+00:01:33.866 --> 00:01:38.316
+The description reveals that the
+smb2 module detects whether or not 
+
+00:01:38.316 --> 00:01:43.016
+the remote machine supports
+the SMB 2.0 protocol.
+
+00:01:45.741 --> 00:01:49.100
+The Basic options parameters
+are the same as those 
+
+00:01:49.100 --> 00:01:52.000
+output by the “show options” command.
+
+00:01:54.058 --> 00:01:57.516
+For this module, we need to
+set the IP address of our target,
+
+00:01:57.516 --> 00:02:00.550
+in this case our student
+Windows 10 machine.
+
+00:02:01.425 --> 00:02:04.366
+Instead of entering the
+RHOSTS value manually,
+
+00:02:04.366 --> 00:02:09.600
+we will search the database for
+hosts with TCP port 445 open
+
+00:02:09.600 --> 00:02:16.333
+and automatically add the results
+to RHOSTS using the –rhosts option.
+
+00:02:19.091 --> 00:02:21.100
+With the required parameters configured,
+
+00:02:21.100 --> 00:02:25.133
+we can launch the module
+with “run” or “exploit”
+
+00:02:27.691 --> 00:02:30.458
+Based on the module’s output,
+the remote computer
+
+00:02:30.458 --> 00:02:33.925
+does indeed support SMB version 2.
+
+00:02:35.108 --> 00:02:39.075
+To leverage this, we can use
+the smb_login scanner module
+
+00:02:39.075 --> 00:02:42.208
+to attempt a brute force login
+against the machine.
+
+00:02:44.408 --> 00:02:48.341
+First we need to load the module
+and display its options.
+
+00:02:54.733 --> 00:02:57.000
+The output reveals that
+this module accepts
+
+00:02:57.000 --> 00:03:00.641
+both Required parameters
+like RHOSTS,
+
+00:03:02.166 --> 00:03:06.333
+and optional parameters
+like SMBDomain.
+
+00:03:07.366 --> 00:03:10.866
+However, we notice that
+RHOSTS is not set,
+
+00:03:10.866 --> 00:03:13.900
+even though we set it
+in a previous module.
+
+00:03:14.125 --> 00:03:16.875
+This is because “set” defines
+a parameter
+
+00:03:16.875 --> 00:03:20.041
+only within the scope of
+the running module.
+
+00:03:21.550 --> 00:03:24.058
+We can instead set a global parameter,
+
+00:03:24.058 --> 00:03:28.491
+which is available across
+all modules, with setg.
+
+00:03:29.900 --> 00:03:33.000
+For the sake of this demonstration,
+let’s assume that we have discovered
+
+00:03:33.000 --> 00:03:35.833
+valid domain credentials
+during our assessment.
+
+00:03:36.350 --> 00:03:40.750
+We would like to determine if these
+credentials can be reused on others servers
+
+00:03:40.750 --> 00:03:43.683
+that have TCP port 445 open.
+
+00:03:44.183 --> 00:03:47.816
+To make things easier, we will try this
+approach on our Windows client,
+
+00:03:48.158 --> 00:03:50.725
+beginning with an invalid password.
+
+00:03:51.216 --> 00:03:55.783
+We’ll start by supplying the
+domain name of corp.com,
+
+00:03:57.666 --> 00:04:00.366
+a valid username of “Offsec”,
+
+00:04:02.466 --> 00:04:04.833
+and an invalid password.
+
+00:04:07.066 --> 00:04:11.500
+Lastly, we’ll increase the amount
+of concurrent threads to 10.
+
+00:04:17.000 --> 00:04:19.900
+With our options set,
+let’s run the module.
+
+00:04:23.333 --> 00:04:26.150
+Since we knew that the password
+we supplied was invalid,
+
+00:04:26.150 --> 00:04:29.516
+we expected the login
+to fail, and it did.
+
+00:04:32.866 --> 00:04:35.866
+Now, let’s supply a valid password,
+
+00:04:37.966 --> 00:04:39.766
+and re-run the module.
+
+00:04:44.633 --> 00:04:47.550
+We can retrieve information
+regarding successful login
+
+00:04:47.550 --> 00:04:50.933
+attempts from the database
+using creds.
+
+00:04:58.500 --> 00:05:02.766
+Although this run was successful,
+this method will not scale well.
+
+00:05:04.866 --> 00:05:08.300
+To test a larger user base with
+a variety of passwords,
+
+00:05:08.300 --> 00:05:13.100
+we could instead use the
+USERPASS_FILE parameter…
+
+00:05:14.133 --> 00:05:17.633
+which will read the credentials
+from a file containing users and
+
+00:05:17.633 --> 00:05:22.766
+passwords separated by space,
+with one pair per line.
+
+00:05:25.833 --> 00:05:30.800
+Let’s re-configure the module
+to use this file and run it again.
+
+00:05:37.900 --> 00:05:40.800
+Excellent, this will scale much better.
+
+00:05:41.133 --> 00:05:42.833
+Let’s try out another module.
+
+00:05:44.916 --> 00:05:51.733
+In this example, we will try to identify
+machines listening on TCP port 3389,
+
+00:05:51.733 --> 00:05:57.433
+which indicates they might be accepting
+Remote Desktop Protocol connections.
+
+00:05:57.433 --> 00:06:01.633
+To do this, we will invoke
+the rdp_scanner module.
+
+00:06:06.666 --> 00:06:11.400
+Because we used “setg” instead of
+“set” to configure the RHOSTS value 
+
+00:06:11.400 --> 00:06:15.400
+of the last module, we find
+it is already set here.
+
+00:06:18.833 --> 00:06:23.358
+This module successfully detected
+RDP running on one host
+
+00:06:23.358 --> 00:06:26.891
+and automatically added
+the results to the database.

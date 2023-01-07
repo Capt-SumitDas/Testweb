@@ -1,0 +1,78 @@
+WEBVTT
+
+00:00:00.933 --> 00:00:03.000
+DNS Enumeration
+
+00:00:03.500 --> 00:00:06.333
+DNS is one of the most critical
+systems on the Internet.
+
+00:00:06.697 --> 00:00:11.666
+It is a distributed database responsible
+for translating user-friendly domain names
+
+00:00:11.666 --> 00:00:13.233
+ into IP addresses.
+
+00:00:13.487 --> 00:00:15.766
+When a browser needs
+to resolve a host name,
+
+00:00:15.766 --> 00:00:19.700
+like www.megacorpone.com,
+
+00:00:19.718 --> 00:00:23.822
+it passes the hostname to the
+operating system’s DNS client,
+
+00:00:23.822 --> 00:00:27.266
+which forwards the request to
+the external DNS server
+
+00:00:27.266 --> 00:00:28.866
+it’s configured to use.
+
+00:00:28.866 --> 00:00:33.666
+This first server in the chain
+is known as the DNS recursor
+
+00:00:33.666 --> 00:00:37.733
+and is responsible for returning
+the results to the DNS client.
+
+00:00:37.733 --> 00:00:41.266
+The recursor queriesthe
+authoritative nameserver,
+
+00:00:41.270 --> 00:00:46.866
+which contains the DNS records in a
+local database known as a zone file.
+
+00:00:46.866 --> 00:00:50.000
+There are typically
+two zones for each domain.
+
+00:00:50.000 --> 00:00:55.304
+The forward lookup zone is used to find
+the IP address of a specific hostname
+
+00:00:55.304 --> 00:00:56.966
+and the reverse lookup zone
+
+00:00:56.966 --> 00:01:00.800
+is used to find the 
+hostname of a specific IP address.
+
+00:01:00.800 --> 00:01:05.700
+Once the DNS recursor provides
+the DNS client with the IP address
+
+00:01:05.700 --> 00:01:09.266
+for www.megacorpone.com,
+
+00:01:09.266 --> 00:01:12.500
+the browser can contact
+the correct web server
+
+00:01:12.500 --> 00:01:15.533
+at its IP address and load the webpage.

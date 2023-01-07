@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:01.216 --> 00:00:03.100
+PowerShell Modules
+
+00:00:03.547 --> 00:00:05.733
+The power of Empire agents
+
+00:00:05.733 --> 00:00:09.066
+lie in the various modules
+offered by the framework.
+
+00:00:09.612 --> 00:00:11.982
+We can list all available modules with
+
+00:00:11.982 --> 00:00:16.100
+usemodule followed by a
+Space and double Tab.
+
+00:00:19.219 --> 00:00:22.266
+The modules are divided into multiple categories
+
+00:00:22.266 --> 00:00:24.633
+but also include basic features
+
+00:00:24.633 --> 00:00:29.200
+such as keylogging, screenshots,
+and file downloads.

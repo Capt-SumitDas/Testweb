@@ -1,0 +1,12 @@
+WEBVTT
+
+00:00:01.101 --> 00:00:04.101
+apt install
+
+00:00:04.101 --> 00:00:08.466
+We can use the apt install command to 
+add a package to the system.
+
+00:00:08.466 --> 00:00:13.000
+Let’s continue with the installation of 
+pure-ftpd.

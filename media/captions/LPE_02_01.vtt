@@ -1,0 +1,266 @@
+WEBVTT
+
+00:00:01.265 --> 00:00:03.465
+Online Exploit Resources
+
+00:00:04.565 --> 00:00:07.732
+Various online resources
+host exploit code
+
+00:00:07.732 --> 00:00:10.932
+and make it available to
+the public for free.
+
+00:00:11.715 --> 00:00:16.415
+In this section, we’ll cover the three
+most popular online resources.
+
+00:00:22.581 --> 00:00:27.081
+These sites usually conduct tests on
+the submitted exploit code
+
+00:00:27.081 --> 00:00:31.081
+and remove any that are
+deemed fake or malicious.
+
+00:00:32.964 --> 00:00:34.731
+The Exploit Database
+
+00:00:36.497 --> 00:00:41.231
+The Exploit Database is a project
+maintained by Offensive Security.
+
+00:00:47.199 --> 00:00:51.999
+It’s a free archive of public exploits
+that are gathered through submissions,
+
+00:00:51.999 --> 00:00:54.799
+mailing lists, and public resource.
+
+00:00:55.548 --> 00:00:58.515
+The Exploit Database was
+designed to allow users to
+
+00:00:58.515 --> 00:01:01.348
+quickly find the information
+they’re looking for.
+
+00:01:04.615 --> 00:01:11.215
+We can easily filter by type,
+platform, author, port, and tag.
+
+00:01:11.833 --> 00:01:14.433
+In contrast to other online resources,
+
+00:01:14.433 --> 00:01:18.215
+The Exploit Database occasionally
+provides the installer
+
+00:01:18.215 --> 00:01:22.215
+for the vulnerable version of the
+software for research purposes.
+
+00:01:25.849 --> 00:01:30.649
+When the installer is available, it’s
+marked with a download box icon
+
+00:01:30.649 --> 00:01:32.949
+displayed in the “A” column.
+
+00:01:34.949 --> 00:01:37.582
+Another useful feature of
+the Exploit Database
+
+00:01:37.582 --> 00:01:41.649
+is that it indicates which
+exploits are known to be valid.
+
+00:01:44.182 --> 00:01:48.549
+These entries are indicated with a
+checkmark in the “V” column.
+
+00:01:50.548 --> 00:01:54.215
+The filters for type,
+platform, and author 
+
+00:01:54.215 --> 00:01:58.348
+can also be applied by selecting
+them in the table itself.
+
+00:02:07.932 --> 00:02:10.698
+To see all of the information
+for a particular exploit,
+
+00:02:10.698 --> 00:02:13.665
+we simply click the exploit title.
+
+00:02:14.915 --> 00:02:17.148
+On the individual exploit pages,
+
+00:02:17.165 --> 00:02:22.465
+we can review all available metadata
+and the content of the exploit itself.
+
+00:02:23.832 --> 00:02:26.398
+When we return back to the main page…
+
+00:02:26.815 --> 00:02:28.782
+…our filters are still applied.
+
+00:02:29.665 --> 00:02:34.098
+To return to the default data set,
+we click the “Reset All” button.
+
+00:02:36.482 --> 00:02:41.349
+Exploit Database updates are announced
+through the Twitter and RSS feeds.
+
+00:02:44.682 --> 00:02:47.649
+SecurityFocus Exploit Archives
+
+00:02:48.649 --> 00:02:54.049
+The SecurityFocus Exploit Archives
+website was created in 1999
+
+00:02:54.049 --> 00:02:59.082
+and focuses on some key areas
+important to the security community.
+
+00:02:59.798 --> 00:03:03.065
+These areas include the
+BugTraq mailing list
+
+00:03:03.082 --> 00:03:06.415
+and the SecurityFocus
+vulnerability database.
+
+00:03:07.082 --> 00:03:12.682
+SecurityFocus is a vulnerability database
+as opposed to an exploit database
+
+00:03:12.682 --> 00:03:17.282
+so many of its entries do not 
+include proof of concept code.
+
+00:03:27.232 --> 00:03:30.898
+However, each entry contains
+external references.
+
+00:03:31.682 --> 00:03:34.982
+These references can provide
+a great deal of information
+
+00:03:34.982 --> 00:03:39.782
+regarding the vulnerability and
+often include proof of concept code.
+
+00:03:40.265 --> 00:03:43.565
+SecurityFocus announces updates
+through their Twitter feed,
+
+00:03:43.565 --> 00:03:46.265
+and an RSS feed is available as well.
+
+00:03:49.414 --> 00:03:50.414
+Packet Storm
+
+00:03:51.498 --> 00:03:54.565
+Packet Storm was established in 1998.
+
+00:03:54.897 --> 00:03:57.397
+It provides up-to-date security news
+
+00:03:57.397 --> 00:04:00.664
+and as with the Exploit Database
+and SecurityFocus,
+
+00:04:00.664 --> 00:04:04.731
+also posts information about
+exploits and vulnerabilities.
+
+00:04:07.798 --> 00:04:13.265
+A key differentiator of Packet Storm is
+that it also hosts security tools.
+
+00:04:14.231 --> 00:04:18.597
+These tools are often tailored to
+a specific vulnerability or scenario
+
+00:04:18.597 --> 00:04:20.431
+and can be very useful.
+
+00:04:20.997 --> 00:04:25.997
+As with the other resources we’ve covered,
+PacketStorm posts updates to Twitter
+
+00:04:26.015 --> 00:04:28.781
+and also publishes an RSS feed.
+
+00:04:36.881 --> 00:04:38.881
+Google Search Operators
+
+00:04:40.249 --> 00:04:43.249
+In addition to the individual
+websites that we’ve covered,
+
+00:04:43.249 --> 00:04:46.749
+we can search for additional
+exploit-hosting sites
+
+00:04:46.749 --> 00:04:49.249
+using traditional search engines.
+
+00:04:49.749 --> 00:04:53.782
+We can begin searching for a
+specific software and version
+
+00:04:53.782 --> 00:04:59.115
+followed by the exploit keyword
+and include various search operators
+
+00:04:59.115 --> 00:05:03.549
+(like those used by the Google
+search engine) to narrow our search.
+
+00:05:04.433 --> 00:05:08.833
+Mastering these advanced operators
+can help us tailor our search results
+
+00:05:08.833 --> 00:05:11.366
+to find exactly what we’re looking for.
+
+00:05:13.065 --> 00:05:16.532
+As an example, we can use
+the following search query
+
+00:05:16.532 --> 00:05:21.098
+to locate vulnerabilities affecting
+the Microsoft Edge browser
+
+00:05:21.098 --> 00:05:25.198
+and limit the results to only
+those exploits that are hosted
+
+00:05:25.198 --> 00:05:27.898
+on the Exploit Database website.
+
+00:05:32.466 --> 00:05:38.699
+Other search operators that can be used to
+fine-tune our searches include “inurl”,
+
+00:05:41.398 --> 00:05:42.632
+“intext”,
+
+00:05:45.498 --> 00:05:46.932
+and “intitle”.
+
+00:05:49.381 --> 00:05:54.715
+With just a few iterative searches, we’re
+able to rapidly narrow down our results. 
+
+00:06:01.715 --> 00:06:03.015
+As a gentle reminder,
+
+00:06:03.015 --> 00:06:09.015
+always use extreme caution when using
+exploits from non-curated resources.

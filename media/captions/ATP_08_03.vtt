@@ -1,0 +1,115 @@
+WEBVTT
+
+00:00:01.505 --> 00:00:04.700
+Post Exploitation Enumeration
+
+00:00:05.365 --> 00:00:10.200
+This is a good point to take a step back
+and look at what we have so far.
+
+00:00:10.893 --> 00:00:16.200
+We have two compromised
+Linux Hosts: Ajla and Zora.
+
+00:00:16.837 --> 00:00:20.033
+The first host runs in
+the external network
+
+00:00:20.033 --> 00:00:23.033
+and the second in
+the internal network.
+
+00:00:23.532 --> 00:00:28.700
+We also have Poultry, a Windows
+host that is joined to a domain,
+
+00:00:28.700 --> 00:00:31.600
+compromised in the internal network.
+
+00:00:31.905 --> 00:00:36.300
+Finally, we are currently in
+the process of compromising Cevapi.
+
+00:00:38.213 --> 00:00:41.033
+Before we start poking
+around Cevapi too much,
+
+00:00:41.033 --> 00:00:45.066
+we’ll first check what the
+current user’s permissions are.
+
+00:00:45.427 --> 00:00:49.133
+We can do this with the priv option
+of the whoami command.
+
+00:00:52.155 --> 00:00:59.466
+Most of the privileges seem standard, but
+Se Impersonate Privilege stands out.
+
+00:01:00.520 --> 00:01:02.528
+The description states that it allows us
+
+00:01:02.528 --> 00:01:06.466
+to “Impersonate a client
+after authentication”.
+
+00:01:06.827 --> 00:01:10.666
+We’ll make a mental note of this
+permission as we continue to enumerate.
+
+00:01:11.138 --> 00:01:14.766
+Next, we can gather some basic
+information about the system
+
+00:01:14.766 --> 00:01:20.500
+to see what version of OS we are
+running and what Cevapi’s patch level is.
+
+00:01:26.267 --> 00:01:32.233
+Based on the output, we can gather that
+Cevapi is running on Windows 10 pro.
+
+00:01:33.037 --> 00:01:35.733
+According to the Windows 10
+version history,
+
+00:01:35.733 --> 00:01:41.733
+build 15603 was released on April 5, 2017.
+
+00:01:41.733 --> 00:01:45.033
+Since this build of Windows
+is not the most recent,
+
+00:01:45.033 --> 00:01:47.166
+we'll make a mental note of it. 
+
+00:01:48.303 --> 00:01:52.100
+We also find that it has
+eight hotfixes installed.
+
+00:01:52.959 --> 00:01:56.333
+This might be useful later if we
+attempt to elevate our privileges
+
+00:01:56.333 --> 00:01:59.466
+by exploiting a Windows OS vulnerability.
+
+00:02:00.076 --> 00:02:03.400
+We also see that this target
+is joined to the domain.
+
+00:02:03.899 --> 00:02:07.533
+Let’s go back to the
+SeImpersonate privilege.
+
+00:02:23.393 --> 00:02:29.200
+A quick Google search leads us to an
+exploit with the name of “Juicy Potato”.
+
+00:02:30.170 --> 00:02:35.400
+Juicy Potato describes itself as “Another
+Local Privilege Escalation tool”.
+
+00:02:36.093 --> 00:02:41.033
+This sounds exactly like what
+we need so let’s dig a bit deeper.

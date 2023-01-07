@@ -1,0 +1,268 @@
+WEBVTT
+
+00:00:00.733 --> 00:00:02.466
+Pass the Ticket
+
+00:00:03.300 --> 00:00:07.100
+In the previous section, we were able
+to authenticate using Kerberos
+
+00:00:07.100 --> 00:00:11.566
+after using the NTLM hash and the
+overpass the hash technique
+
+00:00:11.566 --> 00:00:13.866
+to get a Kerberos TGT.
+
+00:00:14.466 --> 00:00:18.900
+However, we can only use the TGT
+on the machine it was created for,
+
+00:00:18.900 --> 00:00:23.333
+but the TGS potentially
+offers more flexibility.
+
+00:00:23.900 --> 00:00:27.800
+The Pass the Ticket attack takes
+advantage of the TGS
+
+00:00:27.800 --> 00:00:32.366
+which can be exported and re-injected
+somewhere else on the network
+
+00:00:32.366 --> 00:00:35.866
+and then used to authenticate
+to a specific service.
+
+00:00:36.533 --> 00:00:40.366
+In addition, no administrative
+privileges are required
+
+00:00:40.366 --> 00:00:43.866
+if the service tickets belong
+to the current user.
+
+00:00:44.466 --> 00:00:48.000
+While this attack does not provide
+us with any additional access,
+
+00:00:48.000 --> 00:00:50.333
+it does offer flexibility
+
+00:00:50.333 --> 00:00:54.600
+because we are able to choose which
+machine to use the ticket from.
+
+00:00:55.166 --> 00:00:58.066
+If a service is registered with
+a service principal name,
+
+00:00:58.066 --> 00:01:01.800
+this scenario becomes more interesting.
+
+00:01:02.400 --> 00:01:06.533
+As we have shown, we could crack
+the service account password hash
+
+00:01:06.533 --> 00:01:09.500
+and obtain the password
+from the service ticket.
+
+00:01:10.600 --> 00:01:16.166
+This password could then be used to access
+resources available to the service account
+
+00:01:16.633 --> 00:01:21.733
+However, if the service account is not
+a local administrator on any servers,
+
+00:01:21.733 --> 00:01:24.666
+we would not be able to
+perform lateral movement
+
+00:01:24.666 --> 00:01:29.633
+using technique such as pass
+the hash or overpass the hash.
+
+00:01:30.233 --> 00:01:33.766
+In this case we would need
+to use a different approach.
+
+00:01:36.066 --> 00:01:39.033
+Remembering how the Kerberos
+authentication works,
+
+00:01:39.033 --> 00:01:43.633
+the application on the server executing in
+the context of the service account
+
+00:01:43.633 --> 00:01:47.700
+checks the user’s permissions
+from the group's permissions
+
+00:01:47.700 --> 00:01:49.800
+included in the service ticket.
+
+00:01:50.333 --> 00:01:54.300
+However, the user and group permissions
+in the service ticket
+
+00:01:54.300 --> 00:01:57.400
+are not verified by the application.
+
+00:01:57.968 --> 00:02:03.066
+The application blindly trusts the
+integrity of the service ticket
+
+00:02:03.066 --> 00:02:05.900
+since it is encrypted
+with a password hash,
+
+00:02:05.900 --> 00:02:12.300
+that in theory is only known to the
+service account and the domain controller.
+
+00:02:12.851 --> 00:02:16.788
+For example, if we authenticate
+against an IIS server
+
+00:02:16.788 --> 00:02:22.624
+that is executing in the context of
+the service account iis_service,
+
+00:02:22.624 --> 00:02:29.440
+the IIS application will determine which
+permissions we have on the IIS server
+
+00:02:29.440 --> 00:02:33.666
+based on the group memberships
+contained in the service ticket.
+
+00:02:35.835 --> 00:02:41.800
+However, with the service account password
+or its associated NTLM hash at hand,
+
+00:02:41.800 --> 00:02:46.766
+we can forge our own service ticket
+to access the IIS application
+
+00:02:46.766 --> 00:02:49.300
+with any permissions we want.
+
+00:02:49.708 --> 00:02:54.633
+This custom-created ticket is
+known as a silver ticket
+
+00:02:54.633 --> 00:02:58.100
+and if the service principal name
+is used on multiple servers,
+
+00:02:58.100 --> 00:03:01.933
+the silver ticket can be
+leveraged against them all.
+
+00:03:02.288 --> 00:03:07.033
+Mimikatz can create a silver ticket
+and inject it straight into memory
+
+00:03:07.033 --> 00:03:11.633
+through the misleadingly-named
+kerberos::golden command.
+
+00:03:12.166 --> 00:03:15.211
+To create the ticket, we first need
+to obtain the so-called
+
+00:03:15.211 --> 00:03:19.100
+Security Identifier or
+SID of the domain.
+
+00:03:19.597 --> 00:03:25.333
+We can easily find the SID of our current
+user with the whoami /user command…
+
+00:03:30.791 --> 00:03:34.500
+and then extract the
+domain SID part from it.
+
+00:03:34.766 --> 00:03:42.666
+The SID defining the domain is the entire
+string except the RID, 1104, at the end.
+
+00:03:43.537 --> 00:03:45.366
+Now that we have the domain SID,
+
+00:03:45.366 --> 00:03:50.200
+we can craft a silver ticket for the
+IIS service we previously discovered.
+
+00:03:52.937 --> 00:03:59.700
+Before we do, we will flush any existing
+Kerberos tickets with kerberos::purge,
+
+00:04:01.780 --> 00:04:05.533
+and verify the purge with kerberos::list.
+
+00:04:10.706 --> 00:04:15.266
+The silver ticket command requires a
+username and domain name,
+
+00:04:16.457 --> 00:04:18.333
+the domain SID,
+
+00:04:19.151 --> 00:04:22.433
+the fully qualified host
+name of the service,
+
+00:04:22.895 --> 00:04:24.466
+the service type,
+
+00:04:26.102 --> 00:04:31.100
+and the password hash of the
+iis_service service account.
+
+00:04:31.864 --> 00:04:36.933
+Finally, the generated silver ticket is
+injected directly into memory
+
+00:04:36.933 --> 00:04:39.500
+with the /ppt flag.
+
+00:04:43.624 --> 00:04:47.933
+After running the command a
+new service ticket for the SPN
+
+00:04:47.933 --> 00:04:53.566
+HTTP/CorpWebServer.corp.com
+has been loaded into memory,
+
+00:04:53.975 --> 00:04:58.766
+and Mimikatz set appropriate
+group membership permission
+
+00:04:58.766 --> 00:05:00.733
+in the forged ticket.
+
+00:05:01.746 --> 00:05:06.533
+From the perspective of the IIS
+application, the current user will be both
+
+00:05:06.533 --> 00:05:10.866
+the built-in local administrator,
+and a member of several
+
+00:05:10.866 --> 00:05:16.266
+highly-privileged groups including
+the domain admins group.
+
+00:05:20.551 --> 00:05:23.295
+Now that we have this ticket
+loaded into memory,
+
+00:05:23.295 --> 00:05:27.600
+we can interact with the service
+and access any information
+
+00:05:27.600 --> 00:05:31.400
+based on the group memberships
+we put in the silver ticket.

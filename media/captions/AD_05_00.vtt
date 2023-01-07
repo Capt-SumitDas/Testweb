@@ -1,0 +1,31 @@
+WEBVTT
+
+00:00:01.131 --> 00:00:03.866
+Active Directory Persistence
+
+00:00:04.605 --> 00:00:07.033
+Once we have gained access
+to the active directory,
+
+00:00:07.033 --> 00:00:10.033
+our next goal is to obtain persistence,
+
+00:00:10.033 --> 00:00:14.266
+ensuring that we do not lose our access
+to the compromised machines.
+
+00:00:14.820 --> 00:00:18.651
+We can use traditional persistence
+methods in an AD environment,
+
+00:00:18.651 --> 00:00:22.917
+but we can also gain AD-specific
+persistence as well.
+
+00:00:23.287 --> 00:00:26.733
+Note that in many real-world
+penetration tests,
+
+00:00:26.733 --> 00:00:32.900
+persistence is not a part of the scope
+due to the risk of incomplete removal.

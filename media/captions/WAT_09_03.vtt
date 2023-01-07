@@ -1,0 +1,284 @@
+WEBVTT
+
+00:00:01.292 --> 00:00:03.533
+Authentication Bypass
+
+00:00:04.648 --> 00:00:07.400
+Authentication bypass is a classic example
+
+00:00:07.400 --> 00:00:10.833
+of exploiting a
+SQL injection vulnerability
+
+00:00:10.833 --> 00:00:16.233
+that demonstrates the dangers of
+evil users playing with your database.
+
+00:00:16.829 --> 00:00:20.200
+Consider the code sample
+in the previous section.
+
+00:00:21.536 --> 00:00:25.800
+If we are able to inject our own
+code into the SQL statement,
+
+00:00:25.800 --> 00:00:29.533
+how might we alter the query in our favor?
+
+00:00:30.100 --> 00:00:32.033
+Here is the normal use case:
+
+00:00:32.497 --> 00:00:36.900
+a legitimate user submits their username
+and password to the application.
+
+00:00:37.441 --> 00:00:41.366
+The application queries the
+database using those values.
+
+00:00:41.852 --> 00:00:47.533
+The SQL statement uses an and
+logical operator in the where clause.
+
+00:00:47.533 --> 00:00:52.066
+Therefore, the database
+will only return records
+
+00:00:52.066 --> 00:00:57.133
+that have a user with a given
+username and matching password.
+
+00:00:58.944 --> 00:01:03.700
+A SQL query for a normal login, then,
+looks like this:
+
+00:01:07.366 --> 00:01:11.066
+If we control the value
+being passed in as $user,
+
+00:01:11.066 --> 00:01:14.700
+we can subvert the logic
+of the query like this:
+
+00:01:15.550 --> 00:01:22.166
+The pound character is a comment
+marker in MySQL/MariaDB.
+
+00:01:23.370 --> 00:01:26.400
+It effectively removes
+the rest of the statement,
+
+00:01:26.400 --> 00:01:28.700
+so we’re left with this:
+
+00:01:29.760 --> 00:01:31.733
+We can paraphrase this as
+
+00:01:31.733 --> 00:01:34.833
+“show me all columns and rows
+
+00:01:34.833 --> 00:01:37.800
+for users with a name of tom
+
+00:01:37.800 --> 00:01:40.900
+or where one equals one”.
+
+00:01:40.900 --> 00:01:45.741
+Since the “1=1” condition
+always evaluates to true,
+
+00:01:45.741 --> 00:01:48.200
+all rows will be returned.
+
+00:01:48.564 --> 00:01:51.833
+In short, by introducing the or clause
+
+00:01:51.833 --> 00:01:54.900
+and the “1=1” condition,
+
+00:01:54.900 --> 00:01:59.666
+ this statement will return all
+records in the users table,
+
+00:01:59.666 --> 00:02:02.866
+creating a valid “password check”.
+
+00:02:04.777 --> 00:02:08.600
+Is this enough to bypass authentication?
+It depends.
+
+00:02:08.962 --> 00:02:13.300
+We have manipulated the query to
+return all the records in the users table.
+
+00:02:13.697 --> 00:02:17.066
+The application code determines
+what happens next.
+
+00:02:17.729 --> 00:02:19.700
+Some programming languages have functions
+
+00:02:19.700 --> 00:02:23.933
+that query the database and
+expect a single record in return.
+
+00:02:24.700 --> 00:02:26.966
+If these functions get
+more than one row,
+
+00:02:26.966 --> 00:02:28.900
+they will generate an error.
+
+00:02:29.573 --> 00:02:32.866
+Other functions might process
+multiple rows just fine.
+
+00:02:33.562 --> 00:02:37.333
+We can’t know what to expect without
+the application’s source code
+
+00:02:37.333 --> 00:02:39.266
+or using trial and error.
+
+00:02:39.863 --> 00:02:43.866
+If we do encounter errors when our
+payload is returning multiple rows,
+
+00:02:43.866 --> 00:02:48.000
+we can instruct the query to
+return a fixed number of records
+
+00:02:48.000 --> 00:02:50.000
+with the LIMIT statement:
+
+00:02:51.866 --> 00:02:55.033
+Now let’s try this against
+our sample application
+
+00:02:55.033 --> 00:02:58.900
+and attempt to log in
+without valid credentials.
+
+00:03:06.233 --> 00:03:10.385
+We should be able to trick the application
+into letting us in without a password
+
+00:03:10.385 --> 00:03:17.800
+by including the “or 1=1 LIMIT 1;” clause
+
+00:03:17.800 --> 00:03:21.266
+and commenting out the rest of the query.
+
+00:03:21.730 --> 00:03:25.000
+We don’t know exactly
+what the query looks like,
+
+00:03:25.000 --> 00:03:28.400
+but the “or” clause will evaluate to true
+
+00:03:28.400 --> 00:03:32.166
+and therefore cause the
+query to return records.
+
+00:03:32.740 --> 00:03:35.833
+We will include the “LIMIT”
+clause to keep it simple
+
+00:03:35.833 --> 00:03:38.400
+and only return one record.
+
+00:03:39.283 --> 00:03:41.674
+If we’ve manipulated
+the query successfully,
+
+00:03:41.674 --> 00:03:44.866
+we should get a valid
+authenticated session.
+
+00:03:48.102 --> 00:03:49.133
+Nice.
+
+00:03:49.133 --> 00:03:52.533
+We’ve bypassed this application’s login!
+
+00:03:52.986 --> 00:03:57.533
+Let’s examine the source code so we fully
+understand what is happening here.
+
+00:03:59.454 --> 00:04:03.933
+On line 16, the values of the
+username and password parameters
+
+00:04:03.933 --> 00:04:08.100
+submitted via POST are
+directly added to the string
+
+00:04:08.100 --> 00:04:10.366
+containing the SQL query.
+
+00:04:11.802 --> 00:04:16.266
+Normally, the query would only
+return results when a valid username
+
+00:04:16.266 --> 00:04:19.366
+and associated password are submitted.
+
+00:04:19.929 --> 00:04:24.749
+Our SQL injection payload “escapes”
+out of the intended query
+
+00:04:24.749 --> 00:04:27.633
+and injects an “OR” clause,
+
+00:04:27.633 --> 00:04:30.300
+which causes the query to return rows
+
+00:04:30.300 --> 00:04:34.433
+even if the username
+and password aren’t correct.
+
+00:04:34.974 --> 00:04:39.066
+Line 22 checks if the
+query result is one row.
+
+00:04:40.380 --> 00:04:44.000
+If an invalid username or
+password is submitted,
+
+00:04:44.000 --> 00:04:46.733
+the query wouldn’t return any rows.
+
+00:04:47.097 --> 00:04:50.000
+If a valid username and
+password are submitted,
+
+00:04:50.000 --> 00:04:52.500
+the query would return one row.
+
+00:04:53.381 --> 00:04:56.133
+The application’s developer
+assumed this was enough
+
+00:04:56.133 --> 00:04:58.900
+to determine if a user
+should be authenticated
+
+00:04:58.900 --> 00:05:02.966
+as line 23 stores the
+user’s name in session state
+
+00:05:02.966 --> 00:05:08.066
+and line 24 redirects
+the user to admin.php.
+
+00:05:09.602 --> 00:05:14.433
+We had to include the “LIMIT”
+clause to deal with the check on line 22.
+
+00:05:17.095 --> 00:05:20.566
+Attackers wouldn’t necessarily know
+this without seeing the source code,
+
+00:05:20.566 --> 00:05:25.700
+which is why experimentation is
+very important in black box testing.

@@ -1,0 +1,204 @@
+WEBVTT
+
+00:00:01.455 --> 00:00:03.433
+Remote File Inclusion
+
+00:00:03.707 --> 00:00:04.566
+(RFI)
+
+00:00:06.056 --> 00:00:10.800
+Remote file inclusion vulnerabilities
+are less common than LFIs
+
+00:00:10.800 --> 00:00:14.800
+since the server must be configured
+in a very specific way,
+
+00:00:14.800 --> 00:00:17.900
+but they are usually easier to exploit.
+
+00:00:18.645 --> 00:00:19.400
+For example,
+
+00:00:19.400 --> 00:00:25.666
+PHP apps must be configured with
+ allow_url_include set to “On”.
+
+00:00:26.432 --> 00:00:29.266
+Older versions of PHP
+set this on by default
+
+00:00:29.266 --> 00:00:31.966
+but newer versions default to “Off”.
+
+00:00:32.893 --> 00:00:36.533
+If we can force a web application
+to load a remote file
+
+00:00:36.533 --> 00:00:38.266
+and execute the code,
+
+00:00:38.278 --> 00:00:42.366
+we have more flexibility in
+creating the exploit payload.
+
+00:00:46.486 --> 00:00:52.000
+Let’s start a netcat listener and look at
+an example of an RFI vulnerability.
+
+00:00:54.377 --> 00:00:57.433
+The LFI vulnerability
+previously demonstrated
+
+00:00:57.433 --> 00:01:00.366
+is also vulnerable to RFI.
+
+00:01:03.549 --> 00:01:04.800
+Consider the following.
+
+00:01:09.715 --> 00:01:13.133
+This request will force
+the PHP webserver
+
+00:01:13.133 --> 00:01:17.266
+to try to include a remote file
+from our Kali attack machine.
+
+00:01:19.059 --> 00:01:22.300
+We can verify this by checking
+our netcat listener.
+
+00:01:25.341 --> 00:01:28.466
+The output reveals that
+when the URL was submitted,
+
+00:01:28.466 --> 00:01:33.300
+the Windows 10 machine did
+indeed reach out to our Kali machine
+
+00:01:33.300 --> 00:01:37.200
+in an attempt to retrieve
+the evil.txt file.
+
+00:01:38.549 --> 00:01:40.033
+Had the file been retrieved,
+
+00:01:40.033 --> 00:01:45.366
+it would have further attempted
+to include and execute the contents.
+
+00:01:49.304 --> 00:01:51.233
+Although this is a simple example,
+
+00:01:51.233 --> 00:01:55.033
+the URL is valid and
+the process is working,
+
+00:01:55.033 --> 00:01:57.533
+essentially allowing us to load
+
+00:01:57.533 --> 00:02:02.266
+and execute any file hosted
+on a remote web server.
+
+00:02:02.810 --> 00:02:06.033
+To see this in action,
+we can set up our Apache server
+
+00:02:06.033 --> 00:02:09.333
+to host a malicious evil.txt file
+
+00:02:09.333 --> 00:02:12.366
+with the same PHP command shell
+
+00:02:12.366 --> 00:02:14.733
+we used in our log poisoning attack.
+
+00:02:17.281 --> 00:02:20.766
+With our file in place,
+we will start our Apache web server.
+
+00:02:25.994 --> 00:02:28.966
+Once the file is in place and
+our web server is running,
+
+00:02:28.966 --> 00:02:33.633
+we can send our RFI attack URL
+to the vulnerable web application
+
+00:02:33.633 --> 00:02:35.400
+on the Windows 10 machine 
+
+00:02:35.400 --> 00:02:37.866
+and see if our code executes.
+
+00:02:46.352 --> 00:02:47.200
+Excellent.
+
+00:02:47.537 --> 00:02:49.000
+The exploit is working.
+
+00:02:49.886 --> 00:02:54.266
+Our code was included from a remote
+server and successfully executed.
+
+00:02:54.901 --> 00:02:57.933
+This is a very simple webshell.
+
+00:02:58.849 --> 00:03:01.566
+A webshell is a small piece of software
+
+00:03:01.566 --> 00:03:04.933
+that provides a web-based
+command line interface,
+
+00:03:04.933 --> 00:03:09.066
+making it easier and more
+convenient to execute commands.
+
+00:03:14.969 --> 00:03:16.533
+There are many types of webshells
+
+00:03:16.533 --> 00:03:18.533
+and Kali includes several
+
+00:03:18.533 --> 00:03:19.900
+written in many common
+
+00:03:19.900 --> 00:03:22.500
+web application programming languages.
+
+00:03:23.255 --> 00:03:24.033
+As always,
+
+00:03:24.033 --> 00:03:27.933
+review the contents of these
+files before using them.
+
+00:03:30.706 --> 00:03:33.566
+Based on the success
+of these simple examples,
+
+00:03:33.566 --> 00:03:35.266
+we can use Apache
+
+00:03:35.266 --> 00:03:37.633
+(or another HTTP server)
+
+00:03:38.033 --> 00:03:40.766
+to host these shells for RFIs,
+
+00:03:40.766 --> 00:03:43.100
+expanding our capabilities.
+
+00:03:43.944 --> 00:03:46.366
+Now that we can
+execute code on the server,
+
+00:03:46.366 --> 00:03:50.266
+it should be a simple matter
+to go from code execution
+
+00:03:50.266 --> 00:03:55.100
+to a shell with the help of the
+webshells included with Kali Linux.

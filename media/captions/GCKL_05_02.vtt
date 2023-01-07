@@ -1,0 +1,61 @@
+WEBVTT
+
+00:00:01.402 --> 00:00:04.066
+HTTP Service
+
+00:00:04.066 --> 00:00:09.466
+The Apache HTTP service is often used 
+during a penetration test, either for 
+
+00:00:09.466 --> 00:00:15.233
+hosting a site, or providing a platform 
+for downloading files to a victim machine.
+
+00:00:15.233 --> 00:00:21.066
+The HTTP service is TCP-based and 
+listens by default on port 80.
+
+00:00:21.066 --> 00:00:26.866
+To start the HTTP service in Kali, we 
+can use systemCTL as we did when starting 
+
+00:00:26.866 --> 00:00:31.540
+the SSH service, replacing the service 
+name with “apache2”.
+
+00:00:31.540 --> 00:00:36.700
+As with the SSH service, we can verify 
+that the HTTP service is running and 
+
+00:00:36.700 --> 00:00:41.233
+listening on TCP port 80 with ss and grep.
+
+00:00:41.700 --> 00:00:46.633
+To have the HTTP service start at boot 
+time, much like with the SSH service, 
+
+00:00:46.633 --> 00:00:51.866
+we need to explicitly enable it with 
+ systemCTL and its enable option.
+
+00:00:51.866 --> 00:00:57.400
+Most services in Kali Linux are operated 
+in much the same way as SSH and HTTP
+
+00:00:57.400 --> 00:01:00.233
+through their service or init scripts.
+
+00:01:00.233 --> 00:01:04.466
+To see a table of all available services, 
+run systemCTL 
+
+00:01:04.466 --> 00:01:08.100
+with the list-unit-files option:
+
+00:01:09.970 --> 00:01:13.766
+For additional information regarding 
+service management in Kali Linux, 
+
+00:01:13.766 --> 00:01:19.133
+including the use of systemCTL, 
+refer to the Kali Training site.

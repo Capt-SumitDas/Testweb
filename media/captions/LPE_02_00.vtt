@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:01.597 --> 00:00:03.263
+Searching for Exploits
+
+00:00:04.747 --> 00:00:09.547
+After the information gathering and
+enumeration stages of a penetration test,
+
+00:00:09.547 --> 00:00:14.580
+we can cross-check discovered
+software for known vulnerabilities
+
+00:00:14.580 --> 00:00:18.914
+in an attempt to find published
+exploits for those vulnerabilities.

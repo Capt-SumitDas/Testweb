@@ -1,0 +1,306 @@
+WEBVTT
+
+00:00:01.366 --> 00:00:04.833
+Fuzzing the HTTP Protocol
+
+00:00:05.566 --> 00:00:08.600
+Let’s take a look at our vulnerable
+application to demonstrate
+
+00:00:08.600 --> 00:00:12.000
+the fuzzing and exploit
+development processes.
+
+00:00:12.000 --> 00:00:16.100
+In 2017, a buffer overflow vulnerability
+was discovered 
+
+00:00:16.100 --> 00:00:22.233
+in the login mechanism of
+SyncBreeze version 10.0.28.
+
+00:00:27.033 --> 00:00:32.533
+Specifically, the username field of the
+HTTP POST login request 
+
+00:00:32.533 --> 00:00:35.400
+could be used to crash the application.
+
+00:00:44.866 --> 00:00:48.933
+Since working credentials are not required
+to trigger the vulnerability,
+
+00:00:48.933 --> 00:00:53.266
+it is considered a pre-authentication
+buffer overflow, 
+
+00:00:53.266 --> 00:00:57.933
+a terrific opportunity for us as
+penetration testers.
+
+00:00:57.933 --> 00:01:03.700
+We’ll begin by starting the SyncBreeze
+service on our Windows 10 client machine.
+
+
+
+00:01:03.700 --> 00:01:07.766
+This can be done by launching the
+Services console,
+
+00:01:14.366 --> 00:01:16.800
+right clicking on SyncBreeze 
+
+00:01:19.533 --> 00:01:21.733
+and selecting Start.
+
+00:01:23.233 --> 00:01:25.166
+Now that the service is running, 
+
+00:01:25.166 --> 00:01:29.300
+we can focus on the vulnerability
+discovery process.
+
+00:01:32.166 --> 00:01:35.700
+If we had no foreknowledge about this vulnerability, 
+
+00:01:35.700 --> 00:01:40.233
+we would begin fuzzing every input field the application offered, 
+
+00:01:40.233 --> 00:01:45.133
+hoping for unexpected behavior or an application crash.
+
+00:01:45.566 --> 00:01:47.800
+For the purposes of this module however, 
+
+00:01:47.800 --> 00:01:53.800
+we will skip this step and focus specifically
+on the vulnerable username field.
+
+00:01:58.166 --> 00:02:02.933
+In order to code a basic generation-based
+fuzzer from scratch, 
+
+00:02:02.933 --> 00:02:07.400
+we will first sample the network traffic
+that passes between the client 
+
+00:02:07.400 --> 00:02:10.833
+and the server during the vulnerable 
+interchange
+
+00:02:10.833 --> 00:02:15.066
+for use as our input data or seed.
+
+00:02:15.233 --> 00:02:18.666
+First, we will launch Wireshark on our
+Kali Linux machine 
+
+00:02:18.666 --> 00:02:20.966
+and configure a capture filter.
+
+00:02:29.866 --> 00:02:35.166
+Then we’ll launch Firefox and navigate
+to the Sync Breeze web interface.
+
+00:02:45.533 --> 00:02:49.900
+We’ll attempt to log in to SyncBreeze
+with invalid credentials.
+
+00:02:58.533 --> 00:03:03.000
+Now let’s return to Wireshark and
+locate our login attempt.
+
+00:03:18.900 --> 00:03:24.166
+Inspecting the TCP stream reveals our
+HTTP login attempt.
+
+00:03:34.566 --> 00:03:39.800
+The HTTP reply shows that the username
+and password are invalid,
+
+00:03:39.800 --> 00:03:43.466
+but this is irrelevant since the
+vulnerability we are investigating 
+
+00:03:43.466 --> 00:03:47.166
+exists before the authentication 
+takes place.
+
+00:03:58.266 --> 00:04:02.833
+We can replicate this HTTP communication
+and begin building our fuzzer 
+
+00:04:02.833 --> 00:04:05.733
+with a Python Proof of Concept.
+
+00:04:10.200 --> 00:04:13.766
+Since we know we are dealing with a
+buffer overflow vulnerability, 
+
+00:04:13.766 --> 00:04:16.666
+we will build our generation-based
+fuzzer 
+
+00:04:16.666 --> 00:04:20.533
+so that it will send multiple HTTP POST
+requests 
+
+00:04:20.533 --> 00:04:23.733
+with increasingly longer usernames.
+
+00:04:25.300 --> 00:04:29.733
+In the while loop, notice that we increase the length of the username field 
+
+00:04:29.733 --> 00:04:33.200
+by 100 characters on every login attempt. 
+
+00:04:34.500 --> 00:04:40.300
+Then, we insert a 10-second delay
+between HTTP POST commands
+
+00:04:40.300 --> 00:04:46.233
+to slow down the process and more
+clearly show the HTTP POST 
+
+00:04:46.233 --> 00:04:49.400
+that is responsible for triggering
+the vulnerability.
+
+00:04:50.066 --> 00:04:54.333
+Before running our fuzzer, we must attach
+a debugger to SyncBreeze
+
+00:04:54.333 --> 00:04:58.800
+while it is running to catch any
+potential access violation.
+
+00:05:07.166 --> 00:05:12.500
+However, we must first determine which
+of the several SyncBreeze processes
+
+00:05:12.500 --> 00:05:15.100
+is listening on TCP port 80.
+
+00:05:24.466 --> 00:05:27.600
+Although the Immunity Debugger has a
+Listening column 
+
+00:05:27.600 --> 00:05:32.000
+designed to show this information,
+in our case it doesn’t show up.
+
+00:05:32.933 --> 00:05:37.533
+Instead, we will use Microsoft TCPView for
+this purpose.
+
+00:05:54.600 --> 00:05:56.666
+To make the process easier to find, 
+
+00:05:56.666 --> 00:06:02.466
+we’ll de-select “Resolve Addresses”
+from the “Options” menu. 
+
+00:06:10.366 --> 00:06:16.666
+In this case, the process name is
+syncbrs.exe.
+
+00:06:23.533 --> 00:06:29.066
+However, when returning to Immunity
+Debugger, this process does not appear.
+
+00:06:29.066 --> 00:06:32.800
+This is because SyncBreeze runs with
+SYSTEM privileges 
+
+00:06:32.800 --> 00:06:36.700
+and Immunity Debugger was executed
+as a regular user.
+
+00:06:40.233 --> 00:06:44.066
+To get around this, we need to relaunch
+Immunity Debugger 
+
+00:06:44.066 --> 00:06:46.466
+with administrative privileges 
+
+00:06:46.466 --> 00:06:50.700
+by right-clicking it and choosing
+“Run as administrator”.
+
+00:07:13.000 --> 00:07:17.466
+We have located the process so we’ll
+select it and click Attach.
+
+00:07:24.000 --> 00:07:27.900
+Attaching a debugger to an
+application pauses it,
+
+00:07:28.033 --> 00:07:32.400
+so we need to resume execution
+by pressing F9.
+
+00:07:35.133 --> 00:07:38.966
+Now that the debugger is attached and
+SyncBreeze is running, 
+
+00:07:38.966 --> 00:07:40.966
+we can run our fuzzing script.
+
+00:08:01.133 --> 00:08:06.000
+When our username buffer reaches
+approximately 800 bytes in length,
+
+00:08:06.000 --> 00:08:09.333
+the debugger presents us with
+an access violation 
+
+00:08:09.333 --> 00:08:15.900
+while trying to execute code at
+address 41 41 41 41.
+
+00:08:17.133 --> 00:08:22.100
+Our simple fuzzer triggered a
+vulnerability in the application!
+
+00:08:22.366 --> 00:08:26.600
+This type of vulnerability is most
+often due to a memory operation 
+
+00:08:26.600 --> 00:08:33.000
+like a copy or move that overwrites
+data outside its intended memory area.
+
+00:08:33.266 --> 00:08:37.466
+When the overwrite occurs on the stack,
+this leads to a stack buffer overflow.
+
+00:08:37.466 --> 00:08:41.200
+This may seem like a fairly innocuous
+oversight, 
+
+00:08:41.200 --> 00:08:46.766
+but we will leverage it to trick the CPU
+into executing any code we want.
+
+00:08:46.766 --> 00:08:51.633
+Returning to the fuzzer, we can see that
+it crashed the SyncBreeze application.
+
+00:08:51.633 --> 00:08:53.466
+Let’s restart it.
+
+00:08:59.433 --> 00:09:01.233
+Since it is running as a service, 
+
+00:09:01.233 --> 00:09:04.633
+we need to restart it through the
+Services console.
+
+00:09:10.666 --> 00:09:14.566
+Let’s re-attach Immunity to the process
+before we proceed.
+
+00:09:33.933 --> 00:09:38.433
+We’ll press F9 to resume the process
+and return to Kali.

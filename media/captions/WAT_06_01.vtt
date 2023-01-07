@@ -1,0 +1,53 @@
+WEBVTT
+
+00:00:02.131 --> 00:00:04.633
+Identifying XSS Vulnerabilities
+
+00:00:06.229 --> 00:00:09.500
+We can find potential entry points for XSS
+
+00:00:09.500 --> 00:00:13.933
+by examining a web application
+and identifying input fields
+
+00:00:13.933 --> 00:00:18.366
+(such as search fields) that
+accept unsanitized input,
+
+00:00:18.833 --> 00:00:22.600
+which is displayed as output
+in subsequent pages.
+
+00:00:23.553 --> 00:00:28.033
+Once we identify an entry point,
+we can input special characters,
+
+00:00:28.311 --> 00:00:29.708
+and observe the output
+
+00:00:29.708 --> 00:00:33.566
+to see if any of the special
+characters return unfiltered.
+
+00:00:34.519 --> 00:00:38.433
+If the application does not remove
+or encode these characters,
+
+00:00:38.433 --> 00:00:40.966
+it may be vulnerable to XSS
+
+00:00:40.966 --> 00:00:45.233
+as the characters can be used
+to introduce code into the page.
+
+00:00:46.047 --> 00:00:49.366
+If we can inject these special
+characters into the page,
+
+00:00:49.366 --> 00:00:52.633
+the browser will treat
+them as code elements.
+
+00:00:53.297 --> 00:00:58.433
+We can then begin to build code that
+will be executed in the victim’s browser.

@@ -1,0 +1,43 @@
+WEBVTT
+
+00:00:01.600 --> 00:00:03.873
+Selecting the Vulnerability
+
+00:00:04.802 --> 00:00:07.133
+Let’s consider the following scenario.
+
+00:00:07.673 --> 00:00:10.566
+During an assessment
+we discover a Linux host
+
+00:00:10.566 --> 00:00:13.833
+ that has an apache2 server exposed.
+
+00:00:14.734 --> 00:00:20.233
+After enumerating the web server we find
+an installation of CMS Made Simple
+
+00:00:20.233 --> 00:00:22.700
+version 2.2.5
+
+00:00:22.700 --> 00:00:25.533
+ listening on port 443.
+
+00:00:26.451 --> 00:00:28.666
+This version appears to be vulnerable
+to remote code execution
+
+00:00:28.666 --> 00:00:32.933
+and a public exploit is
+available on Exploit-DB.
+
+00:00:34.115 --> 00:00:36.366
+This vulnerability is post-authentication,
+
+00:00:36.366 --> 00:00:40.233
+however, we discovered valid
+application credentials
+
+00:00:40.233 --> 00:00:43.933
+on another machine during
+the enumeration process.

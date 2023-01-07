@@ -1,0 +1,128 @@
+WEBVTT
+
+00:00:01.300 --> 00:00:04.100
+Switching Between Empire and Metasploit
+
+00:00:04.635 --> 00:00:07.900
+The Empire agent supports many features.
+
+00:00:08.137 --> 00:00:09.533
+However, there are often times
+
+00:00:09.533 --> 00:00:11.233
+we need to use features that are
+
+00:00:11.233 --> 00:00:12.833
+only found in Metasploit.
+
+00:00:13.238 --> 00:00:15.800
+Since we can have both
+Empire and Metasploit
+
+00:00:15.800 --> 00:00:18.066
+shells on the same compromised host,
+
+00:00:18.066 --> 00:00:20.166
+ this is actually quite easy.
+
+00:00:22.981 --> 00:00:25.500
+First, we’ll use msfvenom
+
+00:00:25.500 --> 00:00:28.466
+to generate a meterpreter reverse shell
+
+00:00:28.466 --> 00:00:29.900
+as an executable.
+
+00:00:35.330 --> 00:00:40.133
+We next set up a Metasploit listener
+using the multi/handler module
+
+00:00:40.133 --> 00:00:42.900
+and the same settings
+we used for our payload.
+
+00:00:48.100 --> 00:00:50.800
+We’ll use the multi handler module,
+
+00:00:53.293 --> 00:00:57.333
+set the payload to a
+reverse http meterpreter,
+
+00:00:59.275 --> 00:01:02.900
+and set the values for LPORT and LHOST.
+
+00:01:07.106 --> 00:01:10.266
+With our settings configured,
+we’ll launch the module.
+
+00:01:12.683 --> 00:01:15.933
+Now we switch back to our
+PowerShell Empire shell
+
+00:01:15.933 --> 00:01:18.100
+and upload the executable.
+
+00:01:24.264 --> 00:01:26.400
+After uploading the executable,
+
+00:01:26.400 --> 00:01:28.566
+we’ll issue the pwd command
+
+00:01:28.566 --> 00:01:31.366
+to reveal its location
+and then execute it.
+
+00:01:39.534 --> 00:01:41.533
+With the executable running,
+
+00:01:41.533 --> 00:01:43.966
+we’ll switch back to our
+meterpreter listener
+
+00:01:43.966 --> 00:01:46.166
+ and find the incoming shell.
+
+00:01:55.619 --> 00:01:59.266
+Reversing this process to
+connect to an Empire agent
+
+00:01:59.266 --> 00:02:02.733
+from an existing meterpreter session
+is also simple.
+
+00:02:03.245 --> 00:02:07.766
+We can create a launcher and use
+meterpreter to upload and execute it.
+
+00:02:08.523 --> 00:02:11.566
+First we’ll create the
+launcher using Empire.
+
+00:02:20.010 --> 00:02:22.266
+We simply set the Listener,
+
+00:02:22.266 --> 00:02:24.200
+which in our case is http,
+
+00:02:24.200 --> 00:02:26.466
+then upload and execute it.
+
+00:02:28.608 --> 00:02:31.700
+We’ll first upload the file
+through the meterpreter shell.
+
+00:02:36.334 --> 00:02:40.200
+Then we’ll run the shell command
+and execute our batch script.
+
+00:02:46.233 --> 00:02:50.333
+Now we should receive an
+Empire agent from the compromised host.
+
+00:02:53.606 --> 00:02:54.566
+Using these techniques,
+
+00:02:54.566 --> 00:02:58.600
+we can switch between frameworks
+on the same compromised host.

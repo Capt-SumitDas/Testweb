@@ -1,0 +1,27 @@
+WEBVTT
+
+00:00:01.066 --> 00:00:05.166
+Transferring Files with Windows Hosts
+
+00:00:05.166 --> 00:00:10.400
+In Unix-like environments, we’ll often 
+find tools such as Netcat, curl,
+
+00:00:10.400 --> 00:00:14.266
+or wget preinstalled with the 
+operating system, 
+
+00:00:14.266 --> 00:00:19.200
+which make downloading files from a 
+remote machine relatively simple.
+
+00:00:19.200 --> 00:00:24.866
+However, on Windows machines the 
+process is usually not as straightforward.
+
+00:00:32.866 --> 00:00:36.100
+In this section, we’ll explore file 
+transfer options 
+
+00:00:36.100 --> 00:00:38.300
+on Windows-based machines.

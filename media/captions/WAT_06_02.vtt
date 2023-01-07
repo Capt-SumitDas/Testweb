@@ -1,0 +1,130 @@
+WEBVTT
+
+00:00:01.805 --> 00:00:03.433
+Basic XSS
+
+00:00:04.739 --> 00:00:07.100
+Let’s demonstrate basic XSS
+
+00:00:07.100 --> 00:00:11.233
+with a simple attack against
+our Windows 10 lab machine.
+
+00:00:17.641 --> 00:00:20.766
+This web application
+contains several flaws,
+
+00:00:20.766 --> 00:00:24.100
+including a stored XSS vulnerability.
+
+00:00:24.853 --> 00:00:28.033
+To demonstrate this, we can
+insert a few special characters
+
+00:00:28.033 --> 00:00:31.466
+into the Feedback form fields
+and submit them.
+
+00:00:38.566 --> 00:00:43.066
+We will start by submitting some of
+the JavaScript-specific characters.
+
+00:00:47.870 --> 00:00:51.033
+Reviewing the resulting message
+in the Inspector tool,
+
+00:00:57.370 --> 00:01:01.366
+we can see that our characters
+were not removed or encoded.
+
+00:01:02.199 --> 00:01:05.833
+Since the input is not
+filtered or sanitized,
+
+00:01:05.833 --> 00:01:09.833
+and our special characters have
+passed through into the output,
+
+00:01:10.000 --> 00:01:13.866
+the conditions look right
+for an XSS vulnerability.
+
+00:01:14.357 --> 00:01:18.233
+Let’s examine the source code to
+better understand what’s happening.
+
+00:01:20.828 --> 00:01:25.400
+When feedback is submitted to the site,
+it is handled by this code.
+
+00:01:26.101 --> 00:01:28.800
+Line 40 handles the values of the “name”
+
+00:01:28.800 --> 00:01:32.066
+and “comment” fields that
+are posted to the server.
+
+00:01:33.328 --> 00:01:38.633
+The code inserts those values into the
+database without any modification.
+
+00:01:41.508 --> 00:01:45.500
+Next, we will check the code that
+displays the feedback on the site.
+
+00:01:47.910 --> 00:01:52.900
+Line 44 writes the results from
+the database into the page.
+
+00:01:54.337 --> 00:01:58.600
+The results are indeed output
+without any modification.
+
+00:02:05.419 --> 00:02:07.633
+Let’s update our input
+and create a payload
+
+00:02:07.633 --> 00:02:10.633
+that displays a simple Javascript alert.
+
+00:02:17.277 --> 00:02:19.000
+Based on the code we reviewed,
+
+00:02:19.000 --> 00:02:22.066
+we don’t need any fancy
+encoding tricks here,
+
+00:02:22.066 --> 00:02:24.633
+just a basic XSS payload.
+
+00:02:27.385 --> 00:02:29.066
+After submitting our payload,
+
+00:02:29.066 --> 00:02:34.200
+refreshing the Feedback page should
+execute our injected JavaScript.
+
+00:02:36.444 --> 00:02:37.333
+Excellent.
+
+00:02:37.609 --> 00:02:40.900
+We have injected a
+cross-site scripting payload
+
+00:02:41.200 --> 00:02:43.933
+into the web application’s database
+
+00:02:43.933 --> 00:02:47.366
+and it will be served to
+anyone that views the site.
+
+00:02:52.065 --> 00:02:54.700
+A simple alert window is a
+somewhat trivial example
+
+00:02:54.700 --> 00:02:56.966
+of what can be done
+with cross-site scripting
+
+00:02:56.966 --> 00:02:59.700
+so let’s try something more interesting.

@@ -1,0 +1,81 @@
+WEBVTT
+
+00:00:01.233 --> 00:00:03.433
+Controlling EIP
+
+00:00:04.500 --> 00:00:08.433
+Our next task is to control the EIP
+register.
+
+00:00:08.966 --> 00:00:14.066
+To do this, we must identify which four
+bytes in our buffer end up overwriting
+
+00:00:14.066 --> 00:00:17.000
+the vulnerable function return address.
+
+00:00:21.433 --> 00:00:25.466
+We’ll use the Metasploit
+msf-pattern_create script
+
+00:00:25.466 --> 00:00:27.833
+to create a unique buffer string.
+
+00:00:28.200 --> 00:00:32.100
+To keep our buffer length consistent
+during the exploit development process,
+
+00:00:32.100 --> 00:00:37.466
+we’ll specify a pattern length of 4,379
+bytes.
+
+00:00:40.600 --> 00:00:44.700
+Let’s add this unique string to our next
+proof of concept.
+
+00:00:54.533 --> 00:00:59.100
+This pattern will be sent to crossfire
+instead of our string of A’s.
+
+00:00:59.566 --> 00:01:04.466
+Let’s run this proof of concept and find
+out which bytes overwrite EIP.
+
+00:01:13.200 --> 00:01:16.633
+As expected, crossfire has crashed.
+
+00:01:20.466 --> 00:01:25.233
+This time, EIP has been overwritten with
+bytes from our unique pattern.
+
+00:01:26.433 --> 00:01:31.700
+After noting this value, we'll restart
+crossfire and EDB once again.
+
+00:01:51.266 --> 00:01:55.566
+Now let's find out where those four bytes
+occur in our pattern.
+
+00:02:03.066 --> 00:02:06.900
+Passing the 4 hex bytes to
+msf-pattern_offset
+
+00:02:06.900 --> 00:02:11.900
+tells us that the pattern was found at
+offset 4368.
+
+00:02:14.666 --> 00:02:19.500
+To confirm this offset, we update the
+crash variable in our proof-of-concept 
+
+00:02:19.500 --> 00:02:24.233
+to cleanly overwrite EIP with four “B” 
+characters.
+
+00:02:31.366 --> 00:02:37.033
+Now we’ll run this script and hopefully
+verify our control over EIP.
+
+00:02:45.600 --> 00:02:51.166
+Excellent, EIP is cleanly overwritten
+with our four ‘B’ characters.

@@ -1,0 +1,39 @@
+WEBVTT
+
+00:00:00.851 --> 00:00:03.433
+Targeting the Jenkins Server
+
+00:00:04.232 --> 00:00:07.934
+Jenkins is an automation server
+that can be used to automate
+
+00:00:07.934 --> 00:00:11.700
+a number of tasks related
+to software development.
+
+00:00:12.208 --> 00:00:16.833
+Because of their nature, tools like
+Jenkins can generally execute code.
+
+00:00:17.356 --> 00:00:21.733
+This is necessary in order to
+set up custom repeatable tasks
+
+00:00:21.733 --> 00:00:25.366
+triggered by specific events or actions.
+
+00:00:25.773 --> 00:00:29.300
+As always, we want to conduct
+some level of enumeration
+
+00:00:29.300 --> 00:00:32.033
+before we begin trying
+to exploit anything.
+
+00:00:32.730 --> 00:00:36.500
+We’ve already conducted some network
+enumeration through a port scan,
+
+00:00:36.500 --> 00:00:41.633
+but now we want to concentrate
+solely on the Jenkins web application.

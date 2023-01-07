@@ -1,0 +1,204 @@
+WEBVTT
+
+00:00:01.766 --> 00:00:05.400
+Practical Bash Usage – Example 2
+
+00:00:06.366 --> 00:00:10.033
+In this example, let’s assume we are in 
+the middle of a penetration test 
+
+00:00:10.033 --> 00:00:13.766
+and have unprivileged access to a Windows 
+machine.
+
+00:00:14.200 --> 00:00:18.500
+As we continue to collect information, 
+we realize it may be vulnerable
+
+00:00:18.500 --> 00:00:24.300
+to an exploit that we read about that 
+began with the letters a, f, and d
+
+00:00:24.300 --> 00:00:26.833
+but we can’t remember the full name of 
+the exploit.
+
+00:00:27.633 --> 00:00:29.833
+In an attempt to escalate our privileges,
+
+00:00:29.833 --> 00:00:32.600
+we want to search for that specific 
+exploit.
+
+00:00:33.033 --> 00:00:38.266
+To do this, we would need to search 
+Exploit-DB for “afd windows”,
+
+00:00:38.266 --> 00:00:41.466
+download the exploits that match our 
+search criteria,
+
+00:00:41.466 --> 00:00:44.766
+and inspect them until we find the proper 
+one.
+
+00:00:45.266 --> 00:00:49.200
+We could do this manually through the web 
+site, which wouldn’t take too long,
+
+00:00:49.200 --> 00:00:53.600
+but if we take the time to write a Bash 
+script, we could easily use it to search
+
+00:00:53.600 --> 00:00:57.200
+for and automatically download exploits 
+later.
+
+00:01:02.466 --> 00:01:06.433
+Using what we now know about scripting, 
+let’s try to automate this task.
+
+00:01:06.766 --> 00:01:10.600
+We’ll start with the SearchSploit utility 
+included with Kali.
+
+00:01:10.833 --> 00:01:15.866
+SearchSploit is a command line search 
+tool for Exploit-DB that allows us to
+
+00:01:15.866 --> 00:01:20.366
+take an offline copy of the Exploit 
+Database with us wherever we go.
+
+00:01:20.666 --> 00:01:24.433
+We will pass “afd windows” as a search 
+string…
+
+00:01:24.833 --> 00:01:30.866
+…use -w to return the Exploit-DB URL 
+rather than the local path, 
+
+00:01:30.866 --> 00:01:34.733
+and -t to search the exploit title.
+
+00:01:35.266 --> 00:01:38.300
+This is a good start, but we need to trim 
+the results.
+
+00:01:38.600 --> 00:01:42.333
+For now, we’re only interested in the 
+exploit’s URL.
+
+00:01:42.333 --> 00:01:47.766
+So let’s grep for “http” and then cut 
+what we need. 
+
+00:01:47.766 --> 00:01:52.300
+We will use a “|” field delimiter and 
+extract the second field.
+
+00:01:53.200 --> 00:01:54.766
+That looks a little better.
+
+00:01:55.166 --> 00:01:57.733
+Now that we have the URL for each exploit,
+
+00:01:57.733 --> 00:02:02.100
+we can use a Bash loop to download the 
+files and save them locally.
+
+00:02:02.866 --> 00:02:07.566
+However, before we do that, we notice 
+that each page has a link to download
+
+00:02:07.566 --> 00:02:11.700
+the “raw” exploit code, which is really
+what we’re after.
+
+00:02:12.400 --> 00:02:15.600
+Armed with this information, let’s carry 
+on with our example.
+
+00:02:18.633 --> 00:02:22.962
+We run sed to modify the download URL,
+
+00:02:22.962 --> 00:02:28.800
+and insert it into a Bash one-liner to 
+download the raw code for the exploits.
+
+00:02:29.214 --> 00:02:33.033
+Note the use of a for loop which iterates 
+through the URLs we grabbed.
+
+00:02:33.366 --> 00:02:38.833
+Inside the loop, we set exp_name to the 
+“name” of the exploit
+
+00:02:38.833 --> 00:02:42.233
+(using grep, cut, and command 
+substitution)
+
+00:02:42.533 --> 00:02:46.233
+and set the url to the raw download 
+location 
+
+00:02:46.233 --> 00:02:49.600
+(again with sed and command substitution).
+
+00:02:49.900 --> 00:02:54.700
+If that is successful we grab the exploit 
+with wget in quiet mode
+
+00:02:54.700 --> 00:02:59.566
+ with no certificate check saving it 
+locally with the exploit name
+
+00:02:59.566 --> 00:03:01.566
+as the local file name.
+
+00:03:02.633 --> 00:03:06.966
+When we get our command prompt back, we 
+can verify that the exploits were indeed
+
+00:03:06.966 --> 00:03:10.832
+downloaded, using file to verify that the 
+files are text.
+
+00:03:11.733 --> 00:03:16.900
+We can inspect each exploit, and see that 
+we did, in fact, grab the raw exploits.
+
+00:03:17.233 --> 00:03:20.000
+Even though we had success with a Bash 
+one-liner, 
+
+00:03:20.000 --> 00:03:25.333
+our code is not very clean and it’s not 
+particularly easy to re-use.
+
+00:03:25.333 --> 00:03:29.766
+Let’s put everything together in a Bash 
+script to solve these problems.
+
+00:03:30.233 --> 00:03:34.533
+This script is identical to our Bash 
+one-liner and even though it has
+
+00:03:34.533 --> 00:03:39.366
+hard-coded search term, is still much 
+easier to update and maintain.
+
+00:03:39.533 --> 00:03:42.566
+We can now manually inspect the exploits…
+
+00:03:45.233 --> 00:03:49.433
+…find the ones we are interested in, try 
+them on a test machine,
+
+00:03:49.433 --> 00:03:55.033
+and finally run the proper exploit on our 
+target, since shotgunning random exploits
+
+00:03:55.033 --> 00:03:59.600
+at a live target is bad form and a recipe 
+for total disaster.

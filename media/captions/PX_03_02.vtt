@@ -1,0 +1,126 @@
+WEBVTT
+
+00:00:01.235 --> 00:00:05.400
+Insecure File Permissions:
+Cron Case Study
+
+00:00:06.385 --> 00:00:10.166
+We will first demonstate using
+insecure file permissions
+
+00:00:10.166 --> 00:00:12.233
+to escalate our privileges.
+
+00:00:12.883 --> 00:00:18.133
+For the purpose of this example, we will
+SSH to our dedicated Debian client.
+
+00:00:22.053 --> 00:00:24.933
+In order to leverage insecure
+file permissions,
+
+00:00:24.933 --> 00:00:30.366
+we must locate an executable file
+that not only allows us write access
+
+00:00:30.366 --> 00:00:33.533
+but also runs as a privileged user.
+
+00:00:34.084 --> 00:00:39.833
+On a Linux system, the cron time-based
+job scheduler is a prime target,
+
+00:00:39.833 --> 00:00:43.566
+as many jobs are executed
+with root user privileges
+
+00:00:43.566 --> 00:00:47.333
+and system administrators
+often create scripts
+
+00:00:47.333 --> 00:00:50.733
+for cron jobs with insecure permissions.
+
+00:00:51.265 --> 00:00:55.266
+We can use the techniques
+discussed earlier to locate cron jobs,
+
+00:00:55.266 --> 00:01:00.466
+or we could inspect the cron
+log file for running jobs:
+
+00:01:02.968 --> 00:01:09.066
+It appears that a script called
+user_backups.sh under /var/scripts
+
+00:01:09.066 --> 00:01:13.866
+is executed as the root user
+and judging by the timestamps,
+
+00:01:13.866 --> 00:01:16.800
+it runs once every five minutes.
+
+00:01:17.804 --> 00:01:23.200
+Since we know the location of the script,
+let’s inspect its contents and permissions.
+
+00:01:25.150 --> 00:01:27.500
+The script itself is fairly straight-forward:
+
+00:01:27.500 --> 00:01:33.933
+it simply copies the student user’s home
+directory to the backups subdirectory.
+
+00:01:36.829 --> 00:01:41.300
+The permissions of the script shows that
+any user can write to the file.
+
+00:01:42.009 --> 00:01:46.533
+Since an unprivileged user can modify
+the contents of the backup script,
+
+00:01:46.533 --> 00:01:51.466
+we can edit it and add a
+reverse shell one-liner.
+
+00:01:53.220 --> 00:01:57.733
+If our plan works, we should receive
+a root-level reverse shell
+
+00:01:57.733 --> 00:02:02.266
+on our attacking machine
+after 5 minutes, at most.
+
+00:02:09.930 --> 00:02:14.200
+All we have to do now is set up a
+listener on our Kali Linux machine
+
+00:02:17.805 --> 00:02:20.833
+and wait for the cron job to execute.
+
+00:02:24.281 --> 00:02:29.366
+The cron job executed, as did
+the reverse shell we added.
+
+00:02:31.888 --> 00:02:34.966
+We have successfully elevated
+our privileges
+
+00:02:34.966 --> 00:02:39.100
+and have access to a root shell
+on the target.
+
+00:02:39.612 --> 00:02:41.628
+Although this was a simple example,
+
+00:02:41.628 --> 00:02:45.666
+we have encountered several
+similar situations in the field
+
+00:02:45.666 --> 00:02:50.600
+because administrators are often
+more focused on cron’s odd syntax
+
+00:02:50.600 --> 00:02:53.533
+than on file permissions
+for their scripts.

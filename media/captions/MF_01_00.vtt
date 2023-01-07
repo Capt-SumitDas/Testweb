@@ -1,0 +1,48 @@
+WEBVTT
+
+00:00:01.137 --> 00:00:04.570
+Metasploit User Interfaces and Setup
+
+00:00:05.587 --> 00:00:09.520
+Although the Metasploit Framework
+is preinstalled in Kali Linux,
+
+00:00:09.520 --> 00:00:13.287
+the postgresql service that 
+Metasploit depends on 
+
+00:00:13.287 --> 00:00:17.020
+is neither active nor
+enabled at boot time.
+
+00:00:21.600 --> 00:00:26.400
+We can start the required service as we
+would any other common service:
+
+00:00:31.200 --> 00:00:35.866
+We can also enable the service
+at boot with systemctl.
+
+00:00:39.779 --> 00:00:43.179
+With the database started, we
+need to create and initialize
+
+00:00:43.179 --> 00:00:48.741
+the metasploit framework
+database with msfdb init.
+
+00:00:53.983 --> 00:00:56.583
+Since Metasploit is under
+constant development,
+
+00:00:56.583 --> 00:00:59.283
+we should update it as
+often as possible.
+
+00:00:59.708 --> 00:01:03.741
+Within Kali, we can update
+Metasploit with apt.
+
+00:01:10.195 --> 00:01:15.029
+We can launch the Metasploit command-
+line interface with “msfconsole.”

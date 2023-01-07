@@ -1,0 +1,20 @@
+WEBVTT
+
+00:00:01.966 --> 00:00:06.133
+Win32 Buffer Overflow Exploitation
+
+00:00:07.000 --> 00:00:10.333
+Discovering an exploitable vulnerability
+is exciting, 
+
+00:00:10.333 --> 00:00:13.800
+but developing that discovery into a
+working exploit 
+
+00:00:13.800 --> 00:00:19.966
+and successfully getting a shell is even
+more exciting and practical.
+
+00:00:20.566 --> 00:00:25.733
+To that end, our first goal is to gain
+control of the EIP register.

@@ -1,0 +1,47 @@
+WEBVTT
+
+00:00:01.801 --> 00:00:03.734
+Powercat File Transfers
+
+00:00:04.749 --> 00:00:08.282
+Let’s take a look at how to use
+Powercat to transfer itself
+
+00:00:08.282 --> 00:00:12.649
+from Bob to Alice as a way
+to demonstrate file transfers.
+
+00:00:14.663 --> 00:00:18.263
+First, we run a Netcat listener
+on Alice’s computer.
+
+00:00:19.234 --> 00:00:22.601
+Next, we will invoke powercat
+on Bob’s computer.
+
+00:00:25.801 --> 00:00:29.068
+The -c option specifies client mode
+
+00:00:29.068 --> 00:00:33.534
+and we provide it with the remote
+IP address and port to connect to.
+
+00:00:34.220 --> 00:00:38.120
+We then use the -i option
+and indicate the local file
+
+00:00:38.120 --> 00:00:40.720
+that will be transferred to
+the remote listener.
+
+00:00:43.834 --> 00:00:47.034
+Finally, Alice will kill
+the Netcat process
+
+00:00:47.034 --> 00:00:49.434
+and check that the file
+has been received:
+
+00:00:52.520 --> 00:00:55.953
+Great, our file was
+transferred successfully.

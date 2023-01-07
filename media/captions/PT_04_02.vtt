@@ -1,0 +1,15 @@
+WEBVTT
+
+00:00:01.446 --> 00:00:02.946
+Launching Wireshark
+
+00:00:03.660 --> 00:00:06.293
+In the following example, we’ll
+capture network traffic
+
+00:00:06.293 --> 00:00:08.760
+during an anonymous FTP login.
+
+00:00:10.060 --> 00:00:13.760
+On our Kali system, we’ll launch
+Wireshark from the command line.

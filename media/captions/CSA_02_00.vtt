@@ -1,0 +1,86 @@
+WEBVTT
+
+00:00:01.175 --> 00:00:04.175
+Leveraging HTML Applications
+
+00:00:05.854 --> 00:00:09.654
+Next, we will turn our attention
+to specific client-side attacks,
+
+00:00:09.666 --> 00:00:14.100
+beginning with an attack
+against HTML Applications.
+
+00:00:15.183 --> 00:00:20.183
+HTML Applications allow arbitrary
+execution of applications
+
+00:00:20.183 --> 00:00:22.716
+directly from Internet Explorer,
+
+00:00:22.754 --> 00:00:26.854
+rather than downloading and
+manually running an executable.
+
+00:00:27.962 --> 00:00:33.829
+If a file is created with the
+extension of .hta instead of .html,
+
+00:00:33.829 --> 00:00:39.395
+Internet Explorer will automatically
+interpret it as an HTML Application
+
+00:00:39.420 --> 00:00:44.854
+and offer to execute it using
+the mshta.exe program.
+
+00:00:45.787 --> 00:00:49.354
+Since this clashes with the security
+boundaries in Internet Explorer,
+
+00:00:49.354 --> 00:00:53.187
+an HTML Application is
+always executed
+
+00:00:53.200 --> 00:00:56.300
+outside of the security
+context of the browser
+
+00:00:56.300 --> 00:01:00.900
+by the Microsoft-signed
+binary mshta.exe.
+
+00:01:01.908 --> 00:01:07.141
+If the user allows this to happen, an
+attacker can execute arbitrary code
+
+00:01:07.141 --> 00:01:11.708
+with that user’s permissions,
+avoiding the security restrictions
+
+00:01:11.708 --> 00:01:14.275
+normally imposed by Internet Explorer.
+
+00:01:15.283 --> 00:01:18.483
+While this attack vector only
+works against Internet Explorer
+
+00:01:18.483 --> 00:01:22.783
+and to some extent Microsoft Edge,
+it is still useful
+
+00:01:22.795 --> 00:01:28.362
+since many corporations rely on Internet
+Explorer as their default browser.
+
+00:01:29.475 --> 00:01:35.175
+This vector leverages features directly
+built into Windows operating systems and,
+
+00:01:35.175 --> 00:01:38.641
+more importantly, it is
+compatibile with less-secure
+
+00:01:38.641 --> 00:01:42.908
+Microsoft legacy web
+technologies such as ActiveX.

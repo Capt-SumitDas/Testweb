@@ -1,0 +1,35 @@
+WEBVTT
+
+00:00:01.319 --> 00:00:03.153
+Wireshark Basics
+
+00:00:03.633 --> 00:00:06.067
+While analyzing network
+traffic with a sniffer,
+
+00:00:06.067 --> 00:00:10.267
+it’s easy to get overwhelmed by the
+amount of “noise” in the collected data.
+
+00:00:10.848 --> 00:00:12.549
+In order to facilitate the analysis,
+
+00:00:12.549 --> 00:00:17.049
+we can apply capture filters
+and display filters within Wireshark.
+
+00:00:17.653 --> 00:00:20.853
+The secret to using any network
+sniffer, including Wireshark,
+
+00:00:20.853 --> 00:00:25.819
+is learning how to use capture and display
+filters to strip out superfluous data.
+
+00:00:26.291 --> 00:00:29.058
+Fortunately, Wireshark’s
+graphical interface
+
+00:00:29.072 --> 00:00:34.139
+makes it relatively easy to visualize data
+and work with the various filters.

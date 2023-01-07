@@ -1,0 +1,94 @@
+WEBVTT
+
+00:00:01.467 --> 00:00:03.400
+NTLM Authentication
+
+00:00:04.524 --> 00:00:08.833
+NTLM authentication is used when
+a client authenticates to a server
+
+00:00:08.833 --> 00:00:12.633
+by IP address instead of by hostname,
+
+00:00:12.633 --> 00:00:16.633
+or if the user attempts to
+authenticate to a hostname
+
+00:00:16.633 --> 00:00:21.633
+that is not registered on the Active
+Directory integrated DNS server.
+
+00:00:22.351 --> 00:00:26.800
+Third-party applications may also
+choose to use NTLM authentication.
+
+00:00:28.845 --> 00:00:32.800
+The NTLM authentication
+protocol consists of seven steps.
+
+00:00:33.143 --> 00:00:37.733
+In the first authentication step, the
+computer calculates a cryptographic hash,
+
+00:00:37.733 --> 00:00:40.166
+called the NTLM hash,
+
+00:00:40.369 --> 00:00:41.966
+from the user’s password.
+
+00:00:42.591 --> 00:00:46.466
+Next, the client computer sends
+the user name to the server,
+
+00:00:46.919 --> 00:00:49.066
+which returns a random value
+
+00:00:49.129 --> 00:00:52.033
+called the nonce or challenge.
+
+00:00:52.517 --> 00:00:56.233
+The client then encrypts the
+nonce using the NTLM hash,
+
+00:00:56.233 --> 00:01:00.433
+now known as a response,
+and sends it to the server.
+
+00:01:00.917 --> 00:01:05.233
+The server forwards the response
+along with the username and the nonce
+
+00:01:05.233 --> 00:01:06.833
+to the domain controller.
+
+00:01:07.223 --> 00:01:10.966
+The validation is then performed
+by the domain controller,
+
+00:01:10.966 --> 00:01:15.133
+since it already knows the
+NTLM hash of all users.
+
+00:01:15.726 --> 00:01:18.896
+The domain controller encrypts
+the challenge itself
+
+00:01:18.896 --> 00:01:23.500
+with the NTLM hash of the supplied
+username and compares it
+
+00:01:23.500 --> 00:01:25.966
+to the response it received
+from the server.
+
+00:01:26.622 --> 00:01:31.000
+If the two are equal, the
+authentication request is successful.
+
+00:01:31.780 --> 00:01:36.500
+Next we will turn to Kerberos which is
+the default authentication protocol
+
+00:01:36.500 --> 00:01:39.966
+for Active Directory and
+associated services.

@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:01.440 --> 00:00:02.540
+wget
+
+00:00:02.848 --> 00:00:05.748
+The wget command, which we
+use extensively,
+
+00:00:05.773 --> 00:00:10.373
+downloads files using the the
+HTTP and FTP protocols.
+
+00:00:11.373 --> 00:00:14.840
+Wget can be used along with the
+dash-capital-O switch
+
+00:00:14.840 --> 00:00:19.273
+to save the destination file with
+a different name on the local machine.
+
+00:00:22.531 --> 00:00:27.331
+Wget has many features and can do
+far more than simply download files.
+
+00:00:29.440 --> 00:00:32.573
+Refer to its documentation for
+more information.

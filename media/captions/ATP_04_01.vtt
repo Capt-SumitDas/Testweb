@@ -1,0 +1,94 @@
+WEBVTT
+
+00:00:01.357 --> 00:00:04.766
+More Thorough Post Exploitation
+
+00:00:05.372 --> 00:00:10.866
+Previously, we learned that Ajla is
+running on Ubuntu 16.04,
+
+00:00:10.866 --> 00:00:13.233
+which is a fairly recent version.
+
+00:00:16.432 --> 00:00:19.566
+We may not be able to find
+a kernel exploit for this version.
+
+00:00:19.906 --> 00:00:23.633
+However, we shouldn’t totally
+rule out the possibility.
+
+00:00:23.899 --> 00:00:26.566
+After enumerating running processes,
+
+00:00:28.723 --> 00:00:30.233
+system services,
+
+00:00:32.923 --> 00:00:34.833
+and installed applications,
+
+00:00:37.208 --> 00:00:40.200
+we find that other than
+the WordPress install,
+
+00:00:40.200 --> 00:00:45.033
+the Ubuntu server is only running
+default services and applications.
+
+00:00:45.251 --> 00:00:47.366
+This does not look promising.
+
+00:00:47.730 --> 00:00:50.766
+To complete the applications
+and services assessment
+
+00:00:50.911 --> 00:00:55.766
+we’ll run netstat to determine
+what other ports might be open.
+
+00:00:58.554 --> 00:01:03.033
+Unfortunately, the output doesn’t
+reveal anything interesting either.
+
+00:01:03.154 --> 00:01:08.000
+At this point, our best option is to
+start looking at kernel exploits.
+
+00:01:08.436 --> 00:01:12.466
+But first we need to find out which
+kernel version our target is running.
+
+00:01:14.333 --> 00:01:18.033
+Now that we have the kernel
+version, we will return to searchsploit.
+
+00:01:25.668 --> 00:01:31.700
+While many of these seem like they might
+work one in particular grabs our attention
+
+00:01:37.662 --> 00:01:42.166
+After reviewing the source
+code for exploit 45010,
+
+00:01:42.166 --> 00:01:48.000
+we see that it is well written, was tested
+against several different kernel versions,
+
+00:01:48.000 --> 00:01:53.133
+and has great instructions
+on compiling and executing.
+
+00:01:59.677 --> 00:02:03.900
+First, let’s find out if Ajla has gcc.
+
+00:02:13.207 --> 00:02:18.066
+Unfortunately, Ajla does not have
+the gcc binary installed
+
+00:02:18.066 --> 00:02:21.766
+ so we will need to compile the
+exploit on our Kali machine,
+
+00:02:21.766 --> 00:02:25.533
+transfer it to Ajla, and hope
+that it will still work.

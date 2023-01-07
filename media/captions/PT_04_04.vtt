@@ -1,0 +1,31 @@
+WEBVTT
+
+00:00:01.424 --> 00:00:03.024
+Display Filters
+
+00:00:06.043 --> 00:00:09.676
+Now that Wireshark is capturing all
+the traffic on our local network,
+
+00:00:09.676 --> 00:00:13.843
+we can login to an FTP server
+and inspect the traffic:
+
+00:00:35.610 --> 00:00:37.876
+To further narrow down the
+background traffic,
+
+00:00:37.876 --> 00:00:42.643
+let’s make use of a display filter to
+focus only on the FTP protocol.
+
+00:00:46.210 --> 00:00:50.343
+Let’s apply a display filter that
+will only display FTP data,
+
+00:00:50.358 --> 00:00:53.358
+or TCP traffic on port 21.
+
+00:00:57.987 --> 00:01:04.253
+This filter worked very well. Now we can
+clearly see only FTP traffic on port 21.

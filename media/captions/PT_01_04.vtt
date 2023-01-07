@@ -1,0 +1,198 @@
+WEBVTT
+
+00:00:01.388 --> 00:00:03.954
+Remote Administration with Netcat
+
+00:00:04.921 --> 00:00:09.087
+One of the most useful features of
+Netcat is command redirection.
+
+00:00:12.473 --> 00:00:18.940
+The -e option can redirect the input,
+output and error messages of an executable
+
+00:00:18.978 --> 00:00:21.678
+to a TCP or UDP port.
+
+00:00:22.568 --> 00:00:26.368
+This powerful feature opens up all sorts
+of interesting possibilities
+
+00:00:26.368 --> 00:00:28.035
+from a security perspective.
+
+00:00:28.587 --> 00:00:33.054
+For example, consider the
+cmd.exe executable.
+
+00:00:33.326 --> 00:00:35.526
+By redirecting standard input,
+
+00:00:35.545 --> 00:00:38.845
+standard output, and standard
+error to the network,
+
+00:00:38.845 --> 00:00:42.678
+we can bind cmd.exe to a local port.
+
+00:00:43.316 --> 00:00:46.883
+Anyone connecting to this port will
+be presented with a command prompt
+
+00:00:46.883 --> 00:00:48.383
+on the target computer.
+
+00:00:51.568 --> 00:00:56.368
+To clarify this, let’s run through a
+few scenarios involving Alice and Bob.
+
+00:00:57.749 --> 00:01:00.149
+Netcat Bind Shell Scenario
+
+00:01:01.035 --> 00:01:03.968
+In our first scenario, Bob is
+running Windows
+
+00:01:04.768 --> 00:01:06.935
+and Alice is running Linux.
+
+00:01:07.835 --> 00:01:11.935
+Bob needs assistance and has
+asked Alice to connect to his computer
+
+00:01:11.935 --> 00:01:14.368
+and issue some commands remotely.
+
+00:01:14.568 --> 00:01:18.402
+Bob has a public IP address and is 
+directly connected to the Internet.
+
+00:01:18.849 --> 00:01:24.649
+Alice, however, is behind a NATed.
+connection and has an internal IP address.
+
+00:01:24.949 --> 00:01:31.183
+Bob needs to bind cmd.exe to a
+TCP port on his public IP address
+
+00:01:31.183 --> 00:01:35.449
+and asks Alice to connect to his
+particular IP address and port.
+
+00:01:36.616 --> 00:01:39.283
+Bob will check his local IP address…
+
+00:01:44.449 --> 00:01:49.483
+..then run Netcat with the -e option
+to execute cmd.exe
+
+00:01:49.483 --> 00:01:52.616
+once a connection is made
+to the listening port.
+
+00:01:53.535 --> 00:01:58.902
+Netcat will bind TCP port 4444 to cmd.exe
+
+00:01:58.902 --> 00:02:03.535
+and will redirect any input, output,
+or error messages
+
+00:02:03.535 --> 00:02:06.935
+from cmd.exe to the network.
+
+00:02:09.416 --> 00:02:15.116
+In other words, anyone connecting
+to TCP port 4444 on Bob’s machine
+
+00:02:15.116 --> 00:02:16.516
+(hopefully Alice)
+
+00:02:16.516 --> 00:02:19.616
+will be presented with
+Bob’s command prompt.
+
+00:02:22.416 --> 00:02:25.449
+As we can see, this works as expected.
+
+00:02:32.368 --> 00:02:34.368
+Reverse Shell Scenario
+
+00:02:37.135 --> 00:02:40.602
+In our second scenario,
+Alice needs help from Bob.
+
+00:02:41.240 --> 00:02:45.106
+However, Alice has no control
+over the router in her office,
+
+00:02:45.106 --> 00:02:49.606
+and cannot forward traffic from
+the router to her internal machine.
+
+00:02:49.983 --> 00:02:53.249
+In this case, we can leverage
+another useful feature of Netcat;
+
+00:02:53.249 --> 00:02:58.483
+the ability to send a commandshell
+to a host listening on a specific port.
+
+00:02:58.949 --> 00:03:03.883
+This means we can send control
+of Alice’s command prompt to Bob.
+
+00:03:04.187 --> 00:03:07.054
+This is known as a reverse shell.
+
+00:03:07.359 --> 00:03:12.726
+To get this working, Bob will first set
+up Netcat to listen on port 4444
+
+00:03:12.726 --> 00:03:14.459
+for an incoming shell.
+
+00:03:15.930 --> 00:03:21.064
+Now, Alice can send a reverse
+shell from her Linux machine to Bob.
+
+00:03:22.216 --> 00:03:27.549
+Once again, we use the -e option to
+make an application available remotely,
+
+00:03:27.549 --> 00:03:32.749
+which in this case happens to be
+/bin/bash, the Linux shell.
+
+00:03:34.983 --> 00:03:36.783
+Once the connection is established,
+
+00:03:36.783 --> 00:03:41.083
+Alice’s Netcat will have 
+redirected /bin/bash input,
+
+00:03:41.102 --> 00:03:47.468
+output, and error data streams
+to Bob’s machine on port 4444…
+
+00:03:47.987 --> 00:03:51.187
+…where Bob can interact with that shell.
+
+00:03:54.235 --> 00:03:58.635
+Take some time to consider the differences
+between bind and reverse shells,
+
+00:03:58.635 --> 00:04:02.802
+and how these differences may apply
+to various firewall configurations
+
+00:04:02.802 --> 00:04:06.035
+from an organizational
+security standpoint.
+
+00:04:06.464 --> 00:04:08.830
+It is important to realize
+that outgoing traffic
+
+00:04:08.830 --> 00:04:12.130
+can be just as harmful as
+incoming traffic.

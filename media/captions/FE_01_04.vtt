@@ -1,0 +1,115 @@
+WEBVTT
+
+00:00:05.400 --> 00:00:07.833
+Changing the Return Address
+
+00:00:13.700 --> 00:00:18.500
+Further inspection on the code reveals
+the use of a return address
+
+00:00:18.500 --> 00:00:23.633
+located in a DLL that is not
+part of the vulnerable software.
+
+00:00:25.400 --> 00:00:28.800
+Let’s connect to our Windows
+client and verify this.
+
+00:00:38.133 --> 00:00:40.400
+We’ll launch Immunity,
+
+00:00:48.833 --> 00:00:51.066
+attach it to Sync Breeze,
+
+00:01:09.566 --> 00:01:13.133
+and display the loaded modules.
+
+00:01:14.433 --> 00:01:17.900
+Looking at the loaded modules in
+the debugger on our Windows client,
+
+00:01:17.900 --> 00:01:20.566
+we notice that this DLL is absent,
+
+00:01:20.566 --> 00:01:25.466
+meaning that the return address
+will not be valid for our target.
+
+00:01:31.633 --> 00:01:35.600
+Given that we already have a working
+exploit from our previous module,
+
+00:01:35.600 --> 00:01:41.100
+we can replace the target return address
+with our own, which is valid.
+
+00:01:50.733 --> 00:01:54.800
+If we did not have a return address
+from a previously developed exploit,
+
+00:01:54.800 --> 00:01:56.566
+we have a few options.
+
+00:01:57.000 --> 00:01:59.433
+The first, and most recommended option,
+
+00:01:59.433 --> 00:02:02.366
+is to recreate the target
+environment locally
+
+00:02:02.366 --> 00:02:05.333
+and use a debugger
+to determine this address.
+
+00:02:05.766 --> 00:02:09.400
+This is the process we used when
+we developed the original exploit.
+
+00:02:10.200 --> 00:02:11.533
+If this is not an option,
+
+00:02:11.533 --> 00:02:15.966
+then we could use information from
+other publicly available exploits
+
+00:02:15.966 --> 00:02:20.566
+to get a reliable return address that
+will match our target environment.
+
+00:02:20.966 --> 00:02:22.700
+This method is less reliable
+
+00:02:22.700 --> 00:02:25.000
+and can vary widely depending on the
+
+00:02:25.000 --> 00:02:28.100
+protections the operating system
+has installed.
+
+00:02:28.600 --> 00:02:31.333
+As an alternative, we could
+obtain a return address
+
+00:02:31.333 --> 00:02:33.733
+directly from the target machine.
+
+00:02:34.333 --> 00:02:37.933
+If we have access to our target
+as an unprivileged user
+
+00:02:37.933 --> 00:02:41.333
+and want to run an exploit that
+will elevate our privileges,
+
+00:02:41.333 --> 00:02:44.566
+we can copy the DLLs that
+we are interested in
+
+00:02:44.566 --> 00:02:46.000
+to our attack machine
+
+00:02:46.000 --> 00:02:50.300
+and use various tools such as msfpescan
+
+00:02:50.300 --> 00:02:53.500
+to obtain a reliable return address.

@@ -1,0 +1,69 @@
+WEBVTT
+
+00:00:01.293 --> 00:00:04.359
+Connecting to a TCP/UDP Port
+
+00:00:05.196 --> 00:00:08.629
+Netcat can run in either
+client or server mode.
+
+00:00:11.214 --> 00:00:15.448
+We can use client mode to connect
+to any TCP or UDP port.
+
+00:00:15.933 --> 00:00:21.033
+Let’s use Netcat to check if TCP
+port 110 is open on a remote machine.
+
+00:00:21.596 --> 00:00:24.329
+Here, we are supplying
+several arguments.
+
+00:00:24.329 --> 00:00:28.096
+The -n option is used to skip
+DNS name resolution
+
+00:00:28.096 --> 00:00:31.296
+and -v specifies verbose output.
+
+00:00:32.044 --> 00:00:36.044
+We then specify the destination
+IP address and port number.
+
+00:00:38.378 --> 00:00:41.711
+After pressing Enter, Netcat
+tells us several things.
+
+00:00:41.978 --> 00:00:45.378
+First, the TCP connection to
+port 110 succeeded,
+
+00:00:45.378 --> 00:00:48.611
+so Netcat reports the
+remote port as open.
+
+00:00:49.293 --> 00:00:53.759
+Next, the server responded to our
+connection by “talking back to us”.
+
+00:00:54.211 --> 00:00:57.944
+It printed out the server welcome
+message, and prompted us to log in, 
+
+00:00:57.944 --> 00:01:01.078
+which is standard behavior
+for POP3 services.
+
+00:01:01.826 --> 00:01:03.959
+Let’s try to interact with the
+server by attempting to
+
+00:01:03.959 --> 00:01:06.493
+authenticate as the offsec user.
+
+00:01:12.448 --> 00:01:16.014
+Our login attempt failed but we have
+successfully managed to converse
+
+00:01:16.014 --> 00:01:18.781
+with the POP3 service using Netcat.

@@ -1,0 +1,179 @@
+WEBVTT
+
+00:00:01.521 --> 00:00:02.921
+Practical Example
+
+00:00:03.623 --> 00:00:07.489
+Let’s take a look at a practical example
+that ties together many of the commands 
+
+00:00:07.489 --> 00:00:08.789
+we've explored so far.
+
+00:00:09.430 --> 00:00:12.630
+We have been given an Apache HTTP
+server log
+
+00:00:12.630 --> 00:00:14.930
+that contains evidence of an attack.
+
+00:00:16.696 --> 00:00:19.230
+Our task is to use Bash commands
+
+00:00:19.230 --> 00:00:20.796
+to inspect the file
+
+00:00:20.796 --> 00:00:23.563
+and discover various pieces
+of information, 
+
+00:00:23.854 --> 00:00:28.454
+such as who the attackers were and what
+exactly happened on the server.
+
+00:00:30.747 --> 00:00:34.114
+First, we’ll use the head and wc commands
+
+00:00:34.114 --> 00:00:38.714
+to take a quick peek at the log file in
+order to understand its structure.
+
+00:00:41.112 --> 00:00:44.879
+The head command displays
+the first 10 lines in a file
+
+00:00:44.879 --> 00:00:48.414
+and the wc command, along with the -l option, 
+
+00:00:48.414 --> 00:00:51.614
+displays a total number of lines in a file
+
+00:00:51.614 --> 00:00:54.414
+Notice that the log file is text-based
+
+00:00:54.414 --> 00:00:59.014
+and contains different space-delimited
+fields like IP address,
+
+00:00:59.039 --> 00:01:00.039
+timestamp,
+
+00:01:00.039 --> 00:01:02.605
+HTTP request, etc.
+
+00:01:03.039 --> 00:01:05.905
+This is a perfectly “grep friendly” file
+
+00:01:05.905 --> 00:01:09.139
+and will work well for all of the
+tools we have covered so far.
+
+00:01:10.530 --> 00:01:14.830
+We’ll begin by searching through the
+HTTP requests made to the server
+
+00:01:14.830 --> 00:01:18.330
+for all the IP addresses recorded
+in this log file.
+
+00:01:18.772 --> 00:01:21.239
+To do this, we’ll cat the log file
+
+00:01:21.239 --> 00:01:25.139
+and pipe the output into the cut
+and sort commands.
+
+00:01:25.579 --> 00:01:29.945
+This might give us a clue about the number
+of potential attackers we're dealing with.
+
+00:01:30.839 --> 00:01:35.372
+Here we see that less than ten IP addresses
+were recorded in the log file,
+
+00:01:35.372 --> 00:01:38.972
+although this still doesn’t tell us
+anything about the attackers.
+
+00:01:40.396 --> 00:01:44.630
+Next, we’ll use uniq and sort to
+show unique lines,
+
+00:01:44.630 --> 00:01:46.563
+further refine our output,
+
+00:01:46.612 --> 00:01:51.712
+and sort the data by the number of times
+each IP address accessed the server.
+
+00:01:52.588 --> 00:01:54.854
+The -c option of uniq
+
+00:01:54.854 --> 00:01:58.921
+will prefix the output line with the
+number of occurrences.
+
+00:01:59.872 --> 00:02:02.060
+A few IP addresses stand out
+
+00:02:02.060 --> 00:02:06.760
+but we’ll focus on the address that has
+the highest access frequency first.
+
+00:02:09.354 --> 00:02:13.654
+To filter out the suspicious IP address
+and display and count the resources
+
+00:02:13.654 --> 00:02:16.421
+that were being requested by that IP,
+
+00:02:16.421 --> 00:02:18.772
+we can use the following sequence:
+
+00:02:21.454 --> 00:02:22.521
+From this output,
+
+00:02:22.521 --> 00:02:27.621
+it seems that the IP address was
+accessing the admin directory exclusively.
+
+00:02:28.888 --> 00:02:30.721
+Let’s inspect this further.
+
+00:02:35.070 --> 00:02:39.516
+Apparently the suspicious IP has been
+involved in an HTTP brute force
+
+00:02:39.516 --> 00:02:41.449
+attempt against this web server.
+
+00:02:42.581 --> 00:02:47.247
+We can verify this with grep's -v flag
+to reverse the search
+
+00:02:47.247 --> 00:02:51.581
+and only show lines that do not 
+contain the word admin.
+
+00:02:51.605 --> 00:02:52.805
+As we can see,
+
+00:02:52.805 --> 00:02:55.972
+our log files contain no such entry. 
+
+00:02:56.445 --> 00:02:59.345
+Furthermore, after about 1000 attempts,
+
+00:02:59.345 --> 00:03:02.812
+it seems like the brute force
+attempt succeeded,
+
+00:03:02.812 --> 00:03:06.388
+as indicated by the “HTTP 200” message.
+
+00:03:07.339 --> 00:03:08.239
+This is a good example
+
+00:03:08.239 --> 00:03:12.172
+that ties together many of the
+basic commands we have explored.

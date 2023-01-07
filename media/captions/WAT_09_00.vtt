@@ -1,0 +1,67 @@
+WEBVTT
+
+00:00:01.664 --> 00:00:03.166
+SQL Injection
+
+00:00:04.545 --> 00:00:08.533
+SQL Injection is a common
+web application vulnerability
+
+00:00:08.533 --> 00:00:12.233
+that is caused by unsanitized user input
+
+00:00:12.233 --> 00:00:14.800
+being inserted into queries
+
+00:00:14.800 --> 00:00:18.900
+and subsequently passed
+to a database for execution.
+
+00:00:19.503 --> 00:00:21.866
+Queries are used to
+interact with a database,
+
+00:00:21.866 --> 00:00:24.966
+such as inserting or retrieving data.
+
+00:00:25.593 --> 00:00:28.866
+If we can inject malicious
+input into a query,
+
+00:00:28.866 --> 00:00:32.966
+we can “break out” of the original
+query made by the developers
+
+00:00:32.966 --> 00:00:36.333
+and introduce our own malicious actions.
+
+00:00:36.896 --> 00:00:40.833
+These types of vulnerabilities can
+lead to database information leakage
+
+00:00:40.833 --> 00:00:43.033
+and, depending on the environment,
+
+00:00:43.033 --> 00:00:46.400
+could lead to complete server compromise.
+
+00:00:46.872 --> 00:00:49.600
+In this section,
+we will examine SQL injection attacks
+
+00:00:49.600 --> 00:00:53.633
+under a PHP/MariaDB environment.
+
+00:00:54.161 --> 00:00:57.133
+While the concepts are the
+same for other environments,
+
+00:00:57.133 --> 00:00:59.500
+the syntax used during an attack
+
+00:00:59.500 --> 00:01:04.166
+may need to be updated to accommodate
+different database engines
+
+00:01:04.166 --> 00:01:06.300
+or scripting languages.

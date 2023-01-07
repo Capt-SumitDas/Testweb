@@ -1,0 +1,57 @@
+WEBVTT
+
+00:00:01.611 --> 00:00:05.166
+Identifying File Inclusion Vulnerabilities
+
+00:00:06.083 --> 00:00:10.466
+File inclusions can be discovered
+in the same way as directory traversals.
+
+00:00:10.893 --> 00:00:13.900
+We must locate parameters
+we can manipulate
+
+00:00:13.900 --> 00:00:17.666
+and attempt to use them
+to load arbitrary files.
+
+00:00:18.077 --> 00:00:21.833
+However, a file inclusion
+takes this one step further,
+
+00:00:21.833 --> 00:00:27.333
+as we attempt execute the contents
+of the file within the application.
+
+00:00:27.775 --> 00:00:30.133
+We should also check these parameters
+
+00:00:30.133 --> 00:00:32.866
+to see if they are vulnerable
+to remote inclusion
+
+00:00:32.866 --> 00:00:37.633
+by changing their values to a
+URL instead of a local path.
+
+00:00:38.518 --> 00:00:41.133
+We are less likely to
+find RFI vulnerabilities
+
+00:00:41.133 --> 00:00:45.566
+since the default configuration
+for modern PHP versions
+
+00:00:45.566 --> 00:00:48.633
+disables remote URL includes,
+
+00:00:48.633 --> 00:00:52.466
+a key feature we need to
+execute remote code.
+
+00:00:53.193 --> 00:00:56.300
+However, we should still test for RFIs
+
+00:00:56.300 --> 00:01:00.300
+as they are often easier
+to exploit than LFIs.

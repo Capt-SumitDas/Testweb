@@ -1,0 +1,43 @@
+WEBVTT
+
+00:00:01.533 --> 00:00:03.400
+Editing Files from the Command Line
+
+00:00:04.000 --> 00:00:08.133
+Next, let’s take a look at file editing 
+in a command shell environment.
+
+00:00:08.733 --> 00:00:11.000
+This is an extremely important
+Linux  skill, 
+
+00:00:11.000 --> 00:00:16.366
+especially if you happen to get access to
+a Unix-like OS during a penetration test.
+
+00:00:16.666 --> 00:00:20.033
+Although there are text editors like
+gedit and leafpad 
+
+00:00:20.366 --> 00:00:24.100
+that might be more visually appealing due
+to their graphical user interface, 
+
+00:00:24.533 --> 00:00:27.533
+we will focus on text-based
+terminal editors, 
+
+00:00:27.866 --> 00:00:30.966
+which emphasize both
+speed and versatility.
+
+00:00:31.566 --> 00:00:34.500
+Everyone seems to have a preference when
+it comes to text editors, 
+
+00:00:34.800 --> 00:00:39.000
+but we will cover basic usage for the two
+most common options: 
+
+00:00:39.166 --> 00:00:40.933
+nano and vi.

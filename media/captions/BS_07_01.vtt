@@ -1,0 +1,264 @@
+WEBVTT
+
+00:00:01.933 --> 00:00:05.500
+Practical Bash Usage – Example 1
+
+00:00:06.366 --> 00:00:09.966
+In this example, we want to find all the 
+subdomains listed
+
+00:00:09.966 --> 00:00:17.466
+on the main megacorpone.com web page and 
+find their corresponding IP addresses.
+
+00:00:18.000 --> 00:00:21.333
+Doing this manually would be frustrating 
+and time consuming,
+
+00:00:21.333 --> 00:00:25.933
+but with some basic Bash commands, we can 
+turn this into an easy task.
+
+00:00:26.200 --> 00:00:29.900
+We’ll start by downloading the index page 
+with wget:
+
+00:00:32.966 --> 00:00:37.033
+Manually scanning the file, we see many 
+lines we don’t need.
+
+
+00:00:37.033 --> 00:00:41.866
+Let’s start narrowing in on lines that we 
+need, and strip out lines we don’t.
+
+00:00:42.200 --> 00:00:47.033
+First, we can use grep to extract all the 
+lines in index.html
+
+00:00:47.033 --> 00:00:53.133
+that contain HTML links by searching for 
+href=
+
+00:00:54.233 --> 00:00:58.833
+This beta subdomain is a prime example of 
+what we’re looking for.
+
+
+00:00:59.666 --> 00:01:05.366
+Now let’s use grep to grab lines that contain 
+“.megacorpone”,
+
+00:01:05.366 --> 00:01:08.700
+indicating the existence of a subdomain…
+
+00:01:08.900 --> 00:01:12.933
+…and grep -v to strip away lines that 
+contain
+
+00:01:12.933 --> 00:01:17.166
+the boring “www” subdomain we already 
+know about:
+
+00:01:18.033 --> 00:01:20.833
+This output looks closer to what we need.
+
+00:01:21.333 --> 00:01:23.900
+By reducing our data in a logical way
+
+00:01:23.900 --> 00:01:28.066
+and making sequentially smaller 
+reductions with each pass,
+
+00:01:28.066 --> 00:01:32.266
+we are in the midst of the most common 
+cycle in data handling.
+
+00:01:32.700 --> 00:01:36.633
+It looks like each line contains a link, 
+and a subdomain,
+
+00:01:36.633 --> 00:01:40.466
+but we need to get rid of the extra HTML
+ around our links.
+
+00:01:40.800 --> 00:01:44.966
+There are always multiple approaches to 
+any task performed in Bash,
+
+00:01:44.966 --> 00:01:48.000
+but we’ll use a little-known approach for 
+this.
+
+00:01:48.500 --> 00:01:54.966
+We will use the -F option of awk to set a 
+multi-character delimiter…
+
+
+00:01:55.200 --> 00:02:00.133
+…and we will set our delimiter to http://
+
+00:02:00.600 --> 00:02:03.333
+We then tell awk we want the second field,
+
+00:02:03.333 --> 00:02:06.800
+or everything after our delimiter, 
+returned.
+
+00:02:07.566 --> 00:02:11.266
+The beginning of each line in our output 
+shows that we’re on the right track.
+
+
+00:02:14.133 --> 00:02:18.633
+Now, we can use cut to set the delimiter 
+to a forward slash…
+
+
+00:02:18.833 --> 00:02:23.900
+…and print the first field... …leaving us 
+with only the full subdomain name:
+
+
+00:02:24.500 --> 00:02:27.766
+If we were to criticize our work in an 
+effort to improve
+
+00:02:27.766 --> 00:02:29.200
+(which we should always do), 
+
+00:02:29.200 --> 00:02:33.733
+we might see some simple ways to 
+streamline this exercise.
+
+00:02:33.733 --> 00:02:41.900
+First, we began our search with “href=” 
+and later searched for http://.
+
+
+00:02:42.100 --> 00:02:44.566
+These are both essentially links,
+
+00:02:44.566 --> 00:02:49.100
+but this requires that every line contain 
+both strings.
+
+00:02:49.466 --> 00:02:54.066
+If a line only had one of the strings, 
+but not both, we would have missed it.
+
+00:02:54.633 --> 00:02:59.433
+Redundancy like this should be avoided, 
+especially when working with large files.
+
+00:02:59.900 --> 00:03:03.633
+In addition, we don’t necessarily care 
+about links.
+
+00:03:03.966 --> 00:03:09.266
+We are looking for subdomains ending in 
+“.megacorpone.com”
+
+00:03:09.266 --> 00:03:13.833
+regardless of whether or not the 
+reference is contained in a link.
+
+00:03:14.433 --> 00:03:18.900
+A well-formed regular expression search 
+can handle this scenario easily.
+
+00:03:19.266 --> 00:03:24.033
+This solution is quite compact, but 
+introduces some new techniques.
+
+00:03:24.433 --> 00:03:27.866
+First, notice the grep -o option,
+
+00:03:27.866 --> 00:03:32.466
+which only returns the string defined in 
+our regular expression.
+
+00:03:32.733 --> 00:03:37.300
+The expression itself looks complex but 
+is fairly straight-forward.
+
+00:03:37.466 --> 00:03:41.033
+The string we are searching for is 
+wrapped in single-quotes, which,
+
+00:03:41.033 --> 00:03:45.566
+ as we mentioned, will not allow variable 
+expansions and will treat
+
+00:03:45.566 --> 00:03:48.400
+all enclosed characters literally.
+
+00:03:48.800 --> 00:03:52.733
+The first block in the expression is a 
+negated set that searches
+
+00:03:52.733 --> 00:03:57.733
+for any number of characters not 
+including a forward-slash.
+
+00:03:57.733 --> 00:04:01.066
+Notice that the periods are escaped with 
+a backslash
+
+00:04:01.066 --> 00:04:04.400
+to reinforce that we are looking for a 
+literal period.
+
+00:04:05.666 --> 00:04:11.066
+Next, the string must end with 
+“.megacorpone.com”.
+
+00:04:11.433 --> 00:04:16.466
+When grep finds a matching string, it 
+will carve it from the line and return it.
+
+00:04:18.000 --> 00:04:21.266
+Now we have a nice, clean list of domain 
+names
+
+00:04:21.266 --> 00:04:25.053
+linked from the front page of 
+megacorpone.com.
+
+00:04:25.666 --> 00:04:29.280
+We could have done more with this regular 
+expression, but it’s a great start
+
+00:04:29.280 --> 00:04:33.200
+and a good example of why regular 
+expressions are so valuable.
+
+00:04:33.900 --> 00:04:38.500
+Next, we will use the host command to 
+discover the corresponding IP address
+
+00:04:38.500 --> 00:04:41.066
+of each domain name in our text file.
+
+00:04:41.433 --> 00:04:44.666
+We can use a Bash one-liner loop for this.
+
+00:04:46.900 --> 00:04:51.733
+The host command gives us all sorts of 
+output and not all of it is relevant.
+
+00:04:52.733 --> 00:04:57.300
+We will extract the IP addresses by 
+piping the output into a grep
+
+00:04:57.300 --> 00:05:02.000
+for “has address" then cut the results 
+and sort them.
+
+00:05:03.400 --> 00:05:08.533
+Nice! We’ve extracted the 
+“.megacorpone.com” subdomains
+
+00:05:08.533 --> 00:05:13.400
+from the web page and obtained the 
+corresponding IP addresses.

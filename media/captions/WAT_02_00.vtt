@@ -1,0 +1,79 @@
+WEBVTT
+
+00:00:01.346 --> 00:00:03.500
+Web Application Enumeration
+
+00:00:04.286 --> 00:00:08.366
+It is important to identify the components
+that make up a web application
+
+00:00:08.366 --> 00:00:11.233
+before attempting to blindly exploit it.
+
+00:00:11.704 --> 00:00:16.566
+Many web application vulnerabilities
+are technology-agnostic.
+
+00:00:16.931 --> 00:00:19.333
+However, some exploits and payloads
+
+00:00:19.333 --> 00:00:22.833
+need to be crafted based on the
+technological underpinnings
+
+00:00:22.833 --> 00:00:24.000
+of the application,
+
+00:00:24.000 --> 00:00:28.400
+such as the database software
+or operating system.
+
+00:00:29.271 --> 00:00:32.266
+Before launching any attacks
+on a web application,
+
+00:00:32.266 --> 00:00:36.133
+we should attempt to discover
+the technology stack in use,
+
+00:00:36.133 --> 00:00:39.533
+which generally consists of
+the following components:
+
+00:00:42.022 --> 00:00:44.433
+Programming language and frameworks,
+
+00:00:45.091 --> 00:00:46.900
+Web server software,
+
+00:00:47.824 --> 00:00:49.366
+Database software,
+
+00:00:49.775 --> 00:00:52.166
+and Server operating system
+
+00:00:52.886 --> 00:00:56.933
+There are several techniques that we can
+use to gather this information directly
+
+00:00:56.933 --> 00:00:58.133
+from the browser.
+
+00:01:00.942 --> 00:01:04.166
+Most modern browsers
+include developer tools
+
+00:01:04.166 --> 00:01:06.900
+that can assist in the
+enumeration process.
+
+00:01:07.282 --> 00:01:10.100
+We will be focusing on
+Firefox since it is the default
+
+00:01:10.100 --> 00:01:11.900
+browser in Kali Linux
+
+00:01:11.900 --> 00:01:15.500
+but most browsers include
+similar developer tools.

@@ -1,0 +1,49 @@
+WEBVTT
+
+00:00:01.911 --> 00:00:03.066
+Wrapping Up
+
+00:00:04.496 --> 00:00:10.300
+The Metasploit Framework is valuable in
+almost every phase of a penetration test,
+
+00:00:10.300 --> 00:00:14.066
+including passive and active
+information gathering,
+
+00:00:14.066 --> 00:00:18.633
+vulnerability research and
+development, client-side attacks,
+
+00:00:18.633 --> 00:00:22.133
+post-exploitation, and much more.
+
+00:00:25.956 --> 00:00:28.829
+In this module, we walked
+through some of the primary
+
+00:00:28.829 --> 00:00:31.100
+features of the Metasploit Framework.
+
+00:00:31.567 --> 00:00:36.233
+However, with such an overwhelming
+number of modules and features,
+
+00:00:36.233 --> 00:00:37.966
+it’s easy to get lost.
+
+00:00:38.533 --> 00:00:41.406
+To help solidify these techniques,
+we strongly recommend
+
+00:00:41.406 --> 00:00:44.833
+that you thoroughly complete
+the exercises in this module
+
+00:00:44.833 --> 00:00:51.900
+ and refer to the free Offensive Security
+online course, Metasploit Unleashed,
+
+00:00:51.900 --> 00:00:56.166
+for much more in-depth
+training and information.

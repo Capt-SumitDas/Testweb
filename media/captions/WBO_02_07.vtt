@@ -1,0 +1,95 @@
+WEBVTT
+
+00:00:01.366 --> 00:00:04.300
+Generating Shellcode with Metasploit
+
+00:00:05.066 --> 00:00:09.766
+Writing our own custom shellcode is beyond
+the scope of this module.
+
+00:00:10.200 --> 00:00:14.900
+However, the Metasploit Framework provides
+us with tools and utilities
+
+00:00:14.900 --> 00:00:19.400
+that make generating complex payloads a 
+simple task.
+
+00:00:19.933 --> 00:00:24.233
+MSFvenom can generate shellcode payloads
+and encode them
+
+00:00:24.233 --> 00:00:26.433
+using a variety of different encoders.
+
+00:00:27.266 --> 00:00:30.566
+The msfvenom command is fairly
+easy-to-use.
+
+00:00:30.866 --> 00:00:37.033
+We will use -p to generate a basic payload
+called shell reverse tcp,
+
+00:00:37.166 --> 00:00:40.200
+which acts much like a Netcat reverse
+shell.
+
+00:00:41.133 --> 00:00:45.433
+This payload minimally requires an LHOST
+parameter,
+
+00:00:45.433 --> 00:00:49.100
+which defines the destination IP address
+for the shell
+
+00:00:49.100 --> 00:00:53.133
+and we will also specify the optional
+LPORT parameter
+
+00:00:53.400 --> 00:00:55.733
+specifying the connect-back port.
+
+00:00:56.966 --> 00:01:02.733
+And we will use the -f flag to select
+C-formatted shellcode.
+
+00:01:06.633 --> 00:01:12.066
+That seemed simple enough, but if we look
+carefully we can identify bad characters
+
+00:01:12.066 --> 00:01:15.633
+(such as null bytes) in the generated
+shellcode.
+
+00:01:16.333 --> 00:01:19.833
+When we can’t use generic shellcode, we
+must encode it
+
+00:01:19.833 --> 00:01:23.000
+to suit our target exploitation
+environment.
+
+00:01:25.333 --> 00:01:30.466
+This could mean transforming our shellcode
+into a pure alphanumeric payload
+
+00:01:30.466 --> 00:01:33.400
+or getting rid of bad characters.
+
+00:01:33.600 --> 00:01:38.266
+We will use an advanced polymorphic
+encoder, shikata_ga_nai,
+
+00:01:38.266 --> 00:01:40.033
+to encode our shellcode,
+
+00:01:40.900 --> 00:01:47.700
+and will also inform the encoder of known
+bad characters with the -b option.
+
+00:01:51.833 --> 00:01:58.000
+The resulting shellcode contains no bad
+characters and will send a reverse shell
+
+00:01:58.000 --> 00:02:01.633
+to our IP address on port 443.

@@ -1,0 +1,123 @@
+WEBVTT
+
+00:00:01.533 --> 00:00:03.800
+PowerShell Reverse Shells
+
+00:00:04.533 --> 00:00:09.300
+In this section we’ll leverage
+PowerShell one-liners to execute shells,
+
+00:00:09.300 --> 00:00:11.433
+beginning with a reverse shell.
+
+00:00:14.200 --> 00:00:18.300
+First, we’ll set up a simple
+Netcat listener on Alice’s computer.
+
+00:00:20.000 --> 00:00:23.366
+Next, we’ll send a reverse
+shell from Bob’s computer.
+
+00:00:23.833 --> 00:00:27.833
+Again, this is not as syntactically
+clean as Netcat or socat,
+
+00:00:27.833 --> 00:00:31.833
+but since PowerShell is native on
+most modern Windows machines,
+
+00:00:31.833 --> 00:00:35.300
+it’s important that we explore
+this PowerShell equivalent.
+
+00:00:35.633 --> 00:00:39.033
+To begin, let’s take a look at
+the code and then break it down:
+
+00:00:40.400 --> 00:00:45.200
+This may seem extremely complex when
+compared to previous tools we’ve used.
+
+00:00:45.200 --> 00:00:49.066
+However, PowerShell is is not
+a single-function tool.
+
+00:00:49.366 --> 00:00:55.066
+Because of this, we must use a complex
+syntax to invoke complex functionality.
+
+00:00:55.633 --> 00:00:59.600
+This code consists of several
+commands separated by semicolons.
+
+00:01:00.333 --> 00:01:05.333
+First, the client variable is assigned
+the target IP address and port.
+
+00:01:06.400 --> 00:01:10.066
+The stream variable gets
+a NetworkStream class
+
+00:01:10.066 --> 00:01:13.300
+to facilitate sending and retreiving data…
+
+00:01:13.700 --> 00:01:17.400
+…and the byte array called
+bytes is used as our buffer.
+
+00:01:17.866 --> 00:01:22.600
+We then enter a while loop that contains
+the various lines required for reading
+
+00:01:22.600 --> 00:01:25.166
+and writing data to the network stream.
+
+00:01:25.633 --> 00:01:31.900
+Note that the iex (“Invoke-Expression”)
+cmdlet is a key part of this code chunk
+
+00:01:31.900 --> 00:01:35.733
+as it runs any string it
+receives as a command…
+
+00:01:36.033 --> 00:01:40.066
+…and the results of the command are
+then returned via the data stream.
+
+00:01:40.866 --> 00:01:44.666
+Lastly, a call is made to close
+the client connection.
+
+00:01:45.433 --> 00:01:49.433
+This code can be rolled into an
+admittedly lengthy one-liner
+
+00:01:49.433 --> 00:01:51.866
+to be executed at the command prompt.
+
+00:01:54.900 --> 00:01:57.633
+This one-liner may seem very
+arduous at first glance,
+
+00:01:57.633 --> 00:01:59.566
+but there is no need to memorize it.
+
+00:01:59.966 --> 00:02:04.566
+We would likely copy-and-paste this type
+of command during a live penetration test.
+
+00:02:08.200 --> 00:02:12.433
+When we check our listener, we see
+that Netcat received the reverse shell.
+
+00:02:14.333 --> 00:02:17.433
+This PowerShell sequence
+works as expected.
+
+00:02:17.900 --> 00:02:21.333
+Remember, by simply replacing the
+IP address and port number,
+
+00:02:21.333 --> 00:02:24.600
+we can easily reuse this
+reverse shell command.

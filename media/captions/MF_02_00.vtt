@@ -1,0 +1,216 @@
+WEBVTT
+
+00:00:01.115 --> 00:00:02.848
+Exploit Modules
+
+00:00:04.262 --> 00:00:09.362
+Now that we are acquainted with basic
+MSF usage and several auxiliary modules,
+
+00:00:09.381 --> 00:00:13.581
+let’s dig deeper into the business
+end of the metasploit framework:
+
+00:00:14.455 --> 00:00:17.755
+Exploit modules most
+commonly contain exploit code
+
+00:00:17.755 --> 00:00:20.822
+for vulnerable applications
+and services.
+
+00:00:21.322 --> 00:00:27.888
+Metasploit contains over 1,700 exploits
+and each was meticulously developed
+
+00:00:27.888 --> 00:00:33.922
+and tested to successfully exploit
+a wide variety of vulnerable services.
+
+00:00:34.628 --> 00:00:39.028
+These exploits are invoked in much
+the same way as auxiliary modules.
+
+00:00:39.848 --> 00:00:42.115
+To begin our exploration
+of exploit modules,
+
+00:00:42.115 --> 00:00:47.581
+we will focus on a service that we’ve
+abused time and again: SyncBreeze.
+
+00:00:48.375 --> 00:00:52.642
+In this section, we will search for the
+exploits related to the SyncBreeze 
+
+00:00:52.642 --> 00:00:57.508
+Enterprise application installed
+on the Windows 10 workstation
+
+00:00:57.508 --> 00:01:00.408
+and then exploit it using MSF.
+
+00:01:01.008 --> 00:01:03.742
+To begin, we will use
+the “search” command:
+
+00:01:07.375 --> 00:01:10.842
+The output reveals two
+specific exploit modules.
+
+00:01:11.328 --> 00:01:18.395
+We will focus on version 10.0.28 and
+request info about that particular module.
+
+00:01:23.315 --> 00:01:28.148
+According to the module description and
+the available targets, this does, in fact,
+
+00:01:28.148 --> 00:01:33.115
+seem to be the exploit that matches
+our target on the Windows 10 lab machine.
+
+00:01:36.308 --> 00:01:39.875
+Exploit modules require
+a payload specification.
+
+00:01:41.515 --> 00:01:45.715
+If we don’t set this, the module
+will select a default payload.
+
+00:01:46.262 --> 00:01:50.028
+The default payload may not be
+what we want or expect,
+
+00:01:50.028 --> 00:01:53.862
+so it’s always better to set
+our options explicitly
+
+00:01:53.862 --> 00:01:58.195
+to maintain tight control
+of the exploitation process.
+
+00:01:58.815 --> 00:02:02.081
+To retrieve a listing of all payloads
+that are compatible with the
+
+00:02:02.081 --> 00:02:07.581
+currently selected exploit module,
+we run “show payloads”
+
+00:02:10.968 --> 00:02:16.802
+For example, we can specify a
+standard Windows reverse TCP shell payload
+
+00:02:16.802 --> 00:02:21.368
+with “set payload” followed
+by the payload name.
+
+00:02:27.442 --> 00:02:31.508
+The “Exploit target” section below
+the payload settings
+
+00:02:31.508 --> 00:02:36.222
+lists OS or software versions
+vulnerable to this exploit.
+
+00:02:37.822 --> 00:02:42.388
+In the case of a vanilla stack overflow
+like the one found in Syncbreeze,
+
+00:02:42.388 --> 00:02:46.888
+these settings essentially equate
+to different return addresses
+
+00:02:46.908 --> 00:02:52.942
+that are suitable for different OS versions
+or environments of the affected software.
+
+00:02:53.322 --> 00:02:58.322
+In this case, a single static return
+address for our version of SyncBreeze
+
+00:02:58.322 --> 00:03:01.322
+will work for multiple
+versions of Windows.
+
+00:03:02.142 --> 00:03:05.942
+In other exploits, we will often
+need to run “set target”
+
+00:03:05.942 --> 00:03:08.742
+to match the environment
+we are exploiting.
+
+00:03:09.468 --> 00:03:12.902
+By introducing the reverse shell
+payload into our exploit,
+
+00:03:12.902 --> 00:03:16.168
+we added some new “Payload options”,
+
+00:03:16.168 --> 00:03:23.135
+including LHOST for the listen host
+and LPORT for the listen port.
+
+00:03:24.868 --> 00:03:28.168
+These correspond to the
+host IP address and
+
+00:03:28.168 --> 00:03:31.015
+port that the reverse
+shell will connect to.
+
+00:03:31.695 --> 00:03:38.862
+Note that LPORT is set to a default value
+of 4444, which is fine for our purposes.
+
+00:03:41.962 --> 00:03:46.062
+Let’s go ahead and set LHOST
+to define our listening host.
+
+00:03:48.462 --> 00:03:52.095
+Our RHOSTS value is still set globally,
+
+00:03:52.095 --> 00:03:57.128
+so after setting LHOST to our Kali
+IP address, we can use “check”
+
+00:03:57.128 --> 00:04:02.562
+to verify whether or not the target
+host and application are vulnerable.
+
+00:04:02.928 --> 00:04:05.495
+Note that this check will only
+work if the target
+
+00:04:05.495 --> 00:04:08.428
+application exposes
+some sort of banner 
+
+00:04:08.962 --> 00:04:10.995
+or other identifiable data.
+
+00:04:16.495 --> 00:04:18.695
+With confirmation that the
+target is vulnerable,
+
+00:04:18.695 --> 00:04:23.628
+all that remains now is to run the
+exploit using the “exploit” command.
+
+00:04:29.362 --> 00:04:32.928
+Notice that when we execute
+the exploit, Metasploit automatically
+
+00:04:32.928 --> 00:04:37.428
+creates a payload listener,
+eliminating the need for Netcat.
+
+00:04:38.832 --> 00:04:42.832
+Upon execution completion,
+a session is created
+
+00:04:42.832 --> 00:04:45.998
+and the reverse shell is
+made available for us.

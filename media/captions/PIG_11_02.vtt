@@ -1,0 +1,33 @@
+WEBVTT
+
+00:00:01.566 --> 00:00:03.266
+Password Dumps
+
+00:00:04.333 --> 00:00:09.000
+Malicious hackers often dump breached
+credentials on Pastebin
+
+00:00:09.000 --> 00:00:11.533
+or other less reputable websites.
+
+00:00:12.300 --> 00:00:17.200
+These password dumps can be extremely
+valuable for generating wordlists.
+
+00:00:17.833 --> 00:00:22.266
+For example, Kali Linux includes the
+“rockyou” wordlist 
+
+00:00:22.266 --> 00:00:25.333
+generated from a data breach in 2009.
+
+00:00:30.733 --> 00:00:34.233
+Checking the email addresses we’ve found
+during user enumeration
+
+00:00:34.233 --> 00:00:36.133
+against password dumps
+
+00:00:36.133 --> 00:00:41.100
+can turn up passwords we could use in
+credential stuffing attacks.

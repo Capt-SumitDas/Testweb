@@ -1,0 +1,55 @@
+WEBVTT
+
+00:00:01.176 --> 00:00:02.700
+Privilege Escalation
+
+00:00:04.621 --> 00:00:08.700
+During a penetration test, we often
+gain an initial foothold on a system
+
+00:00:08.703 --> 00:00:12.033
+as a standard or non-privileged user.
+
+00:00:12.596 --> 00:00:15.751
+In these cases, our next step is
+to gain additional access
+
+00:00:15.751 --> 00:00:19.317
+rights to demonstrate the full
+impact of the compromise.
+
+00:00:20.179 --> 00:00:23.800
+This process is referred to as
+Privilege escalation
+
+00:00:23.800 --> 00:00:26.833
+and it is a necessary
+skill as “direct-to-root”
+
+00:00:26.833 --> 00:00:30.133
+compromises are rare in
+modern environments.
+
+00:00:30.762 --> 00:00:35.200
+While every target can be considered
+unique due to differences in OS versions,
+
+00:00:35.200 --> 00:00:38.066
+patching levels, and
+various other factors,
+
+00:00:38.066 --> 00:00:41.466
+there are some common
+escalation approaches.
+
+00:00:41.913 --> 00:00:45.866
+To take advantage of these, we will
+search for misconfigured services,
+
+00:00:45.866 --> 00:00:50.000
+ insufficient file permissions,
+kernel vulnerabilities,
+
+00:00:50.000 --> 00:00:54.700
+and vulnerable software running
+with high privileges, to name a few.

@@ -1,0 +1,247 @@
+WEBVTT
+
+00:00:01.400 --> 00:00:04.033
+SQL Injection Exploitation
+
+00:00:04.848 --> 00:00:07.733
+Now that we have captured a
+request with the vulnerable cookie,
+
+00:00:07.733 --> 00:00:10.366
+we can use it in Burp’s “Repeater”
+
+00:00:10.366 --> 00:00:12.366
+to attempt a SQL injection.
+
+00:00:15.473 --> 00:00:18.833
+First, we’ll find the request
+that contained the cookie,
+
+00:00:19.970 --> 00:00:24.100
+right click it,
+and select “Send to Repeater”.
+
+00:00:25.330 --> 00:00:30.500
+Then we’ll click on the “Repeater” tab
+and view the cookie in its raw form.
+
+00:00:33.243 --> 00:00:36.200
+Let’s take the payload
+from the original exploit,
+
+00:00:36.200 --> 00:00:40.866
+place it into the cookie,
+and send the request to the server.
+
+00:00:41.417 --> 00:00:47.900
+According to the exploit, the payload can
+be inserted as the wp_sap cookie value.
+
+00:00:58.451 --> 00:01:02.533
+The value of the cookie
+variable starts after the “=” sign
+
+00:01:02.533 --> 00:01:05.100
+and must end with a semicolon.
+
+00:01:05.100 --> 00:01:10.200
+The exploit code mentions that the
+result of the SQL injection will be placed
+
+00:01:10.200 --> 00:01:14.800
+in the sss_params
+variable within a “script” tag.
+
+00:01:19.102 --> 00:01:22.733
+Searching for the variable in Burp should
+take us to the location of the output
+
+00:01:22.733 --> 00:01:24.433
+from the SQL injection.
+
+00:01:29.955 --> 00:01:33.533
+We can also set Burp to
+“auto-scroll” to this location
+
+00:01:33.533 --> 00:01:34.533
+in the future
+
+00:01:34.533 --> 00:01:36.800
+to make exploitation easier
+
+00:01:36.800 --> 00:01:40.333
+so we don’t have to scroll
+to find the output each time.
+
+00:01:46.136 --> 00:01:50.133
+In this output, we can see the
+version of the database in use.
+
+00:01:51.233 --> 00:01:54.700
+This shows us that the SQL injection worked!
+
+00:01:55.555 --> 00:02:00.866
+Now we know that the database used by
+this WordPress instance is MariaDB
+
+00:02:00.866 --> 00:02:03.200
+10.3.20.
+
+00:02:04.233 --> 00:02:08.600
+Now that we know the SQL injection works,
+we need to determine our next step.
+
+00:02:09.924 --> 00:02:13.166
+While uploading a PHP shell through MariaDB
+
+00:02:13.166 --> 00:02:17.333
+might enable us to get remote code
+execution on the WordPress instance,
+
+00:02:17.333 --> 00:02:19.866
+it could be very temperamental
+
+00:02:19.866 --> 00:02:21.000
+and difficult
+
+00:02:21.000 --> 00:02:24.433
+if we don’t have more
+information about the system.
+
+00:02:24.913 --> 00:02:26.866
+Let’s start with something easier
+
+00:02:26.866 --> 00:02:31.200
+and extract the admin’s
+username and password hash.
+
+00:02:31.868 --> 00:02:34.933
+To do this, we will need to get a list of tables,
+
+00:02:34.933 --> 00:02:37.033
+find the user’s table,
+
+00:02:37.033 --> 00:02:38.866
+get a list of columns,
+
+00:02:38.866 --> 00:02:42.566
+and then finally extract
+the relevant information.
+
+00:02:52.132 --> 00:02:53.800
+To get a list of table names,
+
+00:02:53.800 --> 00:02:58.933
+we need to query the
+information_schema.tables table,
+
+00:03:00.105 --> 00:03:02.933
+for the table_name column.
+
+00:03:04.164 --> 00:03:06.333
+Note that we have also removed the
+
+00:03:06.333 --> 00:03:08.400
+“ALL” from the original payload.
+
+00:03:08.950 --> 00:03:13.466
+This is to decrease the results as we
+don’t care about duplicate values.
+
+00:03:17.969 --> 00:03:21.133
+The result includes a large list of tables,
+
+00:03:24.849 --> 00:03:29.100
+but the one that stands
+out to us most is wp_users,
+
+00:03:29.100 --> 00:03:32.933
+since it will most likely contain
+the WordPress user information.  
+
+00:03:33.836 --> 00:03:35.833
+Now that we have the table name,
+
+00:03:35.833 --> 00:03:39.366
+we can work on retrieving
+its column names.
+
+00:03:48.053 --> 00:03:52.100
+To do this, we query the column_name
+column within the table
+
+00:03:52.100 --> 00:03:55.266
+information_schema.columns,
+
+00:03:56.439 --> 00:04:01.533
+limiting the result to those where
+the table name is wp_users.
+
+00:04:08.145 --> 00:04:12.166
+The result of our query
+reveals several column names.
+
+00:04:12.576 --> 00:04:14.466
+The most interesting to us
+
+00:04:14.466 --> 00:04:17.766
+are user_login and user_pass
+
+00:04:17.766 --> 00:04:20.900
+as these will most likely
+contain the credentials
+
+00:04:20.900 --> 00:04:23.633
+to authenticate to
+the WordPress instance.
+
+00:04:25.122 --> 00:04:28.066
+Next, let’s query for the username.
+
+00:04:36.906 --> 00:04:40.633
+To do this, we need to send
+a SQL injection request
+
+00:04:40.633 --> 00:04:44.566
+asking for all user_login values,
+
+00:04:45.012 --> 00:04:48.133
+from the wp_users table.
+
+00:04:53.350 --> 00:04:57.400
+This query discloses only one username:
+
+00:04:57.445 --> 00:05:00.333
+wp_ajla_admin.
+
+00:05:01.271 --> 00:05:04.933
+Now that we have a username,
+it’s time to get the password hash.
+
+00:05:13.280 --> 00:05:19.733
+To do this, we need to replace user_login
+in our query with user_pass.
+
+00:05:25.641 --> 00:05:27.100
+As a result of our injection,
+
+00:05:27.100 --> 00:05:31.166
+we are able to recover
+the admin’s password hash.
+
+00:05:32.110 --> 00:05:34.233
+Note the encoding at the end;
+
+00:05:34.643 --> 00:05:38.800
+the response contains
+three back-slash characters
+
+00:05:38.800 --> 00:05:42.133
+to escape the single forward slash.
+
+00:05:43.270 --> 00:05:45.266
+We will need to crack this hash
+
+00:05:45.266 --> 00:05:49.100
+before we attempt to authenticate
+against the web application.

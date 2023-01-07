@@ -1,0 +1,109 @@
+WEBVTT
+
+00:00:01.804 --> 00:00:04.000
+Inspecting Page Content
+
+00:00:05.253 --> 00:00:06.900
+Although URL inspection
+
+00:00:06.900 --> 00:00:10.000
+can provide some clues
+about the target web application,
+
+00:00:10.000 --> 00:00:14.533
+most context clues can be found
+in the source of the web page.
+
+00:00:21.235 --> 00:00:23.233
+The Firefox Debugger tool,
+
+00:00:23.717 --> 00:00:25.600
+found in the Web Developer,
+
+00:00:30.053 --> 00:00:33.033
+displays the page’s resources and content,
+
+00:00:33.033 --> 00:00:35.133
+which varies by application.
+
+00:00:35.666 --> 00:00:39.300
+The Debugger tool may display JavaScript frameworks,
+
+00:00:39.300 --> 00:00:45.433
+hidden input fields, comments,
+client-side controls within HTML,
+
+00:00:45.433 --> 00:00:47.666
+JavaScript, and much more.
+
+00:00:48.098 --> 00:00:50.900
+To demonstrate this,
+we can inspect the Debugger
+
+00:00:50.900 --> 00:00:54.466
+while browsing
+www.megacorp.one:
+
+00:01:01.164 --> 00:01:06.333
+We can see that the application
+uses jQuery version 1.11.0,
+
+00:01:06.333 --> 00:01:09.233
+a common JavaScript library.
+
+00:01:15.984 --> 00:01:18.633
+In this case, the developer
+minified the code,
+
+00:01:18.633 --> 00:01:21.933
+making it more compact
+and conserving resources
+
+00:01:21.933 --> 00:01:24.600
+but making it somewhat difficult to read.
+
+00:01:25.246 --> 00:01:27.933
+Fortunately, we can “prettify” code
+
+00:01:27.933 --> 00:01:32.145
+within Firefox by clicking on
+the Pretty print source button
+
+00:01:32.145 --> 00:01:34.100
+with the double curly braces:
+
+00:01:35.318 --> 00:01:36.900
+After clicking the icon,
+
+00:01:40.228 --> 00:01:45.300
+Firefox displays the code in a format
+that is easier to read and follow.
+
+00:01:46.207 --> 00:01:51.133
+We can also use the Inspector tool to
+drill down into specific page content.
+
+00:01:59.130 --> 00:02:04.700
+Let’s use Inspector to examine the email
+input element from the “Contact” page
+
+00:02:04.700 --> 00:02:08.366
+by right-clicking the
+email address field on the page,
+
+00:02:10.216 --> 00:02:12.800
+and selecting Inspect Element.
+
+00:02:18.161 --> 00:02:19.966
+This opens the Inspector tool
+
+00:02:19.966 --> 00:02:23.566
+and highlights the HTML
+for the element we selected.
+
+00:02:23.939 --> 00:02:25.866
+This tool is especially useful
+
+00:02:25.866 --> 00:02:30.500
+for quickly finding hidden
+form fields in the HTML source.

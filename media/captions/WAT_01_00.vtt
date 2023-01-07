@@ -1,0 +1,87 @@
+WEBVTT
+
+00:00:01.466 --> 00:00:04.500
+Web Application Assessment Methodology
+
+00:00:06.133 --> 00:00:09.766
+Before we begin discussing
+enumeration and exploitation,
+
+00:00:09.766 --> 00:00:15.133
+we will talk about the basic web application
+penetration testing methodology.
+
+00:00:15.600 --> 00:00:19.666
+As a first step, we should gather
+information about the application.
+
+00:00:22.633 --> 00:00:24.733
+What does the application do?
+
+00:00:25.533 --> 00:00:27.566
+What language is it written in?
+
+00:00:28.772 --> 00:00:32.566
+What server software is
+the application running on?
+
+00:00:33.454 --> 00:00:36.000
+The answers to these
+and other basic questions
+
+00:00:36.000 --> 00:00:41.366
+will help guide us towards our first
+(or next) potential attack vector.
+
+00:00:43.860 --> 00:00:46.466
+As with many
+penetration testing disciplines,
+
+00:00:46.466 --> 00:00:49.700
+the goal of each attempted attack
+or exploit
+
+00:00:49.700 --> 00:00:53.666
+is to increase our permissions
+within the application
+
+00:00:53.666 --> 00:00:57.200
+or pivot to another
+application or target.
+
+00:00:57.956 --> 00:01:00.433
+Each successful exploit along the way
+
+00:01:00.433 --> 00:01:03.500
+may grant access to new functionality
+
+00:01:03.500 --> 00:01:06.233
+or components within the application.
+
+00:01:06.964 --> 00:01:09.300
+Enumeration of new functionality
+
+00:01:09.300 --> 00:01:11.366
+is important each step of the way
+
+00:01:11.366 --> 00:01:14.400
+especially since attacks
+that previously failed
+
+00:01:14.400 --> 00:01:17.266
+may succeed in a new context.
+
+00:01:17.935 --> 00:01:19.433
+As penetration testers,
+
+00:01:19.433 --> 00:01:21.433
+we must continue to enumerate
+
+00:01:21.433 --> 00:01:23.466
+and adapt until we’ve exhausted
+
+00:01:23.466 --> 00:01:25.166
+all attack avenues
+
+00:01:25.166 --> 00:01:27.533
+or compromised the system.

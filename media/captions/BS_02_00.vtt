@@ -1,0 +1,267 @@
+WEBVTT
+
+00:00:01.533 --> 00:00:02.633
+Variables
+
+
+00:00:03.133 --> 00:00:07.300
+Variables are named places to temporarily store data.
+
+
+00:00:07.300 --> 00:00:10.700
+We can set (or “declare”) a variable, 
+
+
+00:00:10.700 --> 00:00:14.200
+which assigns a value to it, or read a 
+variable, 
+
+00:00:14.200 --> 00:00:17.866
+which will “expand” or “resolve” it to 
+its stored value.
+
+00:00:18.333 --> 00:00:21.433
+We can declare variable values in a
+number of ways.
+
+
+00:00:21.433 --> 00:00:24.766
+The easiest method is to set the value
+directly 
+
+00:00:24.766 --> 00:00:28.433
+with a simple name=value declaration.
+
+00:00:30.033 --> 00:00:35.033
+Notice that there are no spaces before or 
+after the “=” sign.
+
+
+00:00:38.033 --> 00:00:41.400
+Declaring a variable is pointless unless
+we can reference it.
+
+
+00:00:43.033 --> 00:00:47.233
+To do this, we precede the variable with
+the the dollar sign character.
+
+
+00:00:47.233 --> 00:00:50.633
+Whenever Bash encounters this syntax 
+in a command, 
+
+00:00:50.633 --> 00:00:55.733
+it replaces the variable name with its 
+value before execution.
+
+00:00:56.533 --> 00:01:01.000
+Variable names may be uppercase, 
+lowercase, or a mixture of both.
+
+
+00:01:02.133 --> 00:01:07.566
+However, Bash is case-sensitive so we 
+must be consistent when declaring
+
+00:01:07.566 --> 00:01:09.400
+and expanding variables.
+
+
+00:01:09.766 --> 00:01:14.133
+In addition, it’s good practice to use 
+descriptive variable names
+
+00:01:14.133 --> 00:01:17.866
+which make our scripts much easier to 
+read and maintain.
+
+00:01:18.333 --> 00:01:22.733
+Be advised that Bash interprets certain
+characters in specific ways.
+
+
+00:01:22.733 --> 00:01:26.866
+For example, this declaration 
+demonstrates an improper
+
+00:01:26.866 --> 00:01:29.766
+multi-value variable declaration.
+
+
+00:01:30.633 --> 00:01:33.500
+This was not necessarily what we expected.
+
+
+00:01:33.633 --> 00:01:38.666
+To fix this, we can use either single or 
+double quotes to enclose our text.
+
+
+00:01:39.800 --> 00:01:43.333
+However, Bash treats single and double 
+quotes differently.
+
+
+00:01:43.533 --> 00:01:45.266
+When encountering single quotes, 
+
+00:01:45.266 --> 00:01:49.300
+Bash interprets every enclosed character
+literally.
+
+
+00:01:49.533 --> 00:01:51.633
+When enclosed in double quotes, 
+
+00:01:51.633 --> 00:01:56.766
+all characters are viewed literally 
+except the dollar sign, backtick,
+
+00:01:56.766 --> 00:02:02.800
+and backslash, meaning variables will be 
+expanded in an initial substitution pass 
+
+00:02:02.800 --> 00:02:04.400
+on the enclosed text.
+
+00:02:04.400 --> 00:02:07.533
+A few simple examples will help clarify 
+this.
+
+
+00:02:07.533 --> 00:02:13.566
+First, we’ll declare and expand a 
+variable using single quotes.
+
+
+00:02:16.600 --> 00:02:20.433
+In this example, the 
+single-quote-enclosed declaration
+
+00:02:20.433 --> 00:02:24.566
+of greeting preserved the exact value 
+of our text
+
+00:02:24.566 --> 00:02:28.366
+and did not interpret the space as a 
+command delimiter.
+
+00:02:28.366 --> 00:02:32.333
+Now let’s declare a variable with 
+double quotes.
+
+
+00:02:35.133 --> 00:02:38.566
+In the double-quote-enclosed declaration 
+of greeting2,
+
+00:02:38.566 --> 00:02:43.333
+Bash expanded the greeting variable to
+its value of “Hello World”, 
+
+00:02:43.333 --> 00:02:47.000
+honoring the special meaning of the 
+dollar sign character.
+
+00:02:47.933 --> 00:02:53.566
+We can also set the value of the variable
+to the result of a command or program.
+
+
+00:02:53.733 --> 00:02:58.533
+This is known as command substitution, 
+which allows us to take the output of a 
+
+00:02:58.533 --> 00:03:02.000
+command or program (what would normally 
+be printed to the screen) 
+
+00:03:02.000 --> 00:03:05.800
+and have it saved as the value of a 
+variable.
+
+00:03:06.033 --> 00:03:08.833
+To do this, place the variable name in 
+parentheses,
+
+00:03:08.833 --> 00:03:11.366
+preceded by a dollar sign character.
+
+
+00:03:12.000 --> 00:03:17.766
+Here, we are assigning the output of the 
+whoami command to the user variable.
+
+
+00:03:18.366 --> 00:03:21.000
+Now let’s try displaying the value.
+
+
+00:03:23.033 --> 00:03:27.033
+An alternative syntax for command 
+substitution is to use the backtick,
+
+00:03:27.033 --> 00:03:28.566
+or grave, character.
+
+
+00:03:30.200 --> 00:03:33.933
+The backtick method is older and 
+typically discouraged
+
+00:03:33.933 --> 00:03:38.333
+as there are differences in how the two 
+methods of command substitution behave.
+
+00:03:38.833 --> 00:03:43.200
+It’s also important to note that command
+substitution happens in a subshell
+
+00:03:43.200 --> 00:03:46.100
+and changes to variables in the subshell 
+
+00:03:46.100 --> 00:03:49.266
+will not alter variables from the master 
+process.
+
+00:03:51.366 --> 00:03:53.900
+Let’s demonstrate this in the following 
+example:
+
+
+00:03:56.100 --> 00:04:01.666
+In this exmaple, note that we changed the 
+shebang, adding in the -x flag.
+
+
+00:04:01.800 --> 00:04:05.000
+This instructs Bash to print additional 
+debug output, 
+
+00:04:05.000 --> 00:04:09.333
+so we can more easily see the commands 
+that are executed and their results.
+
+00:04:15.666 --> 00:04:20.300
+As we view this output, notice that 
+commands preceded with a single plus sign 
+
+00:04:20.300 --> 00:04:22.266
+were executed in the current shell
+
+00:04:22.266 --> 00:04:27.633
+and commands preceded with a double plus 
+sign were executed in a subshell.
+
+00:04:27.633 --> 00:04:33.400
+This allows us to clearly see that the 
+second declarations of var1 and var2
+
+00:04:33.400 --> 00:04:39.000
+happened inside a subshell and did not 
+change the values in the current shell 
+
+00:04:39.000 --> 00:04:41.566
+as the initial declarations did.
+

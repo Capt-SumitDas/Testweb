@@ -1,0 +1,159 @@
+WEBVTT
+
+00:00:01.941 --> 00:00:04.008
+Sample Vulnerable Code
+
+00:00:06.574 --> 00:00:09.808
+This is some very basic
+C source code
+
+00:00:09.808 --> 00:00:13.274
+for an application vulnerable
+to a buffer overflow.
+
+00:00:14.119 --> 00:00:15.986
+Even without knowledge of C,
+
+00:00:15.986 --> 00:00:19.886
+the logic of this program
+is fairly easy to understand.
+
+00:00:20.630 --> 00:00:23.296
+First of all, it’s worth noting that in C,
+
+00:00:23.296 --> 00:00:27.630
+the main function is treated the
+same as every other function;
+
+00:00:28.363 --> 00:00:31.930
+it can receive arguments,
+return values, etc.
+
+00:00:32.586 --> 00:00:36.752
+The only difference is that it’s
+“called” by the operating system itself
+
+00:00:36.774 --> 00:00:38.308
+when the process starts.
+
+00:00:39.274 --> 00:00:43.174
+In this case, the main function
+first defines a character array
+
+00:00:43.174 --> 00:00:47.641
+named buffer that can fit up
+to 64 characters.
+
+00:00:48.552 --> 00:00:51.552
+Since this variable is
+defined within a function,
+
+00:00:51.552 --> 00:00:55.785
+the C compiler will treat
+it as a local variable
+
+00:00:55.785 --> 00:00:58.485
+and will reserve space
+for it on the stack.
+
+00:00:59.452 --> 00:01:02.119
+Specifically, this memory
+space will be reserved
+
+00:01:02.141 --> 00:01:04.641
+within the main
+function stack frame
+
+00:01:04.663 --> 00:01:07.663
+during its execution when
+the program runs.
+
+00:01:08.786 --> 00:01:11.586
+The program then proceeds
+to copy the content
+
+00:01:11.586 --> 00:01:16.586
+of the given command-line argument
+into the buffer character array.
+
+00:01:17.430 --> 00:01:22.096
+Note that the C language does not
+natively support strings as a data type.
+
+00:01:23.074 --> 00:01:29.108
+At a low level, a string is a sequence of
+characters terminated by a null character,
+
+00:01:29.130 --> 00:01:34.463
+or put another way, a one-dimensional
+array of characters.
+
+00:01:35.986 --> 00:01:39.152
+Finally, the program
+terminates its execution
+
+00:01:39.152 --> 00:01:42.119
+and returns a zero to
+the operating system,
+
+00:01:42.141 --> 00:01:45.874
+which is the standard
+exit code for success.
+
+00:01:46.852 --> 00:01:51.352
+When we call this program, we’ll pass
+command-line arguments to it.
+
+00:01:52.541 --> 00:01:57.308
+The main function processes these arguments
+with the help of two parameters,
+
+00:01:57.308 --> 00:02:04.341
+argc and argv, which represent the number
+of the arguments passed to the program
+
+00:02:04.341 --> 00:02:09.774
+and an array of pointers to the argument
+“strings” themselves, respectively.
+
+00:02:12.463 --> 00:02:17.196
+If the argument passed to the
+main function is 64 characters or less,
+
+00:02:17.196 --> 00:02:21.630
+this program will work as
+expected and will exit normally.
+
+00:02:22.030 --> 00:02:25.663
+However, since there are no
+checks on the size of the input,
+
+00:02:25.663 --> 00:02:29.763
+if the argument is
+longer, say 80 bytes,
+
+00:02:29.763 --> 00:02:33.030
+part of the stack adjacent
+to the target buffer
+
+00:02:33.030 --> 00:02:36.963
+will be overwritten by the
+remaining 16 characters,
+
+00:02:36.963 --> 00:02:39.530
+overflowing the array boundaries.
+
+00:02:40.386 --> 00:02:44.352
+The effects of this memory corruption
+depend on multiple factors
+
+00:02:44.352 --> 00:02:49.819
+including the size of the overflow and
+the data included in that overflow.
+
+00:02:52.274 --> 00:02:54.208
+To see how this works in our scenario,
+
+00:02:54.208 --> 00:02:59.841
+we can apply an oversized argument to
+our application and observe the effects.

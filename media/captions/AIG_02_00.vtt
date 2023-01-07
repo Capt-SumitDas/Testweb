@@ -1,0 +1,63 @@
+WEBVTT
+
+00:00:01.130 --> 00:00:02.233
+Port Scanning
+
+00:00:03.589 --> 00:00:05.900
+Port scanning is the process of inspecting
+
+00:00:05.900 --> 00:00:09.066
+TCP or UDP ports on a remote machine
+
+00:00:09.383 --> 00:00:13.433
+with the intention of detecting what
+services are running on the target,
+
+00:00:13.801 --> 00:00:17.233
+and what potential attack
+vectors may exist.
+
+00:00:17.582 --> 00:00:20.233
+Using a proper port scanning methodology
+
+00:00:20.233 --> 00:00:23.966
+can significantly improve our
+efficiency as penetration testers
+
+00:00:23.966 --> 00:00:26.700
+while also limiting many of the risks.
+
+00:00:27.333 --> 00:00:29.166
+Depending on the scope of the engagement,
+
+00:00:29.166 --> 00:00:32.633
+instead of running a full port scan
+against the target network,
+
+00:00:32.633 --> 00:00:37.166
+we can start by only scanning
+for ports 80 and 443.
+
+00:00:37.657 --> 00:00:40.066
+With a list of possible web servers,
+
+00:00:40.066 --> 00:00:43.666
+we can run a full port scan against
+these servers in the background
+
+00:00:43.666 --> 00:00:45.866
+while performing other enumeration.
+
+00:00:46.433 --> 00:00:48.500
+Once the full port scan is complete,
+
+00:00:48.500 --> 00:00:50.666
+we can further narrow our scans
+
+00:00:50.666 --> 00:00:55.000
+to probe for more and more information
+with each subsequent scan.
+
+00:00:55.432 --> 00:00:59.933
+The results of one scan determine the
+type and scope of the next scan.

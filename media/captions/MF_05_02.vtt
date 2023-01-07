@@ -1,0 +1,46 @@
+WEBVTT
+
+00:00:01.566 --> 00:00:03.400
+Migrating Processes
+
+00:00:04.635 --> 00:00:09.266
+When we compromise a host, our
+Meterpreter payload is executed
+
+00:00:09.266 --> 00:00:13.333
+inside the process of the
+application we attack.
+
+00:00:13.838 --> 00:00:19.033
+If the victim closes that process, our
+access to the machine is closed as well.
+
+00:00:19.431 --> 00:00:22.560
+Using the migrate command,
+we can move the execution
+
+00:00:22.560 --> 00:00:25.800
+of our Meterpreter to
+different processes.
+
+00:00:26.172 --> 00:00:31.766
+To do this, we first run “ps”
+to view all running processes.
+
+00:00:36.351 --> 00:00:40.500
+Then we pick one, like explorer.exe,
+
+00:00:44.167 --> 00:00:50.700
+and issue the migrate command followed by
+the process id of explorer.exe.
+
+00:01:01.317 --> 00:01:04.920
+Note that we are only
+able to migrate into a process
+
+00:01:04.920 --> 00:01:09.573
+executing at the same privilege
+and integrity level
+
+00:01:09.573 --> 00:01:13.366
+or lower than that of our current process

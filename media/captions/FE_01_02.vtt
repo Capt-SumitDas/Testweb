@@ -1,0 +1,97 @@
+WEBVTT
+
+00:00:01.368 --> 00:00:04.368
+Cross-Compiling Exploit Code
+
+00:00:05.098 --> 00:00:07.566
+In order to avoid compilation issues,
+
+00:00:07.566 --> 00:00:11.066
+it is generally recommended
+to use native compilers
+
+00:00:11.066 --> 00:00:14.833
+for the specific operating system
+targeted by the code.
+
+00:00:15.333 --> 00:00:18.600
+However, there are situations where
+we only have access
+
+00:00:18.600 --> 00:00:20.900
+to a single attack environment,
+
+00:00:20.900 --> 00:00:22.100
+like Kali,
+
+00:00:22.100 --> 00:00:26.633
+but need to leverage an exploit that
+is coded for a different platform.
+
+00:00:27.133 --> 00:00:30.533
+This is where a cross-compiler
+can be extremely helpful.
+
+00:00:30.533 --> 00:00:37.800
+We will use the extremely popular
+mingw-64 cross-compiler in this section.
+
+00:00:37.800 --> 00:00:42.066
+If it’s not already present,
+we can install it with apt:
+
+00:00:52.181 --> 00:00:54.366
+After the installation has completed,
+
+00:00:54.366 --> 00:01:00.466
+we can use mingw-64 to compile
+the code into a Windows executable.
+
+00:01:01.040 --> 00:01:02.100
+The first step
+
+00:01:02.100 --> 00:01:06.000
+is to see if the exploit code
+compiles without errors:
+
+00:01:07.917 --> 00:01:11.900
+To compile our code,
+we provide the C source file,
+
+00:01:12.793 --> 00:01:17.300
+and specify the output filename
+with the -o option.
+
+00:01:20.611 --> 00:01:24.033
+Something went wrong during the
+compilation process and although
+
+00:01:24.033 --> 00:01:25.900
+the errors may seem foreign,
+
+00:01:25.900 --> 00:01:30.266
+a simple Google search for “WSAStartup”
+
+00:01:30.266 --> 00:01:35.266
+reveals that this is a function
+found in winsock.h.
+
+00:01:58.889 --> 00:02:02.700
+Further research indicates that
+these errors occur when the linker
+
+00:02:02.700 --> 00:02:05.800
+can’t find the winsock library.
+
+00:02:14.045 --> 00:02:19.400
+Adding the -lws2_32 parameter
+
+00:02:19.400 --> 00:02:22.400
+to our command should fix the problem.
+
+00:02:26.235 --> 00:02:27.066
+Great,
+
+00:02:27.066 --> 00:02:30.166
+our exploit code was
+compiled successfully.

@@ -1,0 +1,164 @@
+WEBVTT
+
+00:00:01.041 --> 00:00:03.500
+Exploiting the Domain Controller
+
+00:00:04.556 --> 00:00:08.700
+With the ability to run commands
+as the domain administrator user,
+
+00:00:08.700 --> 00:00:12.634
+one way we can get access to the
+domain controller is by using the
+
+00:00:12.634 --> 00:00:20.866
+PowerShell New-PSSession cmdlet to open a
+new session against a remote host.
+
+00:00:21.632 --> 00:00:25.966
+To do this we’ll first attempt to discover
+the domain controller’s hostname
+
+00:00:25.966 --> 00:00:28.966
+to ensure that we’re targeting
+the correct server.
+
+00:00:32.982 --> 00:00:37.633
+Running nslookup without any options
+starts it in interactive mode,
+
+00:00:37.633 --> 00:00:41.033
+allowing us to set the type
+of record we are looking for.
+
+00:00:41.403 --> 00:00:45.300
+In this case, the type we
+are looking for is “all”.
+
+00:00:47.017 --> 00:00:53.466
+Next, we do a lookup on the LDAP DC entry
+within the sandbox.local domain.
+
+00:00:55.659 --> 00:01:00.500
+This results in nslookup returning the
+hostname of the domain controller.
+
+00:01:01.345 --> 00:01:04.566
+With the hostname acquired,
+we’ll launch powershell.
+
+00:01:10.009 --> 00:01:13.566
+We’ll use New-PSSession,
+
+00:01:13.725 --> 00:01:19.133
+with the -Computer flag to start a new
+session on the domain controller,
+
+00:01:20.031 --> 00:01:24.200
+which will be saved in the dcsesh object.
+
+00:01:27.185 --> 00:01:31.300
+From here, we can use the
+Invoke-Command cmdlet
+
+00:01:31.300 --> 00:01:34.100
+to run a command against
+the domain controller.
+
+00:01:34.654 --> 00:01:39.433
+We need to pass in the session we
+just created with the -Session flag,
+
+00:01:40.173 --> 00:01:45.266
+and the command we want to execute
+with the -ScriptBlock option.
+
+00:01:45.821 --> 00:01:50.400
+The command that we want executed
+must be wrapped in curly braces.
+
+00:01:54.812 --> 00:01:58.266
+Now that we know we can execute
+commands against the Domain Controller,
+
+00:01:58.266 --> 00:02:01.800
+we'll transfer and execute
+a meterpreter shell.
+
+00:02:02.064 --> 00:02:07.100
+We can again use the same
+whoami.exe with the AV bypass.
+
+00:02:07.760 --> 00:02:10.933
+First, we’ll transfer the shell
+to the Domain Controller.
+
+00:02:12.809 --> 00:02:18.266
+For this, we’ll use the PowerShell
+command Copy-Item.
+
+00:02:18.268 --> 00:02:24.433
+For Copy-Item to transfer to another host,
+we must provide the file to transfer,
+
+00:02:25.701 --> 00:02:28.100
+the destination of the transfer,
+
+00:02:28.100 --> 00:02:31.933
+and the PowerShell session
+we created earlier.
+
+00:02:34.390 --> 00:02:37.333
+With the file transferred,
+we need to execute it.
+
+00:02:38.073 --> 00:02:42.166
+Let’s background the current meterpreter
+shell and start a new listener.
+
+00:02:50.832 --> 00:02:53.848
+We’ll start the new payload
+handler as a background job
+
+00:02:53.848 --> 00:02:57.666
+by using the -j flag with
+the exploit command.
+
+00:03:00.519 --> 00:03:04.034
+Now that the listener is running in the
+background, we need to go back
+
+00:03:04.034 --> 00:03:09.633
+to the session on Cevapi in order to
+execute the shell on the Domain Controller
+
+00:03:16.502 --> 00:03:19.500
+Finally, we’ll execute the
+PowerShell command
+
+00:03:19.500 --> 00:03:23.700
+to run the whoami binary
+on the Domain Controller.
+
+00:03:33.739 --> 00:03:38.300
+After executing the binary, we receive
+a new meterpreter session.
+
+00:03:38.300 --> 00:03:41.100
+Let’s background the session on Cevapi,
+
+00:03:45.142 --> 00:03:49.466
+and interact with the new one we
+received from the domain controller.
+
+00:03:55.252 --> 00:03:58.033
+We now have access to
+the domain controller
+
+00:03:58.033 --> 00:04:02.333
+with an administrative user,
+and have reached our goal.
+
+00:04:04.605 --> 00:04:09.633
+Excellent! Our pentest is
+now considered successful.

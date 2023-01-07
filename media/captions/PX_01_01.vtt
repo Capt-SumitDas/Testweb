@@ -1,0 +1,1248 @@
+WEBVTT
+
+00:00:01.625 --> 00:00:03.200
+Manual Enumeration
+
+00:00:03.803 --> 00:00:07.033
+Manually enumerating a system
+can be time consuming.
+
+00:00:07.658 --> 00:00:10.766
+It does, however, allow for more control
+
+00:00:10.766 --> 00:00:15.300
+and can help identify certain
+rare privilege escalation methods
+
+00:00:15.300 --> 00:00:18.766
+that are often missed by automated tools.
+
+00:00:26.881 --> 00:00:28.624
+To demonstrate all the commands,
+
+00:00:28.624 --> 00:00:33.600
+we will SSH as a non-privileged
+user to both our Debian
+
+00:00:36.933 --> 00:00:39.100
+and Windows clients.
+
+00:00:45.613 --> 00:00:47.233
+Enumerating Users
+
+00:00:48.198 --> 00:00:50.133
+When gaining access to a target,
+
+00:00:50.462 --> 00:00:55.133
+one of the first things we should identify
+is the user we are running as.
+
+00:00:55.550 --> 00:00:58.233
+The whoami command is
+a good place to start
+
+00:00:58.233 --> 00:01:02.300
+because it is available on
+both Windows and Linux.
+
+00:01:02.848 --> 00:01:05.957
+When run without arguments,
+whoami will display
+
+00:01:05.957 --> 00:01:08.633
+the username the shell
+is running as.
+
+00:01:13.348 --> 00:01:18.000
+On Windows, we can gather more information
+by passing the discovered user name
+
+00:01:18.000 --> 00:01:21.066
+as an argument to the net user command.
+
+00:01:23.829 --> 00:01:28.600
+This output indicates various information
+including the user we are running as
+
+00:01:28.600 --> 00:01:31.700
+(student) and the groups we belong to.
+
+00:01:35.099 --> 00:01:38.466
+On Linux-based systems,
+we can use the id command
+
+00:01:38.466 --> 00:01:41.033
+to gather information about
+the current user:
+
+00:01:43.665 --> 00:01:47.300
+The output reveals the we
+are running as the student user,
+
+00:01:47.300 --> 00:01:52.500
+which has a User Identifier
+and Group Identifier of 1000.
+
+00:01:55.372 --> 00:02:00.966
+To find other user accounts on a windows
+system, we can run net user.
+
+00:02:03.949 --> 00:02:08.200
+This reveals other accounts,
+including the admin account.
+
+00:02:15.546 --> 00:02:18.166
+To enumerate users on
+a Linux-based system,
+
+00:02:18.166 --> 00:02:22.833
+we can simply read the contents
+of the /etc/passwd file.
+
+00:02:29.171 --> 00:02:32.366
+The passwd file contains several
+user accounts, including accounts
+
+00:02:32.366 --> 00:02:39.333
+used by services on the target
+machine such as www-data,
+
+00:02:39.333 --> 00:02:43.600
+which suggests that a webserver
+may be running on this machine.
+
+00:02:48.775 --> 00:02:52.112
+Enumerating all users on a
+target machine will help identify
+
+00:02:52.112 --> 00:02:56.800
+high-privilege user accounts we
+could target to elevate our privileges.
+
+00:02:58.861 --> 00:03:01.000
+Enumerating the Hostname
+
+00:03:01.504 --> 00:03:05.766
+The hostname of a machine can
+often give clues about its role
+
+00:03:06.073 --> 00:03:09.300
+because it often includes
+abbreviations such as
+
+00:03:09.300 --> 00:03:14.066
+web for a webserver or db
+for a database server.
+
+00:03:14.680 --> 00:03:18.100
+We can find the hostname
+with the hostname command,
+
+00:03:18.100 --> 00:03:21.333
+which is available on
+both Windows and Linux.
+
+00:03:21.333 --> 00:03:23.600
+Let’s first run it on Linux.
+
+00:03:26.977 --> 00:03:30.769
+The hostname of the Linux
+client provides us with information
+
+00:03:30.769 --> 00:03:32.766
+about the OS it is running.
+
+00:03:37.810 --> 00:03:40.033
+Next, let’s run it on Windows:
+
+00:03:42.533 --> 00:03:46.100
+The Windows client has a
+fairly generic hostname.
+
+00:03:49.038 --> 00:03:51.600
+Identifying the role of a
+machine is useful
+
+00:03:51.600 --> 00:03:54.666
+for focusing our information
+gathering efforts.
+
+00:03:56.596 --> 00:04:01.166
+Enumerating the Operating
+System Version and Architecture
+
+00:04:01.671 --> 00:04:04.135
+At some point during the
+privilege escalation process,
+
+00:04:04.135 --> 00:04:08.266
+we may need to rely on
+kernel exploits that exploit
+
+00:04:08.266 --> 00:04:12.066
+vulnerabilities in the core
+of a target’s operating system.
+
+00:04:12.395 --> 00:04:17.633
+These types of exploits are built for a
+very specific operating system and version
+
+00:04:17.633 --> 00:04:20.600
+Since attacking a target with
+the wrong kernel exploit
+
+00:04:20.600 --> 00:04:22.266
+can cause a system crash,
+
+00:04:22.266 --> 00:04:26.233
+we must identify detailed
+information about the target.
+
+00:04:27.198 --> 00:04:31.600
+On the Windows operating system,
+we can use the systeminfo utility
+
+00:04:31.600 --> 00:04:35.300
+to find the operating system
+and architecture information.
+
+00:04:36.462 --> 00:04:42.100
+We can also filter the output using
+findstr along with a few useful flags.
+
+00:04:42.977 --> 00:04:48.033
+Specifically, we can match patterns at
+the beginning of a line with /B…
+
+00:04:48.033 --> 00:04:52.200
+and specify the search strings with /C.
+
+00:04:53.164 --> 00:04:55.900
+We’ll search for the name of
+the operating system,
+
+00:04:56.448 --> 00:04:57.700
+its version,
+
+00:04:59.059 --> 00:05:00.866
+and its architecture.
+
+00:05:06.020 --> 00:05:16.466
+This system is running Windows 10 Pro
+version 10.0.16299 on an x86 architecture.
+
+00:05:21.247 --> 00:05:26.200
+On Linux, the issue and release
+files located in the /etc directory
+
+00:05:26.200 --> 00:05:28.600
+contain similar information.
+
+00:05:35.332 --> 00:05:39.466
+We can also issue the uname -a command,
+
+00:05:40.826 --> 00:05:43.833
+to find the kernel version
+and architecture.
+
+00:05:49.908 --> 00:05:53.500
+Enumerating Running Processes and Services
+
+00:05:54.530 --> 00:05:58.733
+Next, let’s take a look at running
+processes and services.
+
+00:05:58.733 --> 00:06:02.266
+If a process runs in the context
+of a privileged account
+
+00:06:02.266 --> 00:06:08.680
+and has insecure permissions or allows us
+to interact with it in unintended ways, 
+
+00:06:08.680 --> 00:06:12.266
+we may be able to use it to
+elevate our privileges.
+
+00:06:14.569 --> 00:06:20.100
+We can list the running processes on
+Windows with the tasklist command.
+
+00:06:21.021 --> 00:06:27.866
+The /SVC flag will return processes that
+are part of a specific Windows service.
+
+00:06:30.980 --> 00:06:33.633
+The MySQL service is
+running on the machine,
+
+00:06:33.633 --> 00:06:36.600
+which may be useful under
+the right conditions.
+
+00:06:36.600 --> 00:06:42.233
+Keep in mind that this output does not
+list processes run by privileged users.
+
+00:06:48.308 --> 00:06:53.500
+On Linux we can list all system processes,
+including those run by privileged users,
+
+00:06:53.785 --> 00:06:55.366
+with the ps command.
+
+00:06:56.441 --> 00:07:00.533
+We’ll specify the a and x
+flags to list all processes
+
+00:07:00.533 --> 00:07:03.066
+with or without a tty
+
+00:07:03.066 --> 00:07:07.966
+and the u flag to list the processes
+in a user-readable format.
+
+00:07:13.339 --> 00:07:15.533
+Several processes are running as root
+
+00:07:15.533 --> 00:07:19.033
+and should be researched further
+for possible vulnerabilities.
+
+00:07:19.252 --> 00:07:22.866
+Our ps command is also
+listed in the output.
+
+00:07:27.823 --> 00:07:30.166
+Enumerating Networking Information
+
+00:07:31.043 --> 00:07:34.133
+The next step in our enumeration
+of the target host
+
+00:07:34.133 --> 00:07:37.266
+is to review its network configurations.
+
+00:07:37.617 --> 00:07:41.233
+If the compromised target is
+connected to multiple networks,
+
+00:07:41.233 --> 00:07:43.333
+we could use it as a pivot.
+
+00:07:43.793 --> 00:07:48.600
+We can also check if a running service is
+only available on a loopback address,
+
+00:07:48.600 --> 00:07:50.800
+rather than on a routable one.
+
+00:07:51.436 --> 00:07:55.800
+Investigating a privileged program or
+service listening on a loopback interface,
+
+00:07:55.800 --> 00:08:00.166
+instead of a routable one, could
+increase our attack surface
+
+00:08:00.166 --> 00:08:04.266
+and probability of a privilege
+escalation attack.
+
+00:08:06.021 --> 00:08:10.600
+We can begin our investigation on the
+Windows client with ipconfig,
+
+00:08:10.600 --> 00:08:16.766
+using the /all flag to display the full
+configuration of all adapters.
+
+00:08:21.174 --> 00:08:25.600
+This machine does indeed have
+multiple network interfaces.
+
+00:08:29.021 --> 00:08:32.533
+Next, let’s take a closer look
+at its routing tables.
+
+00:08:34.243 --> 00:08:38.633
+To display the networking routing
+tables we use the route command…
+
+00:08:38.633 --> 00:08:41.266
+followed by the print argument.
+
+00:08:48.394 --> 00:08:52.566
+Finally, we can use netstat to view the
+active network connections,
+
+00:08:53.290 --> 00:08:57.466
+The a flag displays all
+active TCP connections,
+
+00:08:57.466 --> 00:09:02.566
+the n flag displays the address
+and port number in a numerical form,
+
+00:09:02.566 --> 00:09:07.933
+and the o flag displays the owner
+Process ID of each connection.
+
+00:09:21.026 --> 00:09:24.146
+Not only did netstat provide us
+with a list of all the listening
+
+00:09:24.146 --> 00:09:27.300
+ports on the machine, it also
+included information
+
+00:09:27.300 --> 00:09:29.700
+about established connections.
+
+00:09:35.731 --> 00:09:38.200
+Similar commands are available on Linux.
+
+00:09:39.208 --> 00:09:43.113
+Depending on the version of Linux,
+we can view the TCP/IP configuration
+
+00:09:43.113 --> 00:09:49.000
+of every network adapter
+with either ifconfig or ip.
+
+00:09:50.403 --> 00:09:54.900
+Both commands accept the a
+flag to display all information.
+
+00:09:56.983 --> 00:10:00.866
+This Linux client is also connected
+to more than one network.
+
+
+00:10:05.801 --> 00:10:11.233
+We can display network routing
+tables with either route or routel,
+
+00:10:11.233 --> 00:10:14.333
+depending on Linux flavor and version.
+
+00:10:18.697 --> 00:10:23.000
+Finally, we can display active network
+connections and listening ports
+
+00:10:23.000 --> 00:10:29.133
+with either netstat or ss, both of which
+accept the same arguments.
+
+00:10:29.791 --> 00:10:33.766
+For example, we can list
+all connections with -a,
+
+00:10:34.051 --> 00:10:37.500
+use -n to avoid hostname resolution,
+
+00:10:37.850 --> 00:10:42.966
+and list the process name the
+connection belongs to with -p.
+
+00:10:46.080 --> 00:10:49.820
+We discover various listening
+ports and active sessions,
+
+00:10:49.820 --> 00:10:53.286
+including our own active SSH connection.
+
+00:10:59.295 --> 00:11:02.533
+Enumerating Firewall Status and Rules
+
+00:11:03.169 --> 00:11:06.833
+Generally speaking, a firewall’s
+configuration details
+
+00:11:06.833 --> 00:11:11.433
+are only of interest during the remote
+exploitation phase of an assessment.
+
+00:11:11.915 --> 00:11:16.066
+However, this information can be
+useful during privilege escalation.
+
+00:11:16.658 --> 00:11:20.800
+For example, if a network service
+is blocked by the firewall
+
+00:11:20.800 --> 00:11:26.400
+and not accessible remotely,
+it is generally still accessible locally
+
+00:11:26.400 --> 00:11:28.433
+via the loopback interface.
+
+00:11:28.433 --> 00:11:31.500
+We can also gather information
+about port filtering 
+
+00:11:31.500 --> 00:11:34.433
+to facilitate port
+forwarding and tunneling
+
+00:11:34.433 --> 00:11:37.466
+when it’s time to pivot to
+the internal network.
+
+00:11:39.615 --> 00:11:43.266
+On Windows, we can look at
+the current firewall profile…
+
+00:11:44.253 --> 00:11:46.900
+using the netsh command.
+
+00:11:49.465 --> 00:11:53.233
+In this case, the current
+firewall profile is active
+
+00:11:53.233 --> 00:11:56.533
+so let’s have a closer look
+at the firewall rules.
+
+00:11:59.362 --> 00:12:03.033
+We can list firewall rules
+with the netsh command,
+
+00:12:03.033 --> 00:12:06.533
+specifying that we want to show all rules:
+
+00:12:12.783 --> 00:12:17.733
+According to these two firewall rules,
+the Microsoft Photos application
+
+00:12:17.733 --> 00:12:25.400
+is allowed to establish connections to and
+from any IP address using any protocol.
+
+00:12:31.628 --> 00:12:35.566
+Keep in mind that not all
+firewall rules are useful
+
+00:12:35.566 --> 00:12:40.433
+but some configurations may help
+us expand our attack surface.
+
+00:12:42.297 --> 00:12:46.000
+Unfortunately, on Linux-based
+systems, we must have root
+
+00:12:46.000 --> 00:12:50.066
+privileges to list firewall
+rules with iptables.
+
+00:12:50.790 --> 00:12:54.533
+However, depending on how
+the firewall is configured,
+
+00:12:54.533 --> 00:12:59.300
+we may be able to glean information
+about the rules as a standard user.
+
+00:12:59.694 --> 00:13:05.966
+For example, we can search for files
+created by the iptables-save command
+
+00:13:05.966 --> 00:13:11.600
+which is used to dump the firewall
+configuration to a user-specified file.
+
+00:13:13.529 --> 00:13:18.900
+To find this type of file, we could
+grep for iptables commands
+
+00:13:19.974 --> 00:13:25.400
+in all files in /etc or other directories,
+
+00:13:25.750 --> 00:13:31.966
+supplying the H flag to show the filename,
+and the s flag to suppress errors.
+
+00:13:33.545 --> 00:13:37.933
+If the file has insecure permissions
+we could use the contents,
+
+00:13:41.266 --> 00:13:46.000
+to infer the firewall configuration
+rules running on the system.
+
+00:13:50.499 --> 00:13:53.100
+Enumerating Scheduled Tasks
+
+00:13:53.670 --> 00:13:58.466
+Attackers often target scheduled tasks
+in privilege escalation attacks.
+
+00:13:58.905 --> 00:14:02.700
+Systems that act as servers
+often periodically execute
+
+00:14:02.700 --> 00:14:05.800
+various automated, scheduled tasks.
+
+00:14:07.115 --> 00:14:11.692
+The scheduling systems can sometimes
+have confusing syntax which can
+
+00:14:11.692 --> 00:14:18.533
+cause misconfigurations or leave, user-
+created files with insecure permissions.
+
+00:14:18.993 --> 00:14:22.592
+If this happens, we can modify
+them and have the scheduling
+
+00:14:22.592 --> 00:14:26.666
+system execute them with
+higher level privileges.
+
+00:14:27.543 --> 00:14:34.333
+We can create and view scheduled tasks
+on Windows with the schtasks command.
+
+00:14:35.188 --> 00:14:38.733
+The /query argument displays tasks,
+
+00:14:39.478 --> 00:14:45.266
+and to list the output as a list,
+we add the /FO LIST argument.
+
+00:14:46.100 --> 00:14:49.500
+We can also use /v for verbose output.
+
+00:14:53.688 --> 00:14:58.600
+This command generates a lot of
+useful information such as the task,
+
+00:14:58.600 --> 00:15:02.533
+the next time it is due to
+run, the last time it ran,
+
+00:15:02.533 --> 00:15:06.033
+and details about how often it will run.
+
+00:15:12.195 --> 00:15:16.033
+The Linux-based job scheduler
+is known as Cron.
+
+00:15:16.033 --> 00:15:21.433
+Scheduled tasks are listed under
+a set of directories under /etc,
+
+00:15:21.433 --> 00:15:24.966
+organized based on the
+frequency the task will run.
+
+00:15:26.852 --> 00:15:33.233
+For example, tasks that will be run daily
+can be found under /etc/cron.daily
+
+00:15:33.233 --> 00:15:37.166
+and weekly tasks under /etc/cron.weekly
+
+00:15:38.416 --> 00:15:44.333
+Listing the directory contents, we notice
+several tasks scheduled to run daily.
+
+00:15:45.956 --> 00:15:48.995
+System administrators
+often also add their own
+
+00:15:48.995 --> 00:15:52.500
+scheduled tasks in the /etc/crontab file.
+
+00:15:54.408 --> 00:15:59.400
+These tasks should be inspected
+carefully for insecure file permissions
+
+00:15:59.400 --> 00:16:04.133
+as most jobs in this particular
+file will run as root.
+
+00:16:05.975 --> 00:16:07.623
+If the file has weak permissions,
+
+00:16:07.623 --> 00:16:10.900
+we may be able to use it
+to escalate our privileges.
+
+00:16:14.343 --> 00:16:18.500
+Enumerating Installed
+Applications and Patch Levels
+
+00:16:19.070 --> 00:16:24.033
+At some point, we may need to use an
+exploit to escalate our local privileges.
+
+00:16:25.546 --> 00:16:31.400
+If so, we need to enumerate all the
+installed application and their versions.
+
+00:16:31.553 --> 00:16:36.133
+On Windows systems, we also need to
+determine the OS patch level.
+
+00:16:36.133 --> 00:16:39.866
+We can use this information to
+search for a matching exploit.
+
+00:16:40.195 --> 00:16:44.266
+Manually searching for this information
+could be very time consuming.
+
+00:16:44.946 --> 00:16:49.833
+Fortunately, we can use the very
+powerful Windows-based utility,
+
+00:16:50.008 --> 00:16:54.566
+wmic to automate this
+process on Windows systems.
+
+00:16:55.378 --> 00:17:00.566
+We can use wmic with the
+product WMI class argument,
+
+00:17:01.158 --> 00:17:05.333
+followed by get, to retrieve
+specific property values.
+
+00:17:06.035 --> 00:17:12.033
+We can then choose the properties we want
+to view, such as name, version and vendor.
+
+00:17:14.774 --> 00:17:19.433
+One important thing to keep in mind
+is that the product WMI class
+
+00:17:19.433 --> 00:17:24.933
+only lists applications that are
+installed by the Windows Installer.
+
+00:17:27.981 --> 00:17:33.733
+Similarly, wmic can also be
+used to list system-wide updates
+
+00:17:33.733 --> 00:17:40.266
+ by using the Win32
+QuickFixEngineering WMI class.
+
+00:17:41.012 --> 00:17:46.300
+A combination of the HotFixID and
+the InstalledOn information
+
+00:17:46.300 --> 00:17:51.066
+can provide us with a precise
+indication of the OS patch level.
+
+00:17:53.522 --> 00:17:58.633
+Based on this ouput, this system
+has not been updated recently,
+
+00:17:58.633 --> 00:18:01.366
+which might make it
+easier to exploit.
+
+00:18:07.704 --> 00:18:11.866
+Linux-based systems use
+various package managers.
+
+00:18:12.217 --> 00:18:16.900
+For example, Debian-based
+Linux distributions use dpkg
+
+00:18:16.900 --> 00:18:20.900
+while Red Hat based systems use rpm.
+
+00:18:21.492 --> 00:18:27.133
+To list applications installed
+by dpkg, we can use dpkg -l.
+
+00:18:30.839 --> 00:18:33.633
+This confirms what we saw
+in the password file:
+
+00:18:33.633 --> 00:18:38.100
+the Debian machine is running an
+Apache2 web server.
+
+00:18:45.468 --> 00:18:50.333
+Enumerating Readable/Writable
+Files and Directories
+
+00:18:51.035 --> 00:18:55.366
+As we previously mentioned, files
+with insufficient access restrictions
+
+00:18:55.366 --> 00:19:00.133
+can create a vulnerability that
+can be used to elevate our privileges.
+
+00:19:00.484 --> 00:19:04.966
+This can happen when scripts
+or binary files can be modified,
+
+00:19:04.966 --> 00:19:09.466
+which are then executed under
+the context of a privileged account.
+
+00:19:10.014 --> 00:19:15.033
+It might also be possible for unprivileged
+users to read sensitive files
+
+00:19:15.033 --> 00:19:17.833
+that may contain important information.
+
+00:19:18.315 --> 00:19:22.000
+Since manually checking the
+permissions of each file and directory
+
+00:19:22.000 --> 00:19:26.433
+is not feasible, we need to automate
+this vtask as much as possible.
+
+00:19:27.880 --> 00:19:30.933
+There are a number of utilities
+and tools that can automate
+
+00:19:30.942 --> 00:19:33.800
+this task for us on a Windows platform.
+
+00:19:36.585 --> 00:19:39.700
+AccessChk from SysInternals is
+one of the most
+
+00:19:39.700 --> 00:19:43.033
+well-known and often-used
+tools for this purpose.
+
+00:19:44.020 --> 00:19:47.900
+We will use it to find a file
+with insecure file permissions
+
+00:19:47.900 --> 00:19:50.166
+in the “Program Files” directory.
+
+00:19:51.350 --> 00:19:57.144
+Specifically, we will check the Program
+Files directory for any file or directory
+
+00:19:57.144 --> 00:20:00.866
+ that allows the Everyone
+group write permissions.
+
+00:20:01.568 --> 00:20:07.566
+We’ll use u to suppress errors, w to
+search for write access permissions,
+
+00:20:07.566 --> 00:20:10.800
+and s to perform a recursive search.
+
+00:20:12.817 --> 00:20:18.300
+AccessChk successfully identified one
+executable file that is world-writable.
+
+00:20:19.286 --> 00:20:24.333
+If this file were to be executed by a
+privileged user or a service account,
+
+00:20:24.333 --> 00:20:29.066
+we could attempt to overwrite it
+with a malicious file of our choice.
+
+00:20:31.128 --> 00:20:34.533
+We can also use PowerShell to
+find the same information.
+
+00:20:36.529 --> 00:20:40.500
+This is useful in situations
+where AccessChk is not available
+
+00:20:40.500 --> 00:20:45.500
+and we may not be able to transfer and
+execute files to the target system.
+
+00:20:47.846 --> 00:20:53.933
+The PowerShell command itself may appear
+complex, so let’s break it down:
+
+00:20:54.218 --> 00:20:58.133
+The primary cmdlet we
+are using is Get-Acl
+
+00:20:58.133 --> 00:21:02.333
+to retrieve all the permissions
+for a file or directory.
+
+00:21:02.969 --> 00:21:06.633
+However, since Get-Acl
+cannot be run recursively,
+
+00:21:06.633 --> 00:21:11.100
+we also need to use the Get-ChildItem cmdlet
+
+00:21:11.100 --> 00:21:15.733
+to first enumerate everything
+under the “Program Files” directory.
+
+00:21:17.093 --> 00:21:19.833
+This will effectively retrieve
+the access permissions
+
+00:21:19.833 --> 00:21:22.833
+of every object in the target directory.
+
+00:21:23.118 --> 00:21:27.500
+The AccessToString property
+with the -match flag
+
+00:21:27.500 --> 00:21:29.769
+will narrow down the
+results to the specific
+
+00:21:29.769 --> 00:21:31.833
+access properties we are looking for.
+
+00:21:32.513 --> 00:21:35.399
+In our case, we are searching
+for any object that can be
+
+00:21:35.399 --> 00:21:38.566
+modified by members
+of the Everyone group.
+
+00:21:42.514 --> 00:21:46.800
+In this case, the output is
+identical to that of AccessChk.
+
+00:21:53.116 --> 00:21:56.833
+On Linux operating systems,
+we can use the find command
+
+00:21:56.833 --> 00:22:00.100
+to identify files with
+insecure permissions.
+
+00:22:00.100 --> 00:22:04.466
+Let’s search for every directory
+writable by the current user.
+
+00:22:06.944 --> 00:22:10.766
+We will search the whole root
+directory with forward slash…
+
+00:22:10.766 --> 00:22:16.666
+and use the -writable argument to specify
+the attribute we are looking for.
+
+00:22:17.565 --> 00:22:21.466
+We also use -type d to locate directories,
+
+00:22:21.729 --> 00:22:26.000
+and we will filter errors to make
+the output easier to read:
+
+00:22:28.916 --> 00:22:31.333
+Several directories seem
+to be world-writable,
+
+00:22:31.333 --> 00:22:34.333
+including the james bin directory.
+
+00:22:34.859 --> 00:22:37.100
+This should be investigated further.
+
+00:22:42.714 --> 00:22:45.200
+Enumerating Unmounted Disks
+
+00:22:45.836 --> 00:22:49.633
+Usually, drives are automatically
+mounted at boot time.
+
+00:22:49.984 --> 00:22:53.400
+It can be easy to forget about
+unmounted drives and the valuable
+
+00:22:53.400 --> 00:22:58.000
+information they may contain, so
+we should always look for them.
+
+00:22:58.943 --> 00:23:02.166
+On Windows-based systems,
+we can use mountvol
+
+00:23:02.166 --> 00:23:06.478
+to list all drives that are currently
+mounted as well as those
+
+00:23:06.478 --> 00:23:10.166
+that are physically
+connected but unmounted.
+
+00:23:12.973 --> 00:23:18.766
+This system has two mount points that
+map to the C: and D: drives respectively.
+
+00:23:20.236 --> 00:23:23.766
+We also notice that we have a
+volume that has no mount point.
+
+00:23:23.766 --> 00:23:27.900
+This could be interesting and we might
+want to take a closer look at it.
+
+00:23:32.505 --> 00:23:35.624
+On Linux-based systems, we can
+use the mount command
+
+00:23:35.624 --> 00:23:38.266
+to list all mounted filesystems.
+
+00:23:41.380 --> 00:23:44.145
+In addition, the /etc/fstab file
+
+00:23:44.145 --> 00:23:47.466
+contains information about
+all drives mounted at boot time.
+
+00:23:50.164 --> 00:23:56.733
+The output reveals a swap partition and
+the primary ext4 disk of this Linux system
+
+00:23:59.014 --> 00:24:03.533
+We can also use lsblk to
+view all available disks.
+
+00:24:05.616 --> 00:24:11.233
+We notice the sda drive consists of three
+different partitions, which are numbered.
+
+00:24:12.527 --> 00:24:16.800
+In some situations, we might find
+partitions that are not mounted.
+
+00:24:18.773 --> 00:24:21.033
+Depending on the system configuration,
+
+00:24:21.033 --> 00:24:25.933
+we might be able to mount those partitions
+and search for interesting information
+
+00:24:25.933 --> 00:24:28.800
+that could allow us to
+escalate our privileges.
+
+00:24:30.072 --> 00:24:33.733
+Enumerating Device Drivers
+and Kernel Modules
+
+00:24:34.391 --> 00:24:36.926
+We can also escalate our
+privileges by exploiting
+
+00:24:36.926 --> 00:24:39.500
+device drivers and kernel modules.
+
+00:24:39.500 --> 00:24:44.066
+Since this technique relies on matching
+vulnerabilities with the correct exploits,
+
+00:24:44.066 --> 00:24:49.133
+we’ll need to enumerate all the
+loaded drivers and kernel modules.
+
+00:24:50.054 --> 00:24:55.433
+On Windows, we’ll use the driverquery
+command to help gather this information.
+
+00:24:59.337 --> 00:25:03.866
+To filter the output, we will run the
+command inside a powershell session.
+
+00:25:04.853 --> 00:25:08.933
+The /v argument will
+produce verbose output
+
+00:25:08.933 --> 00:25:15.300
+and /fo csv requests the
+output in CSV format.
+
+00:25:16.506 --> 00:25:21.000
+Next, we pipe the output to
+the ConvertFrom-Csv cmdlet,
+
+00:25:21.943 --> 00:25:28.775
+as well as Select-Object, which will allow
+us to select specific object properties,
+
+00:25:28.775 --> 00:25:33.500
+such as Display Name,
+Start Mode and Path.
+
+00:25:40.013 --> 00:25:42.366
+While this produced a
+list of loaded drivers,
+
+00:25:42.366 --> 00:25:46.466
+we must take another step to find
+the version number of each one.
+
+00:25:49.383 --> 00:25:52.966
+We’ll use the Get-WmiObject cmdlet
+
+00:25:52.966 --> 00:25:58.866
+and the Win32_PnPSignedDriver
+WMI instance
+
+00:25:58.866 --> 00:26:02.166
+which provides digital
+signature information.
+
+00:26:03.526 --> 00:26:06.266
+By piping the output to Select-Object,
+
+00:26:06.266 --> 00:26:10.600
+we can enumerate specific
+properties like the DriverVersion.
+
+00:26:12.025 --> 00:26:17.833
+We can also target drivers based on their
+name by using Where-Object.
+
+00:26:21.605 --> 00:26:26.133
+We now have a list of all the
+loaded VMware device drivers
+
+00:26:26.133 --> 00:26:27.966
+and their version numbers.
+
+00:26:33.383 --> 00:26:38.100
+On Linux we can enumerate the
+loaded kernel modules using lsmod.
+
+00:26:39.415 --> 00:26:41.490
+Once we have the list of loaded modules
+
+00:26:41.490 --> 00:26:45.600
+and want more information
+about one, like libata,
+
+00:26:45.600 --> 00:26:49.700
+we can use modinfo to find
+out more about it.
+
+00:26:54.459 --> 00:26:58.400
+Note that this tool requires
+a full pathname to run.
+
+00:27:00.878 --> 00:27:05.166
+After obtaining a list of drivers and
+their versions on Windows or Linux,
+
+00:27:05.166 --> 00:27:08.400
+we can look for exploits
+targeting these drivers.
+
+00:27:11.689 --> 00:27:14.833
+Enumerating Binaries That AutoElevate
+
+00:27:15.578 --> 00:27:18.923
+There are a few specific
+enumerations that could reveal
+
+00:27:18.923 --> 00:27:23.700
+interesting OS-specific “shortcuts”
+to privilege escalation.
+
+00:27:24.686 --> 00:27:26.833
+First, on Windows systems,
+
+00:27:26.833 --> 00:27:32.366
+we should check the status of the
+AlwaysInstallElevated registry setting
+
+00:27:32.366 --> 00:27:34.400
+using reg query.
+
+00:27:34.400 --> 00:27:38.166
+If this key is enabled in
+either HKEY_CURRENT_USER,
+
+00:27:39.943 --> 00:27:41.833
+or HKEY_LOCAL_MACHINE,
+
+00:27:43.850 --> 00:27:49.333
+any user can run Windows Installer
+packages with elevated privileges.
+
+00:27:50.649 --> 00:27:54.666
+If this setting is enabled
+(with a value set to 1),
+
+00:27:54.666 --> 00:27:58.733
+we could craft an MSI file
+to elevate our privileges.
+
+00:28:01.957 --> 00:28:06.433
+On Linux-based systems
+we can search for SUID files.
+
+00:28:06.762 --> 00:28:08.800
+Normally, when running
+an executable,
+
+00:28:08.800 --> 00:28:12.200
+it inherits the permissions
+of the user that runs it.
+
+00:28:12.200 --> 00:28:15.266
+However, if the SUID
+permissions are set,
+
+00:28:15.266 --> 00:28:19.233
+the binary will run with the
+permissions of the file owner.
+
+00:28:19.650 --> 00:28:25.133
+This means that if a binary is owned
+by root and has the SUID bit set,
+
+00:28:25.133 --> 00:28:30.266
+any user will be able to execute
+that binary with elevated privileges.
+
+00:28:31.429 --> 00:28:38.366
+We can use the find command again, this
+time to search for SUID-marked binaries.
+
+00:28:38.366 --> 00:28:42.566
+Like before, we’ll start our search at
+the root directory,
+
+00:28:43.378 --> 00:28:44.933
+looking for files,
+
+00:28:45.766 --> 00:28:48.200
+with the SUID bit set,
+
+00:28:48.792 --> 00:28:52.000
+and we’ll discard all error messages.
+
+00:28:55.837 --> 00:28:59.266
+The command found several SUID binaries.
+
+00:28:59.507 --> 00:29:04.866
+The exploitation of SUID varies
+based on several factors.
+
+00:29:05.085 --> 00:29:09.366
+For example, if the copy command
+had the SUID bit set,
+
+00:29:09.366 --> 00:29:12.966
+we could copy and
+overwrite sensitive files.

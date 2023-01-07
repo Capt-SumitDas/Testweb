@@ -1,0 +1,54 @@
+WEBVTT
+
+00:00:01.533 --> 00:00:03.300
+Targeting the Web Application
+
+00:00:04.100 --> 00:00:07.733
+First, we will simply browse the
+web application home page.
+
+00:00:18.566 --> 00:00:22.633
+The home page seems to be a fairly
+standard company landing page.
+
+00:00:23.600 --> 00:00:25.066
+The links in the navigation bar
+
+00:00:25.066 --> 00:00:29.833
+all point to anchors on the home page and
+a feedback survey is on the bottom left.
+
+00:00:40.633 --> 00:00:45.200
+There do not appear to be any other
+fields with user-controlled input.
+
+00:00:45.574 --> 00:00:50.233
+The Nmap scan indicated that the web page
+is running on WordPress 5.3,
+
+00:00:50.233 --> 00:00:53.500
+but we should gather more
+information to confirm this.
+
+00:00:54.268 --> 00:00:57.700
+While the WordPress core itself
+has had its share of vulnerabilities,
+
+00:00:57.700 --> 00:01:00.733
+the WordPress developers
+are quick to patch them.
+
+00:01:01.158 --> 00:01:05.000
+However, themes and plugins
+are written by the community
+
+00:01:05.000 --> 00:01:08.133
+and many vulnerabilities
+are improperly patched
+
+00:01:08.133 --> 00:01:10.533
+or are simply never fixed at all.
+
+00:01:14.620 --> 00:01:18.033
+This makes WordPress a
+great target for compromise.

@@ -1,0 +1,56 @@
+WEBVTT
+
+00:00:02.133 --> 00:00:04.466
+Interacting with a DNS Server
+
+00:00:04.900 --> 00:00:08.433
+Each domain can use
+different types of DNS records
+
+00:00:08.900 --> 00:00:12.033
+and due to the wealth of information
+contained within DNS,
+
+00:00:12.033 --> 00:00:15.933
+it’s often a lucrative target
+for active information gathering.
+
+00:00:19.674 --> 00:00:22.300
+To demonstrate this,
+we’ll use the host command
+
+00:00:22.300 --> 00:00:27.900
+to find the IP address of
+www.megacorpone.com
+
+00:00:31.444 --> 00:00:35.733
+By default, the host command
+looks for an A host record,
+
+00:00:35.733 --> 00:00:41.433
+but what if we wanted to find the MX or
+perhaps some interesting TXT records?
+
+00:00:44.833 --> 00:00:47.533
+To do this, we can use the -t option
+
+00:00:47.533 --> 00:00:50.400
+to specify the type of
+record we are looking for.
+
+00:00:50.400 --> 00:00:51.733
+For example,
+
+00:00:51.733 --> 00:00:54.866
+to find the servers that handle
+email for the domain,
+
+00:00:54.866 --> 00:00:57.333
+we search for the mx records.
+
+00:00:59.249 --> 00:01:03.200
+DNS text records can contain
+any type of arbitrary data
+
+00:01:03.200 --> 00:01:05.500
+and are often worth investigating.

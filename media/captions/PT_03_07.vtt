@@ -1,0 +1,31 @@
+WEBVTT
+
+00:00:01.584 --> 00:00:03.584
+Powercat Bind Shells
+
+00:00:04.522 --> 00:00:08.622
+We can also use Powercat to start
+a bind shell on Bob’s computer.
+
+00:00:12.589 --> 00:00:15.655
+We’ll use the -l option to
+create a listener
+
+00:00:15.655 --> 00:00:19.522
+and -p to specify the
+listening port number.
+
+00:00:20.222 --> 00:00:27.022
+Then we use the familiar -e option
+to execute cmd.exe once connected.
+
+00:00:28.893 --> 00:00:31.760
+Finally, Alice will create
+a Netcat connection
+
+00:00:31.760 --> 00:00:34.193
+to the bind shell on Bob’s computer.
+
+00:00:38.484 --> 00:00:43.651
+Excellent, we have yet another
+alternative to standard Netcat shells.

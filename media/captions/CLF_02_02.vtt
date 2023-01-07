@@ -1,0 +1,23 @@
+WEBVTT
+
+00:00:01.711 --> 00:00:04.045
+Redirecting to an Existing File
+
+00:00:04.545 --> 00:00:09.378
+To append additional data to an existing
+file (as opposed to overwriting the file)
+
+00:00:09.378 --> 00:00:12.411
+use the double right-angle
+bracket operator.
+
+00:00:14.845 --> 00:00:15.711
+Once again,
+
+00:00:15.711 --> 00:00:18.945
+be sure to exercise caution
+with redirections
+
+00:00:18.945 --> 00:00:21.478
+so you don’t overwrite
+anything important.

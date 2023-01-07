@@ -1,0 +1,145 @@
+WEBVTT
+
+00:00:01.416 --> 00:00:04.400
+Creating a Stable Reverse Tunnel
+
+00:00:05.182 --> 00:00:12.166
+Similar to when we had unprivileged shell
+access to Ajla via the www-data user,
+
+00:00:12.166 --> 00:00:18.466
+we can’t use a standard ssh connection for
+Zora using the mysql account
+
+00:00:18.466 --> 00:00:23.033
+since this user does not
+have shell access by default.
+
+00:00:23.741 --> 00:00:28.500
+While we can create a ssh tunnel
+similar to the one used on Ajla,
+
+00:00:28.947 --> 00:00:31.700
+there is another option
+that we can set up
+
+00:00:31.700 --> 00:00:35.866
+since Zora is running such
+a recent version of Alpine.
+
+00:00:38.699 --> 00:00:43.133
+Newer versions of the ssh client
+allow us to establish a very
+
+00:00:43.133 --> 00:00:48.366
+useful type of tunnel via reverse
+dynamic port forwarding.
+
+00:00:49.186 --> 00:00:55.033
+Zora is running ssh version 8.1, which
+should support this feature.
+
+00:00:55.965 --> 00:01:01.666
+If we can get this to work, we will have
+full network access to the sandbox
+
+00:01:01.666 --> 00:01:07.066
+internal network through a SOCKS
+proxy running on our Kali machine.
+
+00:01:08.073 --> 00:01:11.133
+Since we only have access to
+a meterpreter shell,
+
+00:01:11.133 --> 00:01:14.833
+we need to create a
+new ssh key on Zora
+
+00:01:14.833 --> 00:01:19.700
+and run the ssh client in a way
+that does not require interaction.
+
+00:01:20.445 --> 00:01:23.733
+First, let’s generate an
+ssh key on Zora.
+
+00:01:31.151 --> 00:01:33.333
+With the SSH keys generated,
+
+00:01:33.333 --> 00:01:37.894
+we need to set up the authorized_keys
+file on our Kali machine
+
+00:01:37.894 --> 00:01:42.766
+for the kali user with the same
+type of restrictions as we did earlier.
+
+00:01:53.838 --> 00:01:58.954
+The “from” IP does not have to change
+since the traffic is still coming
+
+00:01:58.954 --> 00:02:03.233
+from the external firewall as
+far as our Kali system is concerned.
+
+00:02:11.024 --> 00:02:13.733
+We will need to change
+the ssh command a bit.
+
+00:02:15.522 --> 00:02:19.866
+This time, we don’t need multiple
+remote port forwarding options.
+
+00:02:20.463 --> 00:02:27.133
+We'll only need one port forwarding
+option, which is -R 1080.
+
+00:02:28.139 --> 00:02:31.366
+By not including a host after the port,
+
+00:02:31.366 --> 00:02:36.066
+ssh is instructed to create a
+SOCKS proxy on our Kali server.
+
+00:02:36.700 --> 00:02:40.833
+We also need to change
+the location of the private key.
+
+00:02:41.504 --> 00:02:45.966
+Running this command will initiate
+the ssh connection to our Kali machine.
+
+00:02:50.701 --> 00:02:52.721
+We can double-check that
+the port was opened
+
+00:02:52.721 --> 00:02:55.466
+by running netstat on our Kali system.
+
+00:02:59.194 --> 00:03:01.833
+With the dynamic reverse
+tunnel established,
+
+00:03:01.833 --> 00:03:06.633
+we can configure proxychains
+on Kali to use the SOCKS proxy.
+
+00:03:07.788 --> 00:03:12.066
+We can do this by opening the
+proxychains configuration file,
+
+00:03:12.066 --> 00:03:16.866
+and editing the last line,
+specifying port 1080.
+
+00:03:30.883 --> 00:03:36.066
+At this point, we should have a stable
+tunnel to access the internal network
+
+00:03:36.066 --> 00:03:40.033
+and can move on to the
+next target, Poultry,
+
+00:03:40.033 --> 00:03:43.766
+that we discovered in the
+share mounted on Zora.

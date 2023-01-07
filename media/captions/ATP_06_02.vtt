@@ -1,0 +1,44 @@
+WEBVTT
+
+00:00:01.533 --> 00:00:05.600
+Exploitation (Or Just Logging In)
+
+00:00:06.500 --> 00:00:09.866
+Now that we have a higher degree of
+confidence that Windows is running on
+
+00:00:09.866 --> 00:00:16.800
+this host and we found that RDP is open,
+we will use xfreerdp to connect to it.
+
+00:00:18.766 --> 00:00:26.400
+As we did with Nmap, we have to prepend
+xfreerdp with the proxychains command.
+
+00:00:26.966 --> 00:00:33.933
+We'll provide the domain and user name
+with the /d and /u flags respectively.
+
+00:00:34.800 --> 00:00:39.566
+In order to redirect the clipboard,
+we will use the clipboard flag,
+
+00:00:39.566 --> 00:00:43.800
+which will allow us to
+copy and paste to Poultry.
+
+00:00:44.533 --> 00:00:48.366
+Finally, we also provide
+the host with the /v flag.
+
+00:00:51.633 --> 00:00:54.033
+Next, we will be prompted
+for a password,
+
+00:00:54.033 --> 00:00:56.733
+which we discovered in
+the system report script.
+
+00:01:03.733 --> 00:01:08.966
+The credentials worked and we are
+presented with a Windows 7 desktop.

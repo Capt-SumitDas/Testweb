@@ -1,0 +1,66 @@
+WEBVTT
+
+00:00:00.773 --> 00:00:04.700
+Assembling the Pieces:
+Penetration Test Breakdown 
+
+00:00:05.704 --> 00:00:09.433
+Now that we have introduced all the
+individual pieces of a penetration test,
+
+00:00:09.433 --> 00:00:11.866
+it’s time to put them together.
+
+00:00:12.631 --> 00:00:16.100
+In this module, we’ll conduct
+a simulated penetration test
+
+00:00:16.100 --> 00:00:19.100
+inspired by real-world findings.
+
+00:00:20.273 --> 00:00:21.273
+During this penetration test,
+
+00:00:21.273 --> 00:00:25.400
+we will alternate between
+enumeration and exploitation.
+
+00:00:26.333 --> 00:00:28.733
+We will also review commonly-made mistakes
+
+00:00:28.733 --> 00:00:33.833
+and discuss why it is not always
+necessary to obtain root on a target.
+
+00:00:35.726 --> 00:00:39.200
+Our fictitious client has
+provided us an initial target
+
+00:00:39.200 --> 00:00:41.700
+named “sandbox.local”
+
+00:00:42.260 --> 00:00:45.700
+and revealed that a compromised
+domain administrator account
+
+00:00:45.700 --> 00:00:49.133
+would have a devastating
+impact on their business.
+
+00:00:52.946 --> 00:00:56.900
+This domain is accessible via the PWK VPN
+
+00:00:56.900 --> 00:01:01.200
+but requires us to add an
+entry to our /etc/hosts file.
+
+00:01:02.115 --> 00:01:05.066
+First, we’ll make a backup
+of the existing file.
+
+00:01:08.648 --> 00:01:14.166
+Now we’ll append an entry that will allow
+us to contact the domain via its DNS name.
+
+00:01:19.064 --> 00:01:20.833
+Great, let’s continue.

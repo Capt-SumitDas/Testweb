@@ -1,0 +1,349 @@
+WEBVTT
+
+00:00:01.325 --> 00:00:03.933
+Creating a Stable Pivot Point
+
+00:00:05.014 --> 00:00:06.033
+Before continuing,
+
+00:00:06.033 --> 00:00:08.333
+let’s review what we currently have.
+
+00:00:10.758 --> 00:00:15.666
+We have a shell on the WordPress box
+as the www-data user,
+
+00:00:16.810 --> 00:00:19.900
+and we also have network access
+to the database.
+
+00:00:20.512 --> 00:00:23.866
+Finally, we just discovered
+database credentials
+
+00:00:23.866 --> 00:00:25.600
+that we know are valid
+
+00:00:25.868 --> 00:00:29.466
+since they are already in use
+by the WordPress application.
+
+00:00:30.685 --> 00:00:34.600
+Since the WordPress machine and the
+database server are on separate networks,
+
+00:00:34.600 --> 00:00:37.366
+this is a great time to use a tunnel.
+
+00:00:40.191 --> 00:00:42.441
+However, our choices are limited
+
+00:00:42.441 --> 00:00:45.233
+due to fact that our
+reverse shell is running
+
+00:00:45.233 --> 00:00:47.833
+in the context of the unprivileged
+
+00:00:47.833 --> 00:00:50.400
+www-data user account,
+
+00:00:50.400 --> 00:00:53.833
+which doesn’t have a valid login shell.
+
+00:00:54.958 --> 00:00:56.808
+Since ssh (client)
+
+00:00:56.808 --> 00:01:02.033
+is a core application that is included
+in almost every Linux distribution,
+
+00:01:02.420 --> 00:01:05.533
+we can attempt to use it
+to create a reverse tunnel.
+
+00:01:06.433 --> 00:01:10.066
+One caveat is that since
+we do not have root access
+
+00:01:10.066 --> 00:01:13.600
+to create a login for the www-data user,
+
+00:01:13.966 --> 00:01:18.200
+we need to use the SSH client
+on the WordPress machine
+
+00:01:18.200 --> 00:01:22.133
+to log in to our Kali server
+to create the tunnels.
+
+00:01:22.620 --> 00:01:25.066
+In short, we’ll need a reverse tunnel.
+
+00:01:25.741 --> 00:01:30.166
+A dynamic port forward would not be useful
+to us since the tunnel would be going
+
+00:01:30.166 --> 00:01:31.300
+the wrong way.
+
+00:01:32.000 --> 00:01:36.433
+A local port forward would not be
+useful either for the same reason.
+
+00:01:37.020 --> 00:01:41.266
+The remote port forward would
+allow us to open up a port in Kali
+
+00:01:41.266 --> 00:01:44.600
+that would point to the MariaDB server.
+
+00:01:45.112 --> 00:01:46.425
+To accomplish this, we need to know
+
+00:01:46.425 --> 00:01:49.600
+which ports are actually
+open on the database server.
+
+00:01:49.975 --> 00:01:53.366
+First, we will check to see
+if Nmap is on the server.
+
+00:01:53.760 --> 00:01:56.000
+This would make port scanning easier.
+
+00:01:58.443 --> 00:02:01.733
+As expected, Nmap
+is not on the server.
+
+00:02:02.470 --> 00:02:03.200
+ However…
+
+00:02:06.966 --> 00:02:10.400
+…we can use a simple Bash script
+to scan the host.
+
+00:02:12.706 --> 00:02:14.866
+Our script will iterate each port,
+
+00:02:16.141 --> 00:02:18.966
+and make a connection for each port,
+
+00:02:19.897 --> 00:02:23.100
+with a timeout of .1 seconds.
+
+00:02:24.081 --> 00:02:27.766
+If the connection succeeds,
+the script will echo which port is open.
+
+00:02:28.741 --> 00:02:31.100
+This script is quick and rudimentary;
+
+00:02:31.100 --> 00:02:34.500
+however, it should get us
+the information that we want.
+
+00:02:43.112 --> 00:02:45.833
+To run the script, we will
+need to transfer it to Ajla.
+
+00:02:46.870 --> 00:02:50.366
+A quick way to do this is to use
+the meterpreter upload command.
+
+00:02:55.091 --> 00:02:58.733
+With our port scanner uploaded,
+we’ll make it executable and run it.
+
+00:03:05.820 --> 00:03:08.166
+The scan takes a while to complete,
+
+00:03:08.479 --> 00:03:14.133
+but when it’s done, we find that
+ports 22 and 3306 are open.
+
+00:03:15.633 --> 00:03:18.200
+Now we know that we
+will need to create a tunnel
+
+00:03:18.200 --> 00:03:25.033
+to allow Kali to have access to ports 22
+and 3306 on the database server.
+
+00:03:30.983 --> 00:03:34.800
+The ssh command to accomplish
+this will look something like this:
+
+00:03:35.750 --> 00:03:39.000
+We will open port 1122 on Kali
+
+00:03:39.000 --> 00:03:43.033
+and this will connect to
+port 22 on the MariaDB host.
+
+00:03:44.220 --> 00:03:50.333
+We will also open port 13306
+to point to port 3306.
+
+00:03:50.958 --> 00:03:54.600
+However, since we don’t
+have a fully-interactive shell,
+
+00:03:54.600 --> 00:03:57.433
+we can’t run this command as-is.
+
+00:03:57.908 --> 00:03:59.600
+There are two issues.
+
+00:04:00.012 --> 00:04:04.700
+First, ssh will prompt us to accept
+the host key of the Kali machine.
+
+00:04:05.700 --> 00:04:09.100
+Second, ssh will prompt
+for the Kali user’s password,
+
+00:04:09.100 --> 00:04:13.133
+which we shold avoid entering
+on a compromised host.
+
+00:04:14.108 --> 00:04:18.133
+We can fix the first issue by
+passing in two optional flags
+
+00:04:18.133 --> 00:04:21.400
+to automatically accept the
+host key of our Kali machine.
+
+00:04:28.412 --> 00:04:33.000
+The first flag will set the
+UserKnownHostsFile to /dev/null…
+
+00:04:33.350 --> 00:04:37.500
+…and the second will will instruct ssh
+to not prompt for the host key.
+
+00:04:38.287 --> 00:04:42.666
+This combination will essentially
+disable the host key check.
+
+
+00:04:43.941 --> 00:04:47.533
+Next, we’ll bypass the
+password prompt with ssh keys.
+
+00:04:53.158 --> 00:04:56.800
+We will generate ssh keys
+on the WordPress host,
+
+00:04:56.800 --> 00:04:59.800
+configure Kali to accept a login
+
+00:04:59.800 --> 00:05:01.833
+from the newly-generated key
+
+00:05:01.833 --> 00:05:03.833
+(and only allow port forwarding),
+
+00:05:03.833 --> 00:05:09.433
+ and modify the ssh command
+one more time to match our changes.
+
+00:05:09.733 --> 00:05:13.066
+Let’s begin by generating an SSH key pair.
+
+00:05:24.629 --> 00:05:29.300
+This new public key needs to
+be entered in our Kali host’s
+
+00:05:29.300 --> 00:05:35.200
+authorized_keys file for the kali user,
+but with some restrictions.
+
+00:05:42.537 --> 00:05:46.600
+To avoid potential security issues,
+we’ll only allow access from the
+
+00:05:46.600 --> 00:05:49.266
+WordPress machine’s IP address.
+
+00:05:51.032 --> 00:05:53.166
+Note that this will be the NAT IP
+
+00:05:53.166 --> 00:05:59.266
+since this is what Kali will see and not
+the IP of the actual WordPress host.
+
+00:06:00.168 --> 00:06:04.100
+Next, we’ll ignore user commands
+with the command option.
+
+00:06:06.399 --> 00:06:09.866
+We’ll also prevent agent
+and X11 forwarding
+
+00:06:09.866 --> 00:06:12.333
+with the no-agent-forwarding
+
+00:06:12.333 --> 00:06:15.966
+and no-X11-forwarding options.
+
+00:06:17.453 --> 00:06:22.533
+Finally, we’ll block pty allocation
+with the no-pty option.
+
+00:06:23.969 --> 00:06:27.266
+This entry allows the owner
+of the private key
+
+00:06:27.266 --> 00:06:31.033
+(the web server), to log in
+to our Kali machine
+
+00:06:31.033 --> 00:06:36.500
+but prevents them from running commands
+and only allows for port forwarding.
+
+00:06:47.262 --> 00:06:51.366
+Next, we need to add a couple more
+options to our ssh command
+
+00:06:51.366 --> 00:06:53.200
+to ensure that it will work.
+
+00:06:56.275 --> 00:06:59.700
+First we need to add the -N flag
+
+00:06:59.700 --> 00:07:03.266
+to specify that we are not
+running any commands.
+
+00:07:03.889 --> 00:07:08.366
+We also need the -f option
+to background ssh.
+
+00:07:09.472 --> 00:07:14.600
+Finally, we need to provide the
+key file that we are using with -i.
+
+00:07:15.438 --> 00:07:19.566
+Next, we’ll run the SSH command
+in the meterpreter shell.
+
+00:07:31.206 --> 00:07:35.833
+Now let’s verify that the ports
+are open on our Kali machine.
+
+00:07:42.860 --> 00:07:46.266
+At this point, since the ssh command
+was run in the background,
+
+00:07:46.266 --> 00:07:49.400
+even if our meterpreter shell were to die,
+
+00:07:49.400 --> 00:07:52.700
+we would have remote access
+to the database server
+
+00:07:52.700 --> 00:07:54.666
+through the remote tunnel.

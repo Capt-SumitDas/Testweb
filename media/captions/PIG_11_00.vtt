@@ -1,0 +1,35 @@
+WEBVTT
+
+00:00:01.300 --> 00:00:03.666
+User Information Gathering
+
+00:00:04.666 --> 00:00:08.933
+In addition to gathering information about
+our target organization’s resources,
+
+00:00:08.933 --> 00:00:13.466
+we can also gather information about the
+organization’s employees.
+
+00:00:14.300 --> 00:00:20.233
+Our purpose for gathering this information
+is to compile user or password lists,
+
+00:00:20.233 --> 00:00:23.400
+build pretexting for social engineering,
+
+00:00:23.400 --> 00:00:27.100
+augment phishing campaigns or client-side
+attacks,
+
+00:00:27.100 --> 00:00:31.100
+execute credential stuffing, and much
+more.
+
+00:00:32.200 --> 00:00:36.466
+Some of the following methods will overlap
+with those already discussed in previous
+
+00:00:36.466 --> 00:00:41.933
+sections, but we’ll go deeper into a few
+tools specific to user enumeration.

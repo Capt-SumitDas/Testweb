@@ -1,0 +1,37 @@
+WEBVTT
+
+00:00:01.568 --> 00:00:04.200
+apt upgrade
+
+00:00:04.200 --> 00:00:08.900
+After updating the APT database, we can 
+upgrade the installed packages 
+
+00:00:08.900 --> 00:00:14.000
+and core system to the latest versions 
+using the apt upgrade command.
+
+00:00:16.233 --> 00:00:18.466
+In order to upgrade a single package, 
+
+00:00:18.466 --> 00:00:23.166
+supply the package name as an option 
+to the apt upgrade command.
+
+00:00:25.200 --> 00:00:29.133
+While you can fully upgrade your 
+Kali Linux installation at any time, 
+
+00:00:29.133 --> 00:00:33.360
+it’s a good idea to take a snapshot of 
+the virtual machine in a clean state 
+
+00:00:33.360 --> 00:00:34.900
+before doing so.
+
+00:00:34.900 --> 00:00:37.766
+This gives you the ability to roll back 
+the VM 
+
+00:00:37.766 --> 00:00:40.966
+if the upgrade causes unexpected results.

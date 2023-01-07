@@ -1,0 +1,68 @@
+WEBVTT
+
+00:00:01.185 --> 00:00:02.933
+SNMP Enumeration
+
+00:00:04.032 --> 00:00:08.000
+Over the years, we have often found that
+the Simple Network Management Protocol
+
+00:00:08.000 --> 00:00:11.933
+is not well-understood by
+many network administrators.
+
+00:00:12.836 --> 00:00:16.433
+This often results in
+SNMP misconfigurations,
+
+00:00:16.433 --> 00:00:19.833
+which can result in significant
+information leakage.
+
+00:00:20.626 --> 00:00:22.933
+SNMP is based on UDP,
+
+00:00:22.933 --> 00:00:25.433
+a simple, stateless protocol,
+
+00:00:25.433 --> 00:00:29.866
+and is therefore susceptible to
+IP spoofing and replay attacks.
+
+00:00:30.722 --> 00:00:36.115
+In addition, the commonly used
+SNMP protocols 1, 2, and 2c
+
+00:00:36.115 --> 00:00:38.466
+offer no traffic encryption,
+
+00:00:38.466 --> 00:00:42.300
+meaning that SNMP information
+and credentials
+
+00:00:42.300 --> 00:00:45.766
+can be easily intercepted
+over a local network.
+
+00:00:46.496 --> 00:00:51.100
+Traditional SNMP protocols also
+have weak authentication schemes
+
+00:00:51.100 --> 00:00:53.166
+and are commonly left configured
+
+00:00:53.166 --> 00:00:57.033
+with default public and
+private community strings.
+
+00:00:57.873 --> 00:01:01.666
+Now, consider that all of
+the above applies to a protocol,
+
+00:01:01.666 --> 00:01:05.433
+which by definition is meant to
+“Manage the Network”.
+
+00:01:06.618 --> 00:01:11.866
+For all these reasons, SNMP is another one
+of our favorite enumeration protocols.

@@ -1,0 +1,59 @@
+WEBVTT
+
+00:00:01.466 --> 00:00:02.366
+nano
+
+00:00:02.633 --> 00:00:05.966
+Nano is one of the simplest-to-use 
+text editors.
+
+00:00:06.900 --> 00:00:09.166
+To open a file and begin editing, 
+
+00:00:09.166 --> 00:00:13.433
+simply run nano, passing a filename
+as an optional argument:
+
+00:00:14.600 --> 00:00:16.066
+Once the file is opened,
+
+00:00:16.066 --> 00:00:19.900
+we can immediately start making any
+required changes to the file
+
+00:00:19.900 --> 00:00:22.133
+just as we would in a graphical editor.
+
+00:00:22.466 --> 00:00:25.700
+The nano command menu is located at
+the bottom of the screen.
+
+00:00:26.233 --> 00:00:29.100
+Some of the most-used commands
+to memorize include
+
+00:00:29.100 --> 00:00:32.600
+control-o to write changes to the file…
+
+
+00:00:32.966 --> 00:00:35.600
+Control-k to cut the current line…
+
+00:00:35.866 --> 00:00:41.266
+And control-u to un-cut a line and
+paste it at the cursor location.
+
+00:00:41.900 --> 00:00:45.566
+Control-w is used to search
+within the file..
+
+00:00:46.066 --> 00:00:49.500
+And finally, control-x is
+used to exit.
+
+00:00:52.233 --> 00:00:54.633
+For additional information 
+regarding nano,
+
+00:00:54.633 --> 00:00:57.100
+refer to its online documentation.

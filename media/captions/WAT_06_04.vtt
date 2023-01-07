@@ -1,0 +1,224 @@
+WEBVTT
+
+00:00:02.190 --> 00:00:05.433
+Stealing Cookies and Session Information
+
+00:00:06.578 --> 00:00:10.733
+We can use XSS to steal cookies
+and session information
+
+00:00:10.733 --> 00:00:15.833
+if the application uses an insecure
+session management configuration.
+
+00:00:16.578 --> 00:00:19.266
+If we can steal an authenticated
+user’s cookie,
+
+00:00:19.266 --> 00:00:23.400
+we could masquerade as that
+user within the target web site.
+
+00:00:24.211 --> 00:00:27.300
+Assuming JavaScript can
+access the cookie value,
+
+00:00:27.300 --> 00:00:30.700
+we can use it as part of a
+link and send the link,
+
+00:00:30.700 --> 00:00:34.233
+which we could deconstruct
+to retrieve the cookie value.
+
+00:00:34.578 --> 00:00:37.600
+Let’s try an example to
+demonstrate how this works.
+
+00:00:38.278 --> 00:00:43.333
+Our example application
+sets a PHPSESSID cookie
+
+00:00:43.333 --> 00:00:45.700
+when an admin user logs in.
+
+00:00:46.878 --> 00:00:48.679
+The application uses the cookie
+
+00:00:48.679 --> 00:00:51.666
+to determine if the user
+has been authenticated.
+
+00:00:52.367 --> 00:00:54.366
+If we modify our payload,
+
+00:00:54.366 --> 00:00:56.666
+we can capture the victim’s cookie
+
+00:00:56.666 --> 00:01:00.066
+to gain access to their
+authenticated session.
+
+00:01:00.811 --> 00:01:04.000
+Let’s re-establish our netcat
+listener before we proceed.
+
+00:01:09.852 --> 00:01:12.900
+We will use JavaScript to
+read the value of the cookie
+
+00:01:12.900 --> 00:01:17.566
+and append it to an image URL that
+links back to our attack machine.
+
+00:01:22.959 --> 00:01:27.900
+The browser will read the image tag and
+send a GET request to our attack system
+
+00:01:27.900 --> 00:01:32.000
+with the victim’s cookie as
+part of the URL query string.
+
+00:01:32.774 --> 00:01:37.800
+To implement our cookie stealer, we
+need to modify our XSS payload as follows:
+
+00:01:38.454 --> 00:01:41.400
+Once we submit this
+payload to the application,
+
+00:01:41.400 --> 00:01:46.133
+we just need to wait for an authenticated
+user to access the application
+
+00:01:46.133 --> 00:01:49.666
+so we can steal the
+PHPSESSID cookie.
+
+00:02:04.070 --> 00:02:05.566
+We can do this manually
+
+00:02:05.566 --> 00:02:09.366
+or we can use a PowerShell script
+on the Windows 10 lab machine
+
+00:02:09.366 --> 00:02:12.166
+to simulate an admin user login.
+
+00:02:29.984 --> 00:02:33.366
+This script creates an
+instance of Internet Explorer,
+
+00:02:35.365 --> 00:02:37.900
+navigates to the login page,
+
+00:02:40.711 --> 00:02:41.711
+logs in,
+
+00:02:43.656 --> 00:02:45.233
+and then exits.
+
+00:02:46.682 --> 00:02:50.033
+This is enough to trigger our XSS payloads.
+
+00:02:59.898 --> 00:03:03.566
+We can run the script
+with ExecutionPolicy Bypass
+
+00:03:03.566 --> 00:03:07.200
+to temporarily allow unsigned scripts
+
+00:03:07.200 --> 00:03:11.433
+and use the File option to
+specify the script to execute.
+
+00:03:17.130 --> 00:03:19.300
+When our victim views the affected page,
+
+00:03:19.300 --> 00:03:22.266
+their browser will make
+a connection back to us
+
+00:03:22.266 --> 00:03:25.433
+with the authenticated session ID value.
+
+00:03:31.828 --> 00:03:34.033
+Now that we have the
+authenticated session ID,
+
+00:03:34.033 --> 00:03:36.200
+we need to set it in our browser.
+
+00:03:42.148 --> 00:03:45.333
+We can use the
+Cookie-Editor browser add-on
+
+00:03:45.333 --> 00:03:48.266
+to easily set and manipulate cookies.
+
+00:03:54.379 --> 00:03:58.033
+We can install this add-on
+by clicking on Add to Firefox.
+
+00:04:02.408 --> 00:04:06.933
+We’ll click Add to accept the permissions
+dialog and install the add-on.
+
+00:04:11.474 --> 00:04:14.766
+We now have a new cookie icon
+on the Firefox toolbar
+
+00:04:14.766 --> 00:04:17.300
+next to the FoxyProxy Icon.
+
+00:04:18.362 --> 00:04:21.133
+Now that we have Cookie-Editor installed,
+
+00:04:21.133 --> 00:04:26.433
+we’ll head back to the web application
+and click on the Cookie-Editor icon
+
+00:04:26.433 --> 00:04:28.700
+to open its dialog window.
+
+00:04:35.746 --> 00:04:38.300
+Next, we’ll click the Add button,
+
+00:04:40.455 --> 00:04:43.100
+paste in the stolen cookie values,
+
+00:04:47.156 --> 00:04:50.100
+and click Add to save the new cookie.
+
+00:04:52.367 --> 00:04:54.333
+Once the cookie value is added,
+
+00:04:54.333 --> 00:04:59.366
+we can browse the administrative interface
+without providing any credentials.
+
+00:05:03.217 --> 00:05:06.433
+Notice that we don’t get
+redirected to the login page
+
+00:05:06.433 --> 00:05:10.466
+and we have “Delete” links
+next to the feedback items.
+
+00:05:11.187 --> 00:05:13.433
+This indicates that we have successfully
+
+00:05:13.433 --> 00:05:16.433
+hijacked the
+administrative user’s session.
+
+00:05:17.159 --> 00:05:20.200
+Note that this attack is session-specific.
+
+00:05:24.584 --> 00:05:28.206
+Once we steal the session,
+we can masquerade as the victim
+
+00:05:28.206 --> 00:05:32.433
+until they log out 
+or their session expires.

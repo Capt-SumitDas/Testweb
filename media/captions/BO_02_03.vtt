@@ -1,0 +1,452 @@
+WEBVTT
+
+00:00:01.843 --> 00:00:03.410
+Navigating Code
+
+00:00:04.870 --> 00:00:07.270
+With the different windows of
+the debugger mapped out,
+
+00:00:07.270 --> 00:00:10.003
+it is time to navigate
+the assembly code.
+
+00:00:10.516 --> 00:00:15.049
+When loaded, the application execution
+was halted at the program entry point,
+
+00:00:15.049 --> 00:00:19.916
+as indicated by the word “Paused” in
+the lower right corner of the debugger.
+
+00:00:20.583 --> 00:00:24.216
+We can now execute instructions
+one at a time using the
+
+00:00:24.216 --> 00:00:29.583
+Debug > Step into or Debug > Step
+over commands,
+
+00:00:29.583 --> 00:00:34.416
+which have shortcut keys
+of F7 and F8 respectively.
+
+00:00:34.910 --> 00:00:37.276
+The difference between
+the two is that Step
+
+00:00:37.276 --> 00:00:41.910
+into will follow the execution
+flow into a given function call,
+
+00:00:41.910 --> 00:00:47.676
+while Step over will execute the
+entire function and return from it.
+
+00:00:48.583 --> 00:00:51.083
+Since the entry point in this
+case does not coincide
+
+00:00:51.083 --> 00:00:53.516
+with the beginning of
+the main function,
+
+00:00:53.516 --> 00:00:58.883
+our first goal is to find where the
+main function is located in memory.
+
+00:00:59.476 --> 00:01:02.410
+To do this, we can search
+the process memory space
+
+00:01:02.410 --> 00:01:06.343
+for the error message that was
+included in the program source code.
+
+00:01:08.010 --> 00:01:11.976
+To search, we right click inside
+the disassembly window,
+
+00:01:12.683 --> 00:01:15.249
+and select “Search for”
+
+00:01:15.922 --> 00:01:18.955
+“All referenced text strings”
+
+00:01:22.016 --> 00:01:25.316
+The result window clearly shows
+the string we are looking for.
+
+00:01:25.828 --> 00:01:27.495
+Double-clicking on that line,
+
+00:01:28.437 --> 00:01:34.103
+we return to the disassembly window,
+but this time inside the main function.
+
+00:01:34.676 --> 00:01:37.610
+Depending on your screen resolution,
+you may need to scroll down
+
+00:01:37.637 --> 00:01:41.937
+in the disassembly window to
+find the highlighted instruction.
+
+00:01:42.655 --> 00:01:43.622
+In the disassembly,
+
+00:01:43.758 --> 00:01:47.624
+we recognize the instructions
+that display the error message string 
+
+00:01:47.624 --> 00:01:51.170
+as well as the call to
+the string copy function.
+
+00:01:51.776 --> 00:01:55.576
+Our interest lies in the string
+copy function call itself,
+
+00:01:55.576 --> 00:01:58.649
+so we can place a breakpoint
+on this instruction.
+
+00:01:59.503 --> 00:02:03.670
+A breakpoint is essentially an
+intentional pause that can be set
+
+00:02:03.670 --> 00:02:06.803
+by the debugger on any
+program instruction.
+
+00:02:07.255 --> 00:02:10.022
+To set a breakpoint on the
+string copy function call,
+
+00:02:10.049 --> 00:02:14.216
+we select the line in the disassembly
+window and press F2.
+
+00:02:15.322 --> 00:02:16.522
+Once set,
+
+00:02:16.522 --> 00:02:20.789
+the breakpoint will show the instruction
+line with a light blue highlight.
+
+00:02:21.449 --> 00:02:24.516
+Next, we can continue
+the execution flow
+
+00:02:24.516 --> 00:02:30.716
+by selecting “Run” from the
+“Debug” menu or by pressing F9.
+
+00:02:31.664 --> 00:02:34.764
+Almost immediately,
+the execution stops again
+
+00:02:34.764 --> 00:02:37.864
+just before the call to
+the string copy function
+
+00:02:37.864 --> 00:02:44.210
+where we set our breakpoint
+at address 004015AA.
+
+00:02:45.243 --> 00:02:47.676
+EIP is set to this address as well
+
+00:02:47.676 --> 00:02:51.076
+since it points to the next
+instruction to be executed.
+
+00:02:52.355 --> 00:02:54.722
+In the stack window,
+we find the twelve
+
+00:02:54.722 --> 00:02:57.355
+“A” characters from our
+command line input,
+
+00:02:57.870 --> 00:03:01.737
+…and the address of the
+64-byte buffer variable
+
+00:03:01.737 --> 00:03:03.910
+where these characters will be copied.
+
+00:03:04.680 --> 00:03:11.947
+We can now step into the string copy call
+via the Debug menu or by pressing F7.
+
+00:03:16.103 --> 00:03:18.107
+Notice that the addresses
+in the upper-left
+
+00:03:18.107 --> 00:03:20.841
+assembly instruction
+window have changed
+
+00:03:21.003 --> 00:03:24.443
+because we are now inside
+the string copy function.
+
+00:03:25.697 --> 00:03:29.731
+Now, we can double-click on the
+string copy destination address
+
+00:03:29.731 --> 00:03:30.870
+in the stack pane
+
+00:03:30.870 --> 00:03:35.570
+to better monitor the memory write
+operations occurring at that address.
+
+00:03:38.176 --> 00:03:41.276
+This changes the view of
+the stack pane slightly.
+
+00:03:42.103 --> 00:03:46.503
+Now, we see relative
+(positive and negative) offsets
+
+00:03:46.503 --> 00:03:50.303
+in the left-hand column
+instead of real addresses:
+
+00:03:51.249 --> 00:03:53.849
+Let’s take a closer look at
+this stack window.
+
+00:03:55.176 --> 00:03:58.143
+First, note that offset zero,
+
+00:03:58.143 --> 00:04:08.016
+now highlighted and noted with an
+arrow indicator, is address 0065FE70.
+
+00:04:09.216 --> 00:04:12.416
+This is the beginning of
+the destination buffer
+
+00:04:12.443 --> 00:04:16.210
+where our input string of
+A’s will ultimately be copied.
+
+00:04:17.195 --> 00:04:20.528
+Since we defined a 64-byte
+buffer in our program,
+
+00:04:20.583 --> 00:04:26.283
+our buffer extends from
+offset 0 to offset +40,
+
+00:04:26.662 --> 00:04:30.162
+including the null terminator
+for our character array.
+
+00:04:30.743 --> 00:04:34.543
+Notice that there are what appear
+to be return addresses in this buffer 
+
+00:04:34.543 --> 00:04:37.176
+as well as various other oddities.
+
+00:04:38.170 --> 00:04:42.070
+Since we did not initialize, or clear,
+our buffer when we defined it,
+
+00:04:42.070 --> 00:04:47.803
+that space is filled with residual data,
+which the debugger attempts to interpret.
+
+00:04:48.537 --> 00:04:51.937
+When the time comes to copy
+our array of A’s to the buffer,
+
+00:04:51.937 --> 00:04:54.410
+this residual data will be overwritten.
+
+00:04:55.110 --> 00:05:03.643
+Next, notice the return address of
+004015AF at the top of the stack.
+
+00:05:04.583 --> 00:05:08.616
+This is the address we’ll return to
+when the string copy has completed
+
+00:05:08.616 --> 00:05:13.083
+and correlates to the
+MOV EAX,0 instruction
+
+00:05:13.083 --> 00:05:17.749
+immediately following the call
+to string copy that brought us here.
+
+00:05:18.749 --> 00:05:24.183
+That CALL instruction pushed this
+address on the stack automatically for us.
+
+00:05:24.937 --> 00:05:26.537
+At this point we can let the execution
+
+00:05:26.537 --> 00:05:29.503
+continue to the end of
+the string copy function
+
+00:05:29.503 --> 00:05:36.870
+by selecting “Execute till return” from
+the Debug menu or by pressing Control-F9.
+
+00:05:38.749 --> 00:05:41.816
+This will allow us to see
+the result of the function.
+
+00:05:42.937 --> 00:05:47.503
+Our twelve “A” characters have been
+copied to the stack (into the buffer)
+
+00:05:47.503 --> 00:05:52.903
+and we are clearly within the 64-byte
+buffer limit imposed by the declared
+
+00:05:52.903 --> 00:05:55.270
+local buffer variable size.
+
+00:05:56.049 --> 00:06:00.049
+Before proceeding, make a mental note
+of the address located at offset 
+
+00:06:00.076 --> 00:06:02.543
+4C from the buffer variable.
+
+00:06:03.510 --> 00:06:06.243
+This is the main function
+return address,
+
+00:06:06.243 --> 00:06:09.510
+the address of the instruction
+we’ll return to
+
+00:06:09.510 --> 00:06:12.443
+once the main function
+has completed its execution.
+
+00:06:13.076 --> 00:06:15.110
+We will see this in action in a moment.
+
+00:06:16.810 --> 00:06:20.310
+Now that the string copy function
+has completed its execution
+
+00:06:20.310 --> 00:06:23.810
+and all data has been copied
+into the destination buffer,
+
+00:06:23.837 --> 00:06:27.137
+it’s time to return the
+execution to main
+
+00:06:27.137 --> 00:06:32.470
+through the RETN, or return, 
+assembly instruction.
+
+00:06:33.303 --> 00:06:39.637
+This instruction “pops” the value at
+the top of the stack into the EIP register
+
+00:06:39.637 --> 00:06:45.537
+instructing the CPU to execute
+the code at that location next.
+
+00:06:46.970 --> 00:06:51.037
+If we single-step through this
+RETN instruction with F7,
+
+00:06:54.576 --> 00:06:58.343
+…we arrive back at the main
+function address as expected
+
+00:06:58.343 --> 00:07:02.576
+since this is the next address
+after the string copy call.
+
+00:07:03.576 --> 00:07:10.743
+The next instruction, MOV EAX, 0
+is the equivalent of the “return 0"
+
+00:07:10.770 --> 00:07:16.303
+in our original source code and sends
+the exit status 0 to the operating system.
+
+00:07:17.603 --> 00:07:21.270
+At this point, we have reached
+the main function epilogue.
+
+00:07:21.810 --> 00:07:24.910
+The main function will
+simply return the execution
+
+00:07:24.910 --> 00:07:30.110
+to the very first piece of code created
+by the compiler that initially set up
+
+00:07:30.110 --> 00:07:32.443
+and called the main function itself.
+
+00:07:33.403 --> 00:07:39.070
+The next instruction, LEAVE, puts
+the return address at offset 4C
+
+00:07:39.070 --> 00:07:44.403
+(from the beginning of our buffer variable)
+onto the top of the stack.
+
+00:07:45.476 --> 00:07:51.276
+Then, the RETN assembly instruction
+pops the main function return address
+
+00:07:51.276 --> 00:07:55.243
+from the top of the stack
+and executes the code there.
+
+00:07:57.010 --> 00:08:02.043
+We must linger at this point a while
+longer to understand the bigger picture.
+
+00:08:02.862 --> 00:08:08.028
+In this case, there are no boundary checks
+on the size of the copy in our C code,
+
+00:08:08.055 --> 00:08:12.855
+therefore if we pass a longer
+string as an input to our program,
+
+00:08:12.855 --> 00:08:16.689
+enough data will be written
+to the stack and eventually
+
+00:08:16.716 --> 00:08:21.849
+we should be able to overwrite the return
+address of the main parent function
+
+00:08:21.849 --> 00:08:26.083
+located at offset 4C from
+the buffer variable.
+
+00:08:26.976 --> 00:08:31.510
+This means that if the return address
+overwrite is performed correctly, 
+
+00:08:31.510 --> 00:08:35.376
+the instruction pointer will
+end up under our control
+
+00:08:35.376 --> 00:08:38.210
+as it will contain some of
+our argument data
+
+00:08:38.210 --> 00:08:41.143
+when the main function
+returns to the parent.

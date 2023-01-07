@@ -1,0 +1,55 @@
+WEBVTT
+
+00:00:02.266 --> 00:00:05.733
+Searching, Installing, and Removing Tools
+
+00:00:05.733 --> 00:00:09.533
+The default Kali release contains the 
+most common tools used 
+
+00:00:09.533 --> 00:00:11.433
+in the field of penetration testing.
+
+00:00:11.433 --> 00:00:15.566
+However, it’s not practical to include 
+every single tool present 
+
+00:00:15.566 --> 00:00:18.700
+in the Kali repository in the 
+default release.
+
+00:00:18.700 --> 00:00:22.933
+In this section, we will be exploring 
+the Advanced Package Tool toolset
+
+00:00:22.933 --> 00:00:28.033
+as well as other commands to 
+search for, install, or remove tools.
+
+00:00:28.033 --> 00:00:31.266
+APT is a set of tools that helps 
+manage packages, 
+
+00:00:31.266 --> 00:00:34.666
+or applications, on a Debian-based 
+system.
+
+00:00:34.666 --> 00:00:40.333
+Since Kali is based on Debian, we can use 
+APT to install and remove applications,
+
+00:00:40.333 --> 00:00:44.433
+update packages, and even upgrade 
+the entire system.
+
+00:00:44.433 --> 00:00:49.433
+The magic of APT lies in the fact that it 
+is a complete package management system 
+
+00:00:49.433 --> 00:00:52.500
+that installs or removes the requested 
+package
+
+00:00:52.500 --> 00:00:57.433
+by recursively satisfying its 
+requirements and dependencies.

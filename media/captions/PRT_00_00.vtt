@@ -1,0 +1,52 @@
+WEBVTT
+
+00:00:01.233 --> 00:00:04.066
+Port Redirection and Tunneling
+
+
+00:00:05.500 --> 00:00:09.866
+In this module, we will examine different
+forms of port redirection,
+
+00:00:09.866 --> 00:00:12.933
+tunneling, and traffic encapsulation.
+
+00:00:13.800 --> 00:00:17.066
+Tunneling a protocol involves
+encapsulating it within
+
+00:00:17.066 --> 00:00:18.666
+a different protocol.
+
+00:00:19.000 --> 00:00:21.666
+By using various tunneling techniques,
+
+00:00:21.666 --> 00:00:26.733
+we can carry a specific protocol over an
+incompatible delivery network,
+
+00:00:26.733 --> 00:00:31.533
+or provide a secure route through an
+untrusted network.
+
+00:00:32.133 --> 00:00:35.300
+Understanding these techniques will
+provide us with the skills needed to
+
+00:00:35.300 --> 00:00:39.566
+control the directional flow of traffic,
+which can often be useful in
+
+00:00:39.566 --> 00:00:41.400
+limited network environments.
+
+00:00:42.166 --> 00:00:47.133
+These concepts can be challenging to
+understand and difficult to visualize,
+
+00:00:47.133 --> 00:00:50.733
+but we will work through several
+hypothetical scenarios to gain a clearer
+
+00:00:50.733 --> 00:00:53.133
+picture of the process.

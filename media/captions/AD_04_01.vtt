@@ -1,0 +1,84 @@
+WEBVTT
+
+00:00:01.337 --> 00:00:03.133
+Pass the Hash
+
+00:00:04.207 --> 00:00:07.833
+Pass the Hash is a technique that
+allows an attacker to authenticate
+
+00:00:07.833 --> 00:00:13.466
+to a remote system or service
+using a user’s NTLM hash
+
+00:00:13.466 --> 00:00:16.100
+instead of the plaintext password.
+
+00:00:16.565 --> 00:00:20.633
+Note that this will only work
+for a server or service
+
+00:00:20.633 --> 00:00:24.866
+using NTLM authentication,
+not kerberos.
+
+00:00:25.393 --> 00:00:31.900
+Many third-party tools and frameworks use
+PtH to allow users to both authenticate
+
+00:00:31.900 --> 00:00:37.566
+ and obtain code execution,
+including PsExec from Metasploit
+
+00:00:37.566 --> 00:00:40.533
+and the Passing-the-hash toolkit.
+
+00:00:40.938 --> 00:00:43.800
+The mechanics behind them
+are more or less the same
+
+00:00:43.800 --> 00:00:46.400
+in that the attacker connects
+to the victim
+
+00:00:46.400 --> 00:00:49.100
+using the Server Message Block protocol
+
+00:00:49.100 --> 00:00:52.766
+and performs authentication
+using the NTLM hash.
+
+00:00:53.273 --> 00:00:57.900
+Note that PtH uses the NTLM
+hash legitimately.
+
+00:00:58.062 --> 00:01:02.266
+However, the vulnerability lies in
+the fact that we gained unauthorized
+
+00:01:02.266 --> 00:01:06.466
+access to the password hash
+of a local administrator.
+
+00:01:06.871 --> 00:01:12.866
+To demonstrate this, we can use pth-winexe
+from the Passing-The-Hash toolkit.
+
+00:01:14.973 --> 00:01:19.833
+In this case, we use NTLM authentication
+to obtain code execution
+
+00:01:19.833 --> 00:01:24.800
+on the windows 10 client directly
+from our Kali Linux machine,
+
+00:01:25.205 --> 00:01:28.500
+using only the user’s NTLM hash.
+
+00:01:33.625 --> 00:01:37.300
+This method also works for Active
+Directory domain accounts
+
+00:01:37.300 --> 00:01:41.433
+and the built-in local
+administrator account.

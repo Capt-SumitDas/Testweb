@@ -1,0 +1,30 @@
+WEBVTT
+
+00:00:02.000 --> 00:00:04.000
+dpkg
+
+00:00:04.000 --> 00:00:08.132
+dpkg is the core tool used to install a 
+package, 
+
+00:00:08.132 --> 00:00:11.733
+either directly or indirectly through APT.
+
+00:00:11.733 --> 00:00:15.533
+It is also the preferred tool to use when 
+operating offline, 
+
+00:00:15.533 --> 00:00:18.633
+since it does not require an Internet 
+connection.
+
+00:00:18.633 --> 00:00:22.633
+Note that dpkg will not install any 
+dependencies 
+
+00:00:22.633 --> 00:00:24.633
+that the package might require.
+
+00:00:24.633 --> 00:00:30.466
+To install a package, provide the -i 
+option and the path to the package file.

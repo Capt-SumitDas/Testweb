@@ -1,0 +1,252 @@
+WEBVTT
+
+00:00:01.366 --> 00:00:04.166
+Standard Wordlists
+
+00:00:04.166 --> 00:00:07.866
+We can increase the effectiveness of 
+our wordlists by adding words
+
+00:00:07.866 --> 00:00:11.666
+and phrases specific to our target 
+organization.
+
+00:00:11.666 --> 00:00:18.533
+For example, consider MegaCorp One, a 
+company that deals with nanotechnology.
+
+00:00:18.533 --> 00:00:21.300
+The company website lists various 
+products
+
+00:00:21.300 --> 00:00:25.500
+that the company sells, including 
+the Nanobot.
+
+00:00:25.500 --> 00:00:28.566
+In a hypothetical assessment, we were 
+able to identify 
+
+00:00:28.566 --> 00:00:33.033
+a low-level password of Nanobot93.
+
+00:00:33.633 --> 00:00:37.866
+Assuming this might be a common 
+password format for this company, 
+
+00:00:37.866 --> 00:00:42.533
+we would like to create a custom 
+wordlist that identifies other passwords 
+
+00:00:42.533 --> 00:00:47.133
+with a similar pattern, perhaps using 
+other product names.
+
+00:00:50.233 --> 00:00:54.566
+We could browse the website and 
+manually add commonly-used terms
+
+00:00:54.566 --> 00:00:57.200
+and product names to our custom 
+wordlist,
+
+00:00:57.200 --> 00:01:02.766
+or we could use a tool like cewl to 
+do the heavy lifting for us.
+
+00:01:05.200 --> 00:01:11.366
+According to the help output, cewl can be 
+configured by specifying several options, 
+
+00:01:11.366 --> 00:01:14.833
+but we’ll focus on a few key arguments.
+
+00:01:16.966 --> 00:01:23.000
+For example, this command will scrape 
+the MegaCorp One web site,
+
+00:01:23.100 --> 00:01:27.133
+locate words with a minimum of 
+six characters,
+
+00:01:27.133 --> 00:01:30.633
+and write the wordlist to a custom file:
+
+00:01:36.866 --> 00:01:41.733
+Our grep output shows that cewl located 
+the name of several products, 
+
+00:01:41.733 --> 00:01:43.833
+including the Nanobot.
+
+00:01:44.166 --> 00:01:47.100
+We should consider the possibility that 
+other product names 
+
+00:01:47.100 --> 00:01:49.666
+may be used in passwords as well.
+
+00:01:50.400 --> 00:01:56.400
+However, these words by themselves would 
+serve as extremely weak passwords, 
+
+00:01:56.400 --> 00:02:00.600
+and would not meet typical 
+password-enforcement rules.
+
+00:02:00.600 --> 00:02:05.800
+These types of rules generally require the 
+use of upper and lower-case characters, 
+
+00:02:05.800 --> 00:02:09.800
+the use of numbers, and perhaps special 
+characters.
+
+00:02:10.833 --> 00:02:14.000
+Based on the “Nanobot93” password 
+we’ve discovered, 
+
+00:02:14.000 --> 00:02:19.533
+we could surmise that the password 
+enforcement for MegaCorp One requires
+
+00:02:19.533 --> 00:02:24.833
+at least the use of two numbers in the 
+password, and may further dictate
+
+00:02:24.833 --> 00:02:30.200
+(however unlikely) that the numbers must 
+be used at the end of the password. 
+
+00:02:30.200 --> 00:02:33.233
+For the sake of this simple 
+demonstration, we’ll assume that 
+
+00:02:33.233 --> 00:02:38.933
+Megacorp One policy dictates that a 
+password end in a two-digit number.
+
+00:02:39.666 --> 00:02:44.466
+To create passwords that meet this 
+requirement, we could write a Bash script, 
+
+00:02:44.466 --> 00:02:49.533
+but instead, we’ll use a much more 
+powerful tool called John the Ripper.
+
+00:02:49.533 --> 00:02:53.766
+John the Ripper is a fast password 
+cracker with several features
+
+00:02:53.766 --> 00:02:59.866
+including the ability to generate custom 
+wordlists and apply rule permutations.
+
+00:02:59.866 --> 00:03:03.233
+Moving forward with our assumption 
+about the password policy, 
+
+00:03:03.233 --> 00:03:06.866
+we’ll add a rule to the John the Ripper 
+configuration file 
+
+00:03:06.866 --> 00:03:12.100
+that will mutate our wordlist, appending 
+two digits to each password.
+
+00:03:16.100 --> 00:03:19.600
+To do this, we must locate the Wordlist 
+segment 
+
+00:03:19.600 --> 00:03:22.600
+where wordlist mutation rules are defined, 
+
+00:03:22.600 --> 00:03:24.466
+and append a new rule.
+
+00:03:27.600 --> 00:03:32.100
+In this example, we’ll append the 
+two-digit sequence of numbers
+
+00:03:32.100 --> 00:03:38.000
+from double zero to ninety-nine 
+after each word in our wordlist.
+
+00:03:42.933 --> 00:03:47.100
+We’ll begin this rule with the dollar 
+sign character, which tells John 
+
+00:03:47.100 --> 00:03:52.133
+to append a character to the original 
+word from our wordlist.
+
+00:03:52.133 --> 00:03:56.700
+Next, we specify the type of character 
+we want to append.
+
+00:03:56.700 --> 00:04:01.266
+In our case we want any number 
+between zero and nine.
+
+00:04:01.800 --> 00:04:08.366
+Finally, to append double-digits, we’ll 
+simply repeat the zero to nine sequence.
+
+00:04:09.066 --> 00:04:12.833
+Now that the rule has been added to 
+the configuration file, 
+
+00:04:12.833 --> 00:04:19.666
+we can mutate our wordlist, which 
+currently contains 312 entries.
+
+00:04:24.400 --> 00:04:29.866
+To do this, we’ll invoke john and 
+specify the dictionary file,
+
+00:04:29.866 --> 00:04:33.733
+activate the rules in the 
+configuration file,
+
+00:04:33.733 --> 00:04:37.166
+output the results to standard output,
+
+00:04:37.166 --> 00:04:42.933
+and redirect that output to a file called 
+mutated.txt:
+
+00:04:44.333 --> 00:04:49.566
+The resulting file contains over 
+46,000 password entries
+
+00:04:49.566 --> 00:04:53.166
+due to the multiple mutations 
+performed on the passwords.
+
+00:04:55.766 --> 00:05:01.066
+One of the passwords is “Nanobot93”, 
+which matches the password 
+
+00:05:01.066 --> 00:05:04.800
+we discovered earlier in our 
+hypothetical assessment.
+
+00:05:04.800 --> 00:05:08.533
+Given the assumptions about the 
+MegaCorp One password policy, 
+
+00:05:08.533 --> 00:05:12.900
+this wordlist could produce results 
+in a dictionary attack.
+
+00:05:15.300 --> 00:05:18.133
+Although this demonstration is 
+over-simplified, 
+
+00:05:18.133 --> 00:05:23.400
+it serves as a good example for how 
+password profiling can be beneficial 
+
+00:05:23.400 --> 00:05:27.066
+to the overall success of our 
+password attacks.

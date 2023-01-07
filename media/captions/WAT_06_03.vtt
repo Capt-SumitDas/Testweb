@@ -1,0 +1,119 @@
+WEBVTT
+
+00:00:01.500 --> 00:00:03.133
+Content Injection
+
+00:00:04.606 --> 00:00:09.233
+XSS vulnerabilities are often
+used to deliver client-side attacks
+
+00:00:09.233 --> 00:00:12.833
+as they allow for the redirection
+of a victim’s browser
+
+00:00:12.833 --> 00:00:16.066
+to a location of the attacker’s choosing.
+
+00:00:20.902 --> 00:00:23.433
+A stealthy alternative to a redirect
+
+00:00:23.433 --> 00:00:28.166
+is to inject an invisible
+iframe into our XSS payload.
+
+00:00:29.206 --> 00:00:32.400
+An iframe is used to embed another file,
+
+00:00:32.577 --> 00:00:36.100
+such as an image or another HTML file,
+
+00:00:36.100 --> 00:00:38.833
+within the current HTML document.
+
+00:00:40.083 --> 00:00:44.800
+In our case, “report” is a file hyperlinked
+to our attack machine,
+
+00:00:44.800 --> 00:00:48.966
+and the iframe is invisible
+because it has no size
+
+00:00:48.966 --> 00:00:52.600
+since the height and
+width are set to zero.
+
+00:00:53.719 --> 00:00:55.733
+Once this payload has been submitted,
+
+00:00:55.733 --> 00:01:01.033
+any user that visits the page will
+connect back to our attack machine.
+
+00:01:07.654 --> 00:01:11.133
+To test this, we will first
+create a Netcat listener
+
+00:01:11.133 --> 00:01:14.000
+on our attack machine on port 80.
+
+00:01:21.181 --> 00:01:25.066
+Now let’s go back and
+refresh the Feedback page.
+
+00:01:28.703 --> 00:01:31.700
+This alert message is
+from our first payload
+
+00:01:31.700 --> 00:01:34.366
+so we’ll click OK to proceed.
+
+00:01:36.493 --> 00:01:39.300
+Now let’s check on our netcat listener.
+
+00:01:43.384 --> 00:01:45.733
+The browser redirection worked,
+
+00:01:45.733 --> 00:01:51.233
+sending the victim browser to our
+attack machine through the iframe.
+
+00:01:52.259 --> 00:01:56.866
+We could take this farther and redirect
+the victim browser to a client-side attack
+
+00:01:56.866 --> 00:02:00.200
+or to an information gathering script.
+
+00:02:03.109 --> 00:02:06.733
+We will not be executing any
+client-side attacks here.
+
+00:02:10.426 --> 00:02:14.333
+Instead, we will attempt to gain
+access to the web application
+
+00:02:14.333 --> 00:02:16.366
+as an administrative user.
+
+00:02:17.178 --> 00:02:20.433
+Before we continue,
+let’s clean up our tests.
+
+00:02:24.462 --> 00:02:29.466
+We’ll log in to phpmyadmin with the
+credentials we discovered earlier.
+
+00:02:31.882 --> 00:02:35.800
+Next, we’ll expand the webappdb database
+
+00:02:36.266 --> 00:02:38.933
+and select the feedback table.
+
+00:02:39.833 --> 00:02:42.300
+Let’s delete these three entries.
+
+00:02:51.719 --> 00:02:53.833
+Let’s make sure that worked.
+
+00:02:59.578 --> 00:03:01.400
+Great, let’s continue.

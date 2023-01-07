@@ -1,0 +1,48 @@
+WEBVTT
+
+00:00:01.300 --> 00:00:03.400
+Site-Specific Tools
+
+00:00:04.266 --> 00:00:09.733
+There are two site-specific tools that we
+may want to familiarize ourselves with.
+
+00:00:14.000 --> 00:00:20.200
+Twofi scans a user’s Twitter feed and
+generates a personalized wordlist
+
+00:00:20.200 --> 00:00:23.766
+ used for password attacks against that
+user.
+
+00:00:24.066 --> 00:00:28.066
+While we will not run any attacks during
+passive information gathering,
+
+00:00:28.066 --> 00:00:32.100
+we can run this tool against any Twitter
+accounts we have identified
+
+00:00:32.100 --> 00:00:34.933
+to have a wordlist ready when needed.
+
+00:00:35.300 --> 00:00:39.233
+Twofi requires a valid Twitter API key.
+
+00:00:42.700 --> 00:00:44.966
+linkedin2username
+
+00:00:44.966 --> 00:00:50.366
+is a script for generating username lists
+based on LinkedIn data.
+
+00:00:51.133 --> 00:00:57.233
+It requires valid LinkedIn credentials and
+depends on a LinkedIn connection
+
+00:00:57.233 --> 00:01:00.200
+to individuals in the target organization.
+
+00:01:00.733 --> 00:01:05.566
+The script will output usernames in
+several different formats.

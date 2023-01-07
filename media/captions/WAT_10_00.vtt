@@ -1,0 +1,42 @@
+WEBVTT
+
+00:00:01.433 --> 00:00:02.300
+Wrapping Up
+
+00:00:03.833 --> 00:00:07.400
+In this module, we focused on
+the identification and enumeration
+
+00:00:07.400 --> 00:00:10.733
+of common web application vulnerabilities.
+
+00:00:11.933 --> 00:00:16.466
+We also exploited several common
+web application vulnerabilities,
+
+00:00:16.466 --> 00:00:19.233
+leveraging a variety of
+techniques including
+
+00:00:19.233 --> 00:00:21.500
+admin console weaknesses,
+
+00:00:21.833 --> 00:00:23.433
+cross-site scipting,
+
+00:00:23.866 --> 00:00:25.333
+directory traversal,
+
+00:00:25.566 --> 00:00:28.133
+local and remote file inclusion,
+
+00:00:28.133 --> 00:00:30.233
+and SQL injection.
+
+00:00:31.233 --> 00:00:33.700
+These attack vectors are
+the basic building blocks
+
+00:00:33.700 --> 00:00:36.933
+we'll use to construct
+more advanced attacks.

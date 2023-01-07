@@ -1,0 +1,210 @@
+WEBVTT
+
+00:00:01.866 --> 00:00:04.466
+Low and Slow Password Guessing
+
+00:00:05.900 --> 00:00:08.400
+We have looked at how service
+accounts may be attacked
+
+00:00:08.400 --> 00:00:11.733
+by abusing the features of
+the Kerberos protocol,
+
+00:00:11.733 --> 00:00:15.966
+but Active Directory can also
+provide us with information
+
+00:00:15.966 --> 00:00:19.333
+that can be used for a more
+advanced password guessing
+
+00:00:19.333 --> 00:00:21.933
+technique against user accounts.
+
+00:00:22.600 --> 00:00:26.133
+When performing a brute-force or
+wordlist authentication attack,
+
+00:00:26.133 --> 00:00:31.533
+we must take account lockouts into
+account since too many failed logins
+
+00:00:31.533 --> 00:00:36.433
+may lockout the account and possibly
+alert system administrators.
+
+00:00:37.033 --> 00:00:42.966
+In this section, we will use LDAP and
+ADSI to perform a “low and slow”
+
+00:00:42.966 --> 00:00:48.733
+password attack against AD users without
+causing an account lockout.
+
+00:00:49.500 --> 00:00:55.233
+First, let’s take a look at the domain’s
+account policy with net accounts.
+
+00:00:58.633 --> 00:01:02.333
+There’s a lot of great information here,
+but let’s first focus on
+
+00:01:02.333 --> 00:01:06.133
+“Lockout threshold" which indicates
+a limit of five
+
+00:01:06.133 --> 00:01:08.300
+login attempts before lockout.
+
+00:01:09.333 --> 00:01:15.400
+This means that we can safely attempt four
+logins without triggering a lockout.
+
+00:01:15.700 --> 00:01:17.300
+This doesn’t sound like much,
+
+00:01:17.300 --> 00:01:20.500
+but consider the Lockout
+observation window .
+
+00:01:21.600 --> 00:01:26.366
+It indicates that every thirty
+minutes after the last login attempt,
+
+00:01:26.366 --> 00:01:30.266
+we are given an additional
+“free” login attempt.
+
+00:01:30.966 --> 00:01:35.233
+With these settings, we could
+attempt fifty-two logins
+
+00:01:35.233 --> 00:01:37.400
+in a twenty-four-hour period
+
+00:01:37.400 --> 00:01:42.000
+against every domain user
+without triggering a lockout.
+
+00:01:42.766 --> 00:01:47.200
+With an attack like this, we can compile
+a short list of very common
+
+00:01:47.200 --> 00:01:52.300
+passwords and use it against a massive
+amount of users, which usually
+
+00:01:52.300 --> 00:01:56.566
+reveals quite a few weak account
+passwords in an organization.
+
+00:01:58.966 --> 00:02:01.400
+Knowing this, let’s implement this attack.
+
+00:02:01.800 --> 00:02:04.966
+There are a number of ways to
+test an AD user login,
+
+00:02:04.966 --> 00:02:09.633
+but we will use our PowerShell script to
+demonstrate the basic components.
+
+00:02:10.300 --> 00:02:12.666
+Previously, we performed
+queries against the domain
+
+00:02:12.666 --> 00:02:15.266
+controller as the logged-in user.
+
+00:02:17.566 --> 00:02:21.133
+However, we can also make
+queries as a different user
+
+00:02:21.133 --> 00:02:24.266
+by setting the DirectoryEntry instance.
+
+00:02:25.266 --> 00:02:29.533
+In previous examples, we used
+the DirectoryEntry constructor
+
+00:02:29.533 --> 00:02:31.233
+without arguments,
+
+00:02:31.833 --> 00:02:34.366
+but we can provide three arguments
+
+00:02:34.366 --> 00:02:37.733
+including the LDAP path to
+the domain controller,
+
+00:02:38.200 --> 00:02:41.000
+along with the username
+and password.
+
+00:02:50.066 --> 00:02:54.333
+If the password is correct, the
+object creation will succeed.
+
+00:02:57.500 --> 00:03:00.933
+Let’s update our script
+with an incorrect password.
+
+00:03:16.066 --> 00:03:20.533
+With an incorrect password, no object will
+be created and we will receive an
+
+00:03:20.561 --> 00:03:26.433
+exception and a clear warning that the
+user name or password is incorrect.
+
+00:03:27.314 --> 00:03:30.600
+Using this technique we can
+create a PowerShell script
+
+00:03:30.600 --> 00:03:34.433
+that enumerates all users and
+performs authentications
+
+00:03:34.433 --> 00:03:39.933
+according to the Lockout threshold
+and Lockout observation window.
+
+00:03:42.100 --> 00:03:47.166
+An existing implementation of
+this attack, called Spray-Passwords.ps1
+
+00:03:47.166 --> 00:03:50.066
+is located on the Windows 10 client.
+
+00:03:54.590 --> 00:03:59.866
+The -Pass option allows us to
+set a single password to test,
+
+00:04:00.606 --> 00:04:04.800
+and we can use the -Admin
+flag to test admin accounts.
+
+00:04:07.288 --> 00:04:12.700
+This simple example produces quick
+results but more often than not
+
+00:04:12.700 --> 00:04:17.166
+we will need to use a wordlist
+with good password candidates.
+
+00:04:22.614 --> 00:04:26.200
+We have now looked at ways of
+obtaining credentials for both user
+
+00:04:26.201 --> 00:04:32.366
+and service accounts when attacking Active
+Directory and its authentication protocols.
+
+00:04:35.695 --> 00:04:39.865
+Next, we can start leveraging this to
+compromise additional machines
+
+00:04:39.865 --> 00:04:46.033
+in the domain, ideally those wit
+ high-value logged-in users.

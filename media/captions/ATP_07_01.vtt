@@ -1,0 +1,119 @@
+WEBVTT
+
+00:00:01.686 --> 00:00:03.366
+Reviewing the Results
+
+00:00:04.279 --> 00:00:08.933
+First, let’s concentrate on 10.5.5.30.
+
+00:00:09.693 --> 00:00:14.966
+At first glance, this appears to be the
+domain controller for sandbox.local.
+
+00:00:18.190 --> 00:00:22.654
+Now that we know what ports are open, we
+can conduct a deeper scan on them using
+
+00:00:22.654 --> 00:00:27.100
+the default Nmap scripts in an attempt to
+extract some more information.
+
+00:00:31.996 --> 00:00:35.798
+The domain controller seems to
+be a newer build of Windows,
+
+00:00:35.798 --> 00:00:41.000
+and from both scans, it does not seem
+to be running any services
+
+00:00:41.000 --> 00:00:44.366
+other than those intended
+for a domain controller.
+
+00:00:45.157 --> 00:00:49.200
+While it’s possible for a domain
+controller to be directly exploitable
+
+00:00:49.200 --> 00:00:54.266
+through specific vulnerabilities, from
+our experience, this is unlikely
+
+00:00:54.266 --> 00:00:57.333
+since these servers are
+typically hardened.
+
+00:01:00.131 --> 00:01:06.233
+Let’s move on to reviewing 10.5.5.25 in
+hopes that it will be a better target.
+
+00:01:07.328 --> 00:01:12.633
+We will start by again conducting an
+Nmap scan using the default Nmap scripts.
+
+00:01:16.069 --> 00:01:20.041
+The Nmap scan discovered that
+the target is named Cevapi,
+
+00:01:20.041 --> 00:01:22.900
+and is running Windows 10 Pro.
+
+00:01:24.238 --> 00:01:28.500
+Our Nmap scan also discovered
+port 8080 open on the host
+
+00:01:28.500 --> 00:01:33.533
+and suggested that an
+http-proxy service is running on it.
+
+00:01:34.019 --> 00:01:39.766
+However, this port is also commonly
+used to run HTTP applications.
+
+00:01:41.074 --> 00:01:44.966
+One simple way of gathering more
+information is to visit the page.
+
+00:01:47.673 --> 00:01:51.800
+We first have to configure Firefox
+to use our SOCKS proxy.
+
+00:01:56.726 --> 00:02:00.600
+This can be done by adding a
+new configuration to Foxy Proxy.
+
+00:02:02.850 --> 00:02:05.366
+We’ll enter ProxyChains for the name,
+
+00:02:06.917 --> 00:02:09.566
+set the Proxy Type to SOCKS4,
+
+00:02:13.702 --> 00:02:18.333
+then enter the localhost IP
+with the port of 1080.
+
+00:02:20.675 --> 00:02:24.078
+Finally, we click Save and
+select ProxyChains
+
+00:02:24.078 --> 00:02:27.045
+by clicking on the Foxy Proxy icon.
+
+00:02:34.161 --> 00:02:38.266
+Next, we’ll navigate to
+Cevapi on port 8080.
+
+00:02:43.436 --> 00:02:47.400
+The page that opens up
+is a Jenkins login page.
+
+00:02:47.704 --> 00:02:52.966
+This is a very interesting target
+as Jenkins is an extremely powerful
+
+00:02:52.966 --> 00:02:57.266
+piece of software that might
+expose an attack surface.
+
+00:02:57.722 --> 00:03:01.266
+We’ll concentrate our efforts
+on this host next.

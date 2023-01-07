@@ -1,0 +1,49 @@
+WEBVTT
+
+00:00:01.704 --> 00:00:03.370
+Managing Processes
+
+00:00:04.204 --> 00:00:08.704
+The Linux kernel manages multitasking
+through the use of processes.
+
+00:00:08.783 --> 00:00:11.683
+The kernel maintains information
+about each process
+
+00:00:11.693 --> 00:00:13.693
+to help keep things organized,
+
+00:00:13.704 --> 00:00:18.304
+and each process is assigned a
+number called a process ID.
+
+00:00:20.093 --> 00:00:23.727
+The Linux shell also introduces
+the concept of jobs
+
+00:00:23.727 --> 00:00:26.493
+to ease our workflow
+during a terminal session.
+
+00:00:27.024 --> 00:00:30.624
+For example, this is a pipeline
+of two processes,
+
+00:00:30.624 --> 00:00:33.424
+which the shell considers a single job.
+
+00:00:34.393 --> 00:00:38.893
+Job control refers to the ability to
+selectively suspend the execution
+
+00:00:38.904 --> 00:00:42.737
+of jobs, and resume their execution
+at a later time.
+
+00:00:43.893 --> 00:00:46.627
+We can achieve this with the
+help of specific commands,
+
+00:00:46.627 --> 00:00:48.260
+which we’ll soon explore.

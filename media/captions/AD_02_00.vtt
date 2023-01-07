@@ -1,0 +1,121 @@
+WEBVTT
+
+00:00:01.924 --> 00:00:04.633
+Active Directory Enumeration
+
+00:00:05.457 --> 00:00:08.933
+Typically, an attack against Active
+Directory infrastructure
+
+00:00:08.933 --> 00:00:14.296
+begins with a successful exploit or
+a client-side attack against either
+
+00:00:14.296 --> 00:00:20.800
+a domain workstation or server followed
+by enumeration of the AD environment.
+
+00:00:21.229 --> 00:00:26.200
+Once we have established a foothold, the
+goal is to escalate our privilege level
+
+00:00:26.200 --> 00:00:30.500
+until we gain control of one
+or more domains.
+
+00:00:31.101 --> 00:00:33.800
+There are several ways to accomplish this.
+
+00:00:34.418 --> 00:00:40.266
+Within AD, administrators use groups to
+assign permissions to member users,
+
+00:00:40.266 --> 00:00:43.733
+which means that we would
+target high-value groups.
+
+00:00:44.197 --> 00:00:47.300
+If we compromise a member
+of the Domain Admins group,
+
+00:00:47.300 --> 00:00:53.533
+we would gain complete control of
+every single computer in the domain.
+
+00:00:53.945 --> 00:00:55.700
+Another way to gain control of a domain
+
+00:00:55.700 --> 00:00:59.166
+is to successfully compromise
+a domain controller
+
+00:00:59.166 --> 00:01:02.200
+since it can be used to modify all
+
+00:01:02.200 --> 00:01:07.800
+domain-joined computers or
+execute applications on them.
+
+00:01:08.281 --> 00:01:11.764
+As we will see later, the domain
+controller contains all the
+
+00:01:11.764 --> 00:01:16.200
+password hashes of every
+single domain user account.
+
+00:01:20.838 --> 00:01:23.580
+As we work through this module,
+we will walk through a variety
+
+00:01:23.580 --> 00:01:27.100
+of AD enumeration and
+exploitation techniques
+
+00:01:27.100 --> 00:01:30.700
+to demonstrate a typical
+domain compromise.
+
+00:01:31.181 --> 00:01:34.998
+We will focus on techniques
+specifically designed to enumerate
+
+00:01:34.998 --> 00:01:38.366
+and exploit AD users and groups.
+
+00:01:39.723 --> 00:01:42.700
+To do so, we will assume that
+we have already obtained
+
+00:01:42.700 --> 00:01:45.300
+access to the Windows 10 workstation,
+
+00:01:45.300 --> 00:01:48.900
+ and that we have compromised
+the Offsec domain user
+
+00:01:49.312 --> 00:01:52.866
+which is also a member of the
+local administrator group
+
+00:01:52.866 --> 00:01:55.866
+for a domain-joined workstation.
+
+00:02:00.178 --> 00:02:03.347
+Our first goal will be to
+enumerate the domain users
+
+00:02:03.347 --> 00:02:06.900
+and learn as much as we can
+about their group memberships
+
+00:02:06.900 --> 00:02:10.000
+in order to find high-value targets.
+
+00:02:15.171 --> 00:02:17.900
+To do this, we will use
+several tools and techniques,
+
+00:02:17.900 --> 00:02:21.966
+many of which can be performed
+without administrative access.

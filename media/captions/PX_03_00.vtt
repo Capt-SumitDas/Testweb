@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:01.039 --> 00:00:04.300
+Linux Privilege Escalation Examples
+
+00:00:05.792 --> 00:00:09.500
+Now let’s turn our attention
+to Linux-based targets.
+
+00:00:10.212 --> 00:00:14.800
+We will discuss Linux privileges
+and demonstrate a few common
+
+00:00:14.800 --> 00:00:18.033
+ Linux-based privilege
+escalation techniques.

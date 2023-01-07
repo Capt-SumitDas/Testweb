@@ -1,0 +1,195 @@
+WEBVTT
+
+00:00:01.566 --> 00:00:03.966
+Web Application Enumeration
+
+00:00:04.766 --> 00:00:07.400
+Before we begin specifically
+targeting WordPress,
+
+00:00:07.400 --> 00:00:10.766
+we will perform a basic
+directory brute force
+
+00:00:10.766 --> 00:00:13.500
+to discover any potential sensitive files
+
+00:00:13.500 --> 00:00:17.133
+and to confirm that the site
+is actually running WordPress.
+
+00:00:19.200 --> 00:00:22.733
+While dirb has many flags and
+features that we could use,
+
+00:00:22.900 --> 00:00:24.933
+we will run a simple test.
+
+00:00:31.833 --> 00:00:35.933
+Our scan revealed common
+WordPress directories on the target.
+
+00:00:39.933 --> 00:00:42.500
+We also found some listable directories…
+
+00:00:42.766 --> 00:00:47.533
+however, these are common WordPress
+directories and likely won’t reveal much.
+
+00:00:50.033 --> 00:00:54.033
+Let’s move on to a more specific scan with WPScan,
+
+00:00:54.233 --> 00:00:59.300
+a WordPress vulnerability scanner that
+uses a database of known vulnerabilities
+
+00:00:59.300 --> 00:01:03.166
+to discover security issues
+with WordPress instances.
+
+00:01:04.400 --> 00:01:08.400
+For a thorough scan, we will need
+to provide the URL of the target,
+
+00:01:09.700 --> 00:01:12.366
+and configure the enumerate option,
+
+00:01:13.033 --> 00:01:15.200
+to include “All Plugins”,
+
+00:01:15.466 --> 00:01:16.633
+“All Themes”,
+
+00:01:17.266 --> 00:01:18.833
+“Config backups”,
+
+00:01:19.000 --> 00:01:21.366
+and “Db exports”.
+
+00:01:21.766 --> 00:01:25.466
+Since WPScan outputs a lot of
+information to the terminal,
+
+00:01:25.466 --> 00:01:28.700
+we’ll save the output
+to a plain text file.
+
+00:01:41.300 --> 00:01:45.500
+The most interesting items include
+the three installed plugins:
+
+00:01:45.500 --> 00:01:46.666
+elementor,
+
+00:01:46.666 --> 00:01:48.066
+ocean-extra,
+
+00:01:48.066 --> 00:01:51.300
+and wp-survey-and-poll.
+
+00:01:52.700 --> 00:01:56.800
+WPScan has its own vulnerability
+database that the tool can use,
+
+00:01:56.800 --> 00:01:58.866
+but it requires registration.
+
+00:02:02.033 --> 00:02:07.600
+Instead, we can use searchsploit to find
+possible vulnerabilities in these plugins.
+
+00:02:14.933 --> 00:02:19.500
+Unfortunately, this search
+did not return any exploits.
+
+00:02:19.566 --> 00:02:21.900
+Perhaps our search is too specific.
+
+00:02:23.600 --> 00:02:26.700
+Let’s instead simply search for “ocean”.
+
+00:02:29.600 --> 00:02:31.666
+This returns a few results,
+
+00:02:31.666 --> 00:02:35.266
+but none of the results
+refer to our WordPress plugin.
+
+00:02:36.966 --> 00:02:43.333
+Let’s submit a generic search for our
+next plugin using the terms “survey poll”.
+
+00:02:45.166 --> 00:02:47.900
+This search looks much more promising.
+
+00:02:47.900 --> 00:02:52.400
+The fourth and fifth result seem
+to be for our WordPress plugin
+
+00:02:52.400 --> 00:02:57.866
+and the fifth result also matches the
+version that was found by WPScan.
+
+00:02:58.700 --> 00:03:01.766
+Let’s check this exploit’s requirements.
+
+00:03:04.900 --> 00:03:07.900
+The exploit does not mention anything about authentication,
+
+00:03:07.900 --> 00:03:11.100
+but it does require a specific cookie.
+
+00:03:15.033 --> 00:03:18.433
+Let’s visit the plugin’s website
+for more information.
+
+00:03:25.000 --> 00:03:28.866
+Looking through the screenshots,
+we find an example of a survey…
+
+00:03:36.466 --> 00:03:41.433
+which looks similar to what we found
+on the sandbox.local web page.
+
+00:03:45.833 --> 00:03:47.300
+Let’s open up Burp Suite,
+
+00:03:47.300 --> 00:03:50.166
+configure the proxy settings in Firefox,
+
+00:03:50.166 --> 00:03:54.733
+and intercept the communications
+as we interact with the survey.
+
+00:03:55.166 --> 00:03:59.200
+We’ll start by launching burp suite
+and we will accept the defaults.
+
+00:04:11.433 --> 00:04:15.400
+Now let’s return to firefox
+and enable the proxy.
+
+00:04:24.500 --> 00:04:27.566
+With the page loaded and
+Burp configured to intercept,
+
+00:04:27.566 --> 00:04:30.466
+we will click one of the survey options.
+
+00:04:33.566 --> 00:04:35.966
+Burp will capture a request.
+
+00:04:38.633 --> 00:04:43.366
+We’ll click Forward in Burp
+to send the request to the server.
+
+00:04:50.300 --> 00:04:52.633
+Now when we reload the page,
+
+00:04:55.500 --> 00:04:58.433
+we find the cookie
+mentioned in the exploit.
+
+00:04:59.066 --> 00:05:03.466
+We can leverage this vulnerable
+cookie to attempt a SQL injection.
