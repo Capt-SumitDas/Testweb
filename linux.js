@@ -28,7 +28,7 @@ function playVideo(videoId) {
 document.addEventListener('DOMContentLoaded', function() {
   var videoList = document.querySelector('#video-list');
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'videos.json');
+  xhr.open('GET', 'linux.json');
   xhr.onload = function() {
     if (xhr.status === 200) {
       var videos = JSON.parse(xhr.response);
