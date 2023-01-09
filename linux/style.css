@@ -1,0 +1,22 @@
+#player {
+    width: 640px;
+    height: 360px;
+  }
+  
+  #video-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #video-list li a {
+    display: block;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    color: #000;
+  }
+  
+  #video-list li a:hover {
+    background-color: #eee;
+  }
+  
