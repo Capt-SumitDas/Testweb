@@ -1,0 +1,21 @@
+[
+    {
+        "id": "1",
+        "title": "CEH V12",
+        "count": "100 videos",
+        "thumbnail":"images/thumb-1.png"
+        
+    },
+    {
+        "id": "2",
+        "title": "CompTIA Linux+",
+        "count": "120 videos",
+        "thumbnail":"images/thumb-2.png"
+    },
+    {
+        "id": "3",
+        "title": "Linux 101",
+        "count": "150 videos",
+        "thumbnail":"images/thumb-3.png"
+    }
+]

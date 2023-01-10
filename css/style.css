@@ -375,11 +375,13 @@ section{
    padding:2rem;
 }
 
+
 .home-grid .box-container .box .title{
    font-size: 2rem;
    color: var(--black);
    text-transform: capitalize;
 }
+
 
 .home-grid .box-container .box .flex{
    display: flex;
