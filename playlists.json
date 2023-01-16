@@ -8,13 +8,32 @@
     },
     {
         "id": "2",
-        "title": "CompTIA Linux+",
+        "title": "CompTIA Linux+ 005",
         "count": "120 videos",
         "thumbnail":"images/thumb-2.png"
     },
     {
         "id": "3",
         "title": "Linux 101",
+        "count": "150 videos",
+        "thumbnail":"images/thumb-3.png"
+    },
+    {
+        "id": "4",
+        "title": "Ethical Hacking In Hindi",
+        "count": "100 videos",
+        "thumbnail":"images/thumb-1.png"
+        
+    },
+    {
+        "id": "5",
+        "title": "CompTIA Security+",
+        "count": "120 videos",
+        "thumbnail":"images/thumb-2.png"
+    },
+    {
+        "id": "6",
+        "title": "CompTIA Pentest+",
         "count": "150 videos",
         "thumbnail":"images/thumb-3.png"
     }
